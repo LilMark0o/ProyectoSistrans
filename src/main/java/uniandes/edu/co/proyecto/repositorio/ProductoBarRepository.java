@@ -18,10 +18,9 @@ public interface ProductoBarRepository extends JpaRepository<ProductoBar, Intege
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO productobar (id, nombre, precio, bar_id) VALUES (:id, :nombre, :precio, :bar_id)", nativeQuery = true)
-    void insertarProductoBar(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio,
-            @Param("bar_id") Integer bar_id);
-
+    @Query(value = "INSERT INTO productobar (idproducto, idbar) VALUES (:idproducto, :idbar)", nativeQuery = true)
+    void insertarProductoBar(@Param("idproducto") Integer idproducto, @Param("idbar") Integer idbar);
+    
     @Modifying
     @Transactional
     @Query(value = "UPDATE productobar SET nombre = :nombre, precio = :precio, bar_id = :bar_id WHERE id = :id", nativeQuery = true)

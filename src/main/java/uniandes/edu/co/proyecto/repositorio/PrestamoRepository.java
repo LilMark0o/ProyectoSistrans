@@ -18,16 +18,13 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO prestamo (id, fecha, valor, cliente_id, habitacion_id) VALUES (:id, :fecha, :valor, :cliente_id, :habitacion_id)", nativeQuery = true)
-    void insertarPrestamo(@Param("id") Integer id, @Param("fecha") String fecha, @Param("valor") Integer valor,
-            @Param("cliente_id") Integer cliente_id, @Param("habitacion_id") Integer habitacion_id);
-
+    @Query(value = "INSERT INTO prestamo (id, hotel_id, utensilio_id, devuelto) VALUES (:id, :hotel_id, :utensilio_id, :devuelto)", nativeQuery = true)
+    void insertarPrestamo(@Param("id") Integer id, @Param("hotel_id") Integer hotel_id,
+    @Param("utensilio_id") Integer utensilio_id, @Param("devuelto") Boolean devuelto);
     @Modifying
     @Transactional
-    @Query(value = "UPDATE prestamo SET fecha = :fecha, valor = :valor, cliente_id = :cliente_id, habitacion_id = :habitacion_id WHERE id = :id", nativeQuery = true)
-    void actualizarPrestamo(@Param("id") Integer id, @Param("fecha") String fecha, @Param("valor") Integer valor,
-            @Param("cliente_id") Integer cliente_id, @Param("habitacion_id") Integer habitacion_id);
-
+    @Query(value = "UPDATE prestamo SET id = :id, hotel_id = :hotel_id, utensilio_id = :utensilio_id, devuelto = :devuelto WHERE id = :id", nativeQuery = true)
+    void actualizarPrestamo(@Param("id") Integer id, @Param("hotel_id") Integer hotel_id, @Param("utensilio_id") Integer utensilio_id, @Param("devuelto") Integer devuelto);
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM prestamo WHERE id = :id", nativeQuery = true)
