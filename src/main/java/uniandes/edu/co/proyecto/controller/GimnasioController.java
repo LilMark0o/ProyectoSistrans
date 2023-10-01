@@ -34,8 +34,7 @@ public class GimnasioController {
     public ResponseEntity<Gimnasio> crearGimnasio(@RequestBody Gimnasio gimnasio) {
         gimnasioRepository.insertarGimnasio(gimnasio.getId(), gimnasio.getHorainicio(), gimnasio.getHorafin(),
                 gimnasio.getSecobra(), gimnasio.getHotel().getId());
-        return ResponseEntity.ok(gimnasio); // Similarmente, podrías querer devolver el objeto completo con el ID
-                                            // asignado.
+        return ResponseEntity.ok(gimnasio); 
     }
 
     @PutMapping("/{id}")
