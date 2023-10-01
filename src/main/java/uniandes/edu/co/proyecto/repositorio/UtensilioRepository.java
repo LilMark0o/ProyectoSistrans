@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Utensilio;
 
-public interface UtensilioRepository extends JpaRepository<Utensilio, Integer>{
+public interface UtensilioRepository extends JpaRepository<Utensilio, Integer> {
 
     @Query(value = "SELECT * FROM utensilio", nativeQuery = true)
     Collection<Utensilio> darUtensilios();
@@ -16,17 +16,16 @@ public interface UtensilioRepository extends JpaRepository<Utensilio, Integer>{
     @Query(value = "SELECT * FROM utensilio WHERE id = :id", nativeQuery = true)
     Utensilio darUtensilioPorId(@Param("id") int id);
 
-
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO utensilio (id, nombre, precio, tienda_id) VALUES (:nombre, :precio)", nativeQuery = true)
+    @Query(value = "INSERT INTO utensilio (id, nombre, precio) VALUES (:id, :nombre, :precio)", nativeQuery = true)
     void insertarUtensilio(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Float precio);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE utensilio SET id = :id, nombre = :nombre, precio = :precio WHERE id = :id", nativeQuery = true)
     void actualizarUtensilio(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Float precio);
-    
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM utensilio WHERE id = :id", nativeQuery = true)
