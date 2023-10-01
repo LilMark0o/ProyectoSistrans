@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.ProductoRestaurante;
 
-public interface ProductoRestauranteRepository extends JpaRepository<ProductoRestaurante, Integer>{
+public interface ProductoRestauranteRepository extends JpaRepository<ProductoRestaurante, Integer> {
 
     @Query(value = "SELECT * FROM productorestaurante", nativeQuery = true)
     Collection<ProductoRestaurante> darProductosRestaurante();
@@ -18,18 +18,19 @@ public interface ProductoRestauranteRepository extends JpaRepository<ProductoRes
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO productorestaurante (nombre, precio, restaurante_id) VALUES (:nombre, :precio, :restaurante_id)", nativeQuery = true)
-    void insertarProductoRestaurante(@Param("nombre") String nombre, @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
+    @Query(value = "INSERT INTO productorestaurante (id, nombre, precio, restaurante_id) VALUES (:id, :nombre, :precio, :restaurante_id)", nativeQuery = true)
+    void insertarProductoRestaurante(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE productorestaurante SET nombre = :nombre, precio = :precio, restaurante_id = :restaurante_id WHERE id = :id", nativeQuery = true)
-    void actualizarProductoRestaurante(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
+    void actualizarProductoRestaurante(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM productorestaurante WHERE id = :id", nativeQuery = true)
     void eliminarProductoRestaurante(@Param("id") Integer id);
-    
 
 }

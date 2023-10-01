@@ -1,6 +1,5 @@
 package uniandes.edu.co.proyecto.repositorio;
 
-import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,28 +7,29 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.CuentaLavado;
 
-public interface CuentaLavadoRepository extends JpaRepository<CuentaLavado, Integer>{
+import java.util.Collection;
+
+public interface CuentaLavadoRepository extends JpaRepository<CuentaLavado, Integer> {
 
     @Query(value = "SELECT * FROM cuentalavado", nativeQuery = true)
-    Collection<CuentaLavado> darCuentasLavado();
+    Collection<CuentaLavado> findAllCuentaLavado();
 
-    @Query(value = "SELECT * FROM cuentalavado WHERE id = :id", nativeQuery = true)
-    CuentaLavado darCuentaLavadoPorId(@Param("id") int id);
-
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO cuentalavado (nombre, precio, hotel_id) VALUES (:nombre, :precio, :hotel_id)", nativeQuery = true)
-    void insertarCuentaLavado(@Param("nombre") String nombre, @Param("precio") Integer precio, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "SELECT * FROM cuentalavado WHERE idCuenta = :idcuenta and idLavado = :idlavado", nativeQuery = true)
+    CuentaLavado findCuentaLavadoById(@Param("idcuenta") Integer idcuenta, @Param("idlavado") Integer idlavado);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE cuentalavado SET nombre = :nombre, precio = :precio, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarCuentaLavado(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "INSERT INTO cuentalavado (idCuenta, idLavado) VALUES (:idcuenta, :idlavado)", nativeQuery = true)
+    void insertCuentaLavado(@Param("idcuenta") Integer idcuenta, @Param("idlavado") Integer idlavado);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM cuentalavado WHERE id = :id", nativeQuery = true)
-    void eliminarCuentaLavado(@Param("id") Integer id);
-    
+    @Query(value = "UPDATE cuentalavado SET idCuenta = :idcuenta, idLavado = :idlavado WHERE idCuenta = :oldIdCuenta and idLavado = :oldIdLavado", nativeQuery = true)
+    void updateCuentaLavado(@Param("oldIdCuenta") Integer oldIdCuenta, @Param("oldIdLavado") Integer oldIdLavado,
+            @Param("idcuenta") Integer idcuenta, @Param("idlavado") Integer idlavado);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM cuentalavado WHERE idCuenta = :idcuenta and idLavado = :idlavado", nativeQuery = true)
+    void deleteCuentaLavado(@Param("idcuenta") Integer idcuenta, @Param("idlavado") Integer idlavado);
 }

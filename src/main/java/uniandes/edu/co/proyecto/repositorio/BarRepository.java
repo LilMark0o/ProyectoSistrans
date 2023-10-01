@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Bar;
 
-public interface BarRepository extends JpaRepository<Bar, Integer>{
+public interface BarRepository extends JpaRepository<Bar, Integer> {
 
     @Query(value = "SELECT * FROM bar", nativeQuery = true)
     Collection<Bar> darBares();
@@ -16,12 +16,10 @@ public interface BarRepository extends JpaRepository<Bar, Integer>{
     @Query(value = "SELECT * FROM bar WHERE id = :id", nativeQuery = true)
     Bar darBarPorId(@Param("id") int id);
 
-
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO bar (estilo, capacidad) VALUES (:estilo, :capacidad)", nativeQuery = true)
-    void insertarBar(@Param("estilo") String estilo, @Param("capacidad") Integer capacidad);
-
+    void insertarBar(@Param("id") Integer id, @Param("estilo") String estilo, @Param("capacidad") Integer capacidad);
 
     @Modifying
     @Transactional
@@ -32,6 +30,5 @@ public interface BarRepository extends JpaRepository<Bar, Integer>{
     @Transactional
     @Query(value = "DELETE FROM bar WHERE id = :id", nativeQuery = true)
     void eliminarBar(@Param("id") Integer id);
-    
 
 }

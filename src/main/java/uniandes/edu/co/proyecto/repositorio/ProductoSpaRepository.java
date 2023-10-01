@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.ProductoSpa;
 
-public interface ProductoSpaRepository extends JpaRepository<ProductoSpa, Integer>{
+public interface ProductoSpaRepository extends JpaRepository<ProductoSpa, Integer> {
 
     @Query(value = "SELECT * FROM productospa", nativeQuery = true)
     Collection<ProductoSpa> darProductosSpa();
@@ -18,18 +18,19 @@ public interface ProductoSpaRepository extends JpaRepository<ProductoSpa, Intege
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO productospa (nombre, precio, spa_id) VALUES (:nombre, :precio, :spa_id)", nativeQuery = true)
-    void insertarProductoSpa(@Param("nombre") String nombre, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
+    @Query(value = "INSERT INTO productospa (id, nombre, precio, spa_id) VALUES (:id, :nombre, :precio, :spa_id)", nativeQuery = true)
+    void insertarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio,
+            @Param("spa_id") Integer spa_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE productospa SET nombre = :nombre, precio = :precio, spa_id = :spa_id WHERE id = :id", nativeQuery = true)
-    void actualizarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
+    void actualizarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio,
+            @Param("spa_id") Integer spa_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM productospa WHERE id = :id", nativeQuery = true)
     void eliminarProductoSpa(@Param("id") Integer id);
-    
 
 }

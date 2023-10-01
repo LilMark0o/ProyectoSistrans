@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Maquina;
 
-public interface MaquinaRepository extends JpaRepository<Maquina, Integer>{
+public interface MaquinaRepository extends JpaRepository<Maquina, Integer> {
 
     @Query(value = "SELECT * FROM maquina", nativeQuery = true)
     Collection<Maquina> darMaquinas();
@@ -18,28 +18,29 @@ public interface MaquinaRepository extends JpaRepository<Maquina, Integer>{
 
     /*
      * @Override
-    public String toString() {
-        return "Maquina{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", gimnasio=" + gimnasio +
-                '}';
-    }
+     * public String toString() {
+     * return "Maquina{" +
+     * "id=" + id +
+     * ", nombre='" + nombre + '\'' +
+     * ", gimnasio=" + gimnasio +
+     * '}';
+     * }
      */
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO maquina (nombre, gimnasio_id) VALUES (:nombre, :gimnasio_id)", nativeQuery = true)
-    void insertarMaquina(@Param("nombre") String nombre, @Param("gimnasio_id") Integer gimnasio_id);
+    @Query(value = "INSERT INTO maquina (id, nombre, gimnasio_id) VALUES (:id, :nombre, :gimnasio_id)", nativeQuery = true)
+    void insertarMaquina(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("gimnasio_id") Integer gimnasio_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE maquina SET nombre = :nombre, gimnasio_id = :gimnasio_id WHERE id = :id", nativeQuery = true)
-    void actualizarMaquina(@Param("id") Integer id, @Param("nombre") String nombre, @Param("gimnasio_id") Integer gimnasio_id);
+    void actualizarMaquina(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("gimnasio_id") Integer gimnasio_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM maquina WHERE id = :id", nativeQuery = true)
     void eliminarMaquina(@Param("id") Integer id);
-    
 
 }

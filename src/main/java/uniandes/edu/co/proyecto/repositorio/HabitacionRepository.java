@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Habitacion;
 
-public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>{
+public interface HabitacionRepository extends JpaRepository<Habitacion, Integer> {
 
     @Query(value = "SELECT * FROM habitacion", nativeQuery = true)
     Collection<Habitacion> darHabitaciones();
@@ -21,18 +21,21 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO habitacion (capacidad, costonoche, tipohabitacion, hotel_id) VALUES (:capacidad, :costonoche, :tipohabitacion, :hotel_id)", nativeQuery = true)
-    void insertarHabitacion(@Param("capacidad") Integer capacidad, @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "INSERT INTO habitacion (id, capacidad, costonoche, tipohabitacion, hotel_id) VALUES (:id, :capacidad, :costonoche, :tipohabitacion, :hotel_id)", nativeQuery = true)
+    void insertarHabitacion(@Param("id") Integer id, @Param("capacidad") Integer capacidad,
+            @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion,
+            @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE habitacion SET capacidad = :capacidad, costonoche = :costonoche, tipohabitacion = :tipohabitacion, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarHabitacion(@Param("id") Integer id, @Param("capacidad") Integer capacidad, @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion, @Param("hotel_id") Integer hotel_id);
+    void actualizarHabitacion(@Param("id") Integer id, @Param("capacidad") Integer capacidad,
+            @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion,
+            @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM habitacion WHERE id = :id", nativeQuery = true)
     void eliminarHabitacion(@Param("id") Integer id);
-    
 
 }
