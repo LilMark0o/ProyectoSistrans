@@ -19,8 +19,8 @@ public interface UtensilioRepository extends JpaRepository<Utensilio, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO utensilio (nombre, precio, tienda_id) VALUES (:nombre, :precio, :tienda_id)", nativeQuery = true)
-    void insertarUtensilio(@Param("nombre") String nombre, @Param("precio") Integer precio, @Param("tienda_id") Integer tienda_id);
+    @Query(value = "INSERT INTO utensilio (id, nombre, precio, tienda_id) VALUES (:nombre, :precio)", nativeQuery = true)
+    void insertarUtensilio(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Float precio);
 
     @Modifying
     @Transactional
