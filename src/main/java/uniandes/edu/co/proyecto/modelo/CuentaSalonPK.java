@@ -13,14 +13,14 @@ public class CuentaSalonPK implements Serializable {
     private CuentaTotal cuentaTotal;
 
     @ManyToOne
-    @JoinColumn(name = "idreservasalon", referencedColumnName = "id")
-    private ReservaSalon reservaSalon;
+    @JoinColumn(name = "idsalon", referencedColumnName = "id")
+    private Salon reservaSalon;
 
     public CuentaSalonPK() {
         super();
     }
 
-    public CuentaSalonPK(CuentaTotal cuentaTotal, ReservaSalon reservaSalon) {
+    public CuentaSalonPK(CuentaTotal cuentaTotal, Salon reservaSalon) {
         super();
         this.cuentaTotal = cuentaTotal;
         this.reservaSalon = reservaSalon;
@@ -34,11 +34,11 @@ public class CuentaSalonPK implements Serializable {
         this.cuentaTotal = cuentaTotal;
     }
 
-    public ReservaSalon getReservaSalon() {
+    public Salon getReservaSalon() {
         return reservaSalon;
     }
 
-    public void setReservaSalon(ReservaSalon reservaSalon) {
+    public void setReservaSalon(Salon reservaSalon) {
         this.reservaSalon = reservaSalon;
     }
 }

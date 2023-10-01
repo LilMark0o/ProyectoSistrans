@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -12,16 +13,22 @@ public class Salon {
     @Id
     private Integer id;
 
+    @Column(name = "capacidad")
     private Integer capacidad;
 
+    @Column(name = "tiposalon")
     private String tipoSalon;
 
+    @Column(name = "horasuso")
     private Integer horasUso;
 
+    @Column(name = "equipocomputacion")
     private Character equipoComputacion;
 
+    @Column(name = "equipoproyeccion")
     private Character equipoProyeccion;
 
+    @Column(name = "equipoamplificacion")
     private Character equipoAmplificacion;
 
     @ManyToOne

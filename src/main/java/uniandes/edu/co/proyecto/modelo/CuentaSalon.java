@@ -15,8 +15,8 @@ public class CuentaSalon {
         ;
     }
 
-    public CuentaSalon(CuentaTotal cuentaTotal, ReservaSalon reservaSalon) {
-        this.pk = new CuentaSalonPK(cuentaTotal, reservaSalon);
+    public CuentaSalon(CuentaTotal cuentaTotal, Salon salon) {
+        this.pk = new CuentaSalonPK(cuentaTotal, salon);
     }
 
     public CuentaSalonPK getPk() {
