@@ -28,8 +28,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO usuario (nombre, username, password, tipousuario, hotel_id) VALUES (:nombre, :username, :password, :tipousuario, :hotel_id)", nativeQuery = true)
-    void insertarUsuario(@Param("nombre") String nombre, @Param("username") String username, @Param("password") String password, @Param("tipousuario") TipoUsuario tipousuario, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "INSERT INTO usuario (id, nombre, username, password, tipousuario, hotel_id) VALUES (:id, :nombre, :username, :password, :tipousuario, :hotel_id)", nativeQuery = true)
+    void insertarUsuario(@Param("id") Integer id, @Param("nombre") String nombre, @Param("username") String username, @Param("password") String password, @Param("tipousuario") TipoUsuario tipousuario, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
