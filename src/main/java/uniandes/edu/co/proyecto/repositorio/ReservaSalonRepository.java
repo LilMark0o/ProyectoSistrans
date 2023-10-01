@@ -18,14 +18,14 @@ public interface ReservaSalonRepository extends JpaRepository<ReservaSalon, Inte
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO reservasalon (fecha, hora, cliente_id, salon_id) VALUES (:fecha, :hora, :cliente_id, :salon_id)", nativeQuery = true)
-    void insertarReservaSalon(@Param("fecha") String fecha, @Param("hora") Integer hora, @Param("cliente_id") Integer cliente_id, @Param("salon_id") Integer salon_id);
+    @Query(value = "INSERT INTO reservasalon (id, fecha, tiempoespera, salon_id) VALUES (:id, :fecha, :tiempoespera, :salon_id)", nativeQuery = true)
+    void insertarReservaSalon(@Param("id") Integer id, @Param("fecha") String fecha, @Param("tiempoespera") Integer tiempoespera, @Param("salon_id") Integer salon_id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE reservasalon SET fecha = :fecha, hora = :hora, cliente_id = :cliente_id, salon_id = :salon_id WHERE id = :id", nativeQuery = true)
-    void actualizarReservaSalon(@Param("id") Integer id, @Param("fecha") String fecha, @Param("hora") Integer hora, @Param("cliente_id") Integer cliente_id, @Param("salon_id") Integer salon_id);
-
+    @Query(value = "UPDATE reservasalon SET id = :id, fecha = :fecha, tiempoespera = :tiempoespera, salon_id = :salon_id WHERE id = :id", nativeQuery = true)
+    void actualizarReservaSalon(@Param("id") Integer id, @Param("fecha") String fecha, @Param("tiempoespera") Integer tiempoespera, @Param("salon_id") Integer salon_id);
+    
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM reservasalon WHERE id = :id", nativeQuery = true)
