@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Piscina;
 
-public interface PiscinaRepository extends JpaRepository<Piscina, Integer>{
+public interface PiscinaRepository extends JpaRepository<Piscina, Integer> {
 
     @Query(value = "SELECT * FROM piscina", nativeQuery = true)
     Collection<Piscina> darPiscinas();
@@ -18,30 +18,33 @@ public interface PiscinaRepository extends JpaRepository<Piscina, Integer>{
 
     /*
      * @Override
-    public String toString() {
-        return "Piscina{" +
-                "id=" + id +
-                ", profundidad=" + profundidad +
-                ", horaInicio=" + horaInicio +
-                ", horaFin=" + horaFin +
-                ", secobra=" + secobra +
-                ", hotel=" + hotel +
-                '}';
-    }
+     * public String toString() {
+     * return "Piscina{" +
+     * "id=" + id +
+     * ", profundidad=" + profundidad +
+     * ", horaInicio=" + horaInicio +
+     * ", horaFin=" + horaFin +
+     * ", secobra=" + secobra +
+     * ", hotel=" + hotel +
+     * '}';
+     * }
      */
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO piscina (profundidad, horainicio, horafin, secobra, hotel_id) VALUES (:profundidad, :horainicio, :horafin, :secobra, :hotel_id)", nativeQuery = true)
-    void insertarPiscina(@Param("profundidad") Float profundidad, @Param("horainicio") Integer horainicio, @Param("horafin") Integer horafin, @Param("secobra") Boolean secobra, @Param("hotel_id") Integer hotel_id);
+    void insertarPiscina(@Param("profundidad") Float profundidad, @Param("horainicio") Integer horainicio,
+            @Param("horafin") Integer horafin, @Param("secobra") int secobra, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE piscina SET profundidad = :profundidad, horainicio = :horainicio, horafin = :horafin, secobra = :secobra, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarPiscina(@Param("id") Integer id, @Param("profundidad") Float profundidad, @Param("horainicio") Integer horainicio, @Param("horafin") Integer horafin, @Param("secobra") Boolean secobra, @Param("hotel_id") Integer hotel_id);
+    void actualizarPiscina(@Param("id") Integer id, @Param("profundidad") Float profundidad,
+            @Param("horainicio") Integer horainicio, @Param("horafin") Integer horafin, @Param("secobra") int secobra,
+            @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM piscina WHERE id = :id", nativeQuery = true)
     void eliminarPiscina(@Param("id") Integer id);
-    
+
 }

@@ -18,7 +18,7 @@ public class Piscina {
     private Float profundidad;
     private int horaInicio;
     private int horaFin;
-    private Character secobra;
+    private int secobra;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
@@ -28,7 +28,7 @@ public class Piscina {
         // Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Piscina(Float profundidad, int horaInicio, int horaFin, Character secobra, Hotel hotel) {
+    public Piscina(Float profundidad, int horaInicio, int horaFin, int secobra, Hotel hotel) {
         this.profundidad = profundidad;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
@@ -68,11 +68,11 @@ public class Piscina {
         this.horaFin = horaFin;
     }
 
-    public Character getSecobra() {
+    public int getSecobra() {
         return secobra;
     }
 
-    public void setSecobra(Character secobra) {
+    public void setSecobra(int secobra) {
         this.secobra = secobra;
     }
 
