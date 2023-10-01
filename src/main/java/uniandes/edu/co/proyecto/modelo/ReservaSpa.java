@@ -26,7 +26,7 @@ public class ReservaSpa {
     private Spa spa;
 
     public ReservaSpa() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public ReservaSpa(Date fecha, Integer hora, Spa spa) {

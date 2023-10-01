@@ -21,7 +21,7 @@ public class Usuario {
     private String username;
     private String password;
 
-    @Enumerated(EnumType.STRING)  
+    @Enumerated(EnumType.STRING)
     private TipoUsuario tipousuario;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Usuario {
     private Hotel hotel;
 
     public Usuario() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Usuario(String nombre, String username, String password, TipoUsuario tipousuario, Hotel hotel) {

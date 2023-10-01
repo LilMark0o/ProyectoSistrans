@@ -9,15 +9,15 @@ import java.io.Serializable;
 public class CuentaProductoSpaPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "idCuenta", referencedColumnName = "id")
+    @JoinColumn(name = "idcuenta", referencedColumnName = "id")
     private CuentaTotal cuentaTotal;
 
     @ManyToOne
-    @JoinColumn(name = "idProductoSpa", referencedColumnName = "id")
+    @JoinColumn(name = "idproductospa", referencedColumnName = "id")
     private ProductoSpa productoSpa;
 
     public CuentaProductoSpaPK() {
-        ;
+        super();
     }
 
     public CuentaProductoSpaPK(CuentaTotal cuentaTotal, ProductoSpa productoSpa) {

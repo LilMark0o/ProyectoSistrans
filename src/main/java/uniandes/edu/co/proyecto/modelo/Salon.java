@@ -32,7 +32,7 @@ public class Salon {
     private Hotel hotel;
 
     public Salon() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Salon(Integer capacidad, String tipoSalon, Integer horasUso, Character equipoComputacion,

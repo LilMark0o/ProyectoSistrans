@@ -22,7 +22,7 @@ public class Prestamo {
     private Utensilio utensilio;
 
     public Prestamo() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Prestamo(int devuelto, Utensilio utensilio) {

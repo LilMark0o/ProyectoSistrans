@@ -9,11 +9,11 @@ import java.io.Serializable;
 public class CuentaGimnasioPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "idCuenta", referencedColumnName = "id")
+    @JoinColumn(name = "idcuenta", referencedColumnName = "id")
     private CuentaTotal cuentaTotal;
 
     @ManyToOne
-    @JoinColumn(name = "idGimnasio", referencedColumnName = "id")
+    @JoinColumn(name = "idgimnasio", referencedColumnName = "id")
     private Gimnasio gimnasio;
 
     public CuentaGimnasioPK(CuentaTotal cuentaTotal, Gimnasio gimnasio) {

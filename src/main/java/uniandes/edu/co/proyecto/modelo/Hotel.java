@@ -14,7 +14,7 @@ public class Hotel {
     private Integer id;
 
     public Hotel() {
-        // Constructor vacío requerido por JPA
+        ;// Constructor vacío requerido por JPA
     }
 
     public Hotel(Integer id) {

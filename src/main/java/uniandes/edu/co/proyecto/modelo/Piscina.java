@@ -25,7 +25,7 @@ public class Piscina {
     private Hotel hotel;
 
     public Piscina() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Piscina(Float profundidad, int horaInicio, int horaFin, int secobra, Hotel hotel) {

@@ -26,7 +26,7 @@ public class ReservaSalon {
     private Salon salon;
 
     public ReservaSalon() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public ReservaSalon(Date fecha, Integer tiempoEspera, Salon salon) {

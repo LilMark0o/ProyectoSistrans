@@ -32,7 +32,7 @@ public class Reserva {
     private Habitacion habitacion;
 
     public Reserva() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Reserva(Date fechaEntrada, Date fechaSalida, Float cobro, Usuario usuario, Habitacion habitacion) {

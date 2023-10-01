@@ -22,7 +22,7 @@ public class Maquina {
     private Gimnasio gimnasio;
 
     public Maquina() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Maquina(String nombre, Gimnasio gimnasio) {

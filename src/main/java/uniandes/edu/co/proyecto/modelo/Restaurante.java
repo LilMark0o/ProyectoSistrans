@@ -20,7 +20,7 @@ public class Restaurante {
     private Hotel hotel;
 
     public Restaurante() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Restaurante(Hotel hotel) {

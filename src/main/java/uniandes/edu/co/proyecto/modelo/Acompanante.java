@@ -22,7 +22,7 @@ public class Acompanante {
     private Usuario usuario;
 
     public Acompanante() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Acompanante(String nombre, Usuario usuario) {

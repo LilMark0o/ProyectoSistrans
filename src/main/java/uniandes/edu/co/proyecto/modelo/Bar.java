@@ -18,7 +18,7 @@ public class Bar {
     private Integer capacidad;
 
     public Bar() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Bar(String estilo, Integer capacidad) {
