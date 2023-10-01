@@ -18,14 +18,16 @@ public interface ProductoSpaRepository extends JpaRepository<ProductoSpa, Intege
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO productospa (id, nombre, duracion, precio, spa_id) VALUES (:nombre, :duracion, :precio, :spa_id)", nativeQuery = true)
-    void insertarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre, @Param("duracion") Integer duracion, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
+    @Query(value = "INSERT INTO productospa (id, nombre, duracion, precio, spa_id) VALUES (:id, :nombre, :duracion, :precio, :spa_id)", nativeQuery = true)
+    void insertarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("duracion") Integer duracion, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE productospa SET id = :id, nombre = :nombre, duracion = :duracion, precio = :precio, spa_id = :spa_id WHERE id = :id", nativeQuery = true)
-    void actualizarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre, @Param("duracion") Integer duracion, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
-    
+    void actualizarProductoSpa(@Param("id") Integer id, @Param("nombre") String nombre,
+            @Param("duracion") Integer duracion, @Param("precio") Integer precio, @Param("spa_id") Integer spa_id);
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM productospa WHERE id = :id", nativeQuery = true)

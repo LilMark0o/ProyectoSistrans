@@ -8,7 +8,6 @@ import java.util.Date;
 public class CuentaTotal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Temporal(TemporalType.DATE)
