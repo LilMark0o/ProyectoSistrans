@@ -18,16 +18,14 @@ public interface ProductoRestauranteRepository extends JpaRepository<ProductoRes
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO productorestaurante (id, nombre, precio, restaurante_id) VALUES (:id, :nombre, :precio, :restaurante_id)", nativeQuery = true)
-    void insertarProductoRestaurante(@Param("id") Integer id, @Param("nombre") String nombre,
-            @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
+    @Query(value = "INSERT INTO productorestaurante (idproducto, idrestaurante) VALUES (:idproducto, :idrestaurante)", nativeQuery = true)
+    void insertarProductoRestaurante(@Param("idproducto") Integer idproducto, @Param("idrestaurante") Integer idrestaurante);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE productorestaurante SET nombre = :nombre, precio = :precio, restaurante_id = :restaurante_id WHERE id = :id", nativeQuery = true)
-    void actualizarProductoRestaurante(@Param("id") Integer id, @Param("nombre") String nombre,
-            @Param("precio") Integer precio, @Param("restaurante_id") Integer restaurante_id);
-
+    @Query(value = "UPDATE productorestaurante SET idproducto = :idproducto, idrestaurante = :idrestaurante WHERE id = :id", nativeQuery = true)
+    void actualizarProductoRestaurante(@Param("id") Integer id, @Param("idproducto") Integer idproducto, @Param("idrestaurante") Integer idrestaurante);
+    
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM productorestaurante WHERE id = :id", nativeQuery = true)
