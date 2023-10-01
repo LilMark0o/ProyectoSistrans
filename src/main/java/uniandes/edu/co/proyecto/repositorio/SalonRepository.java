@@ -19,14 +19,14 @@ public interface SalonRepository extends JpaRepository<Salon, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO salon (capacidad, hotel_id) VALUES (:capacidad, :hotel_id)", nativeQuery = true)
-    void insertarSalon(@Param("capacidad") Integer capacidad, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "INSERT INTO salon (id, capacidad, tiposalon, horauso, equipocomputacion, equipoproyeccion, equipoamplificacion, hotel_id) VALUES (:id, :capacidad, :tiposalon, :horauso, :equipocomputacion, :equipoproyeccion, :equipoamplificacion, :hotel_id)", nativeQuery = true)
+    void insertarSalon(@Param("id") int id, @Param("capacidad") Integer capacidad, @Param("tiposalon") String tiposalon, @Param("horauso") String horauso, @Param("equipocomputacion") String equipocomputacion, @Param("equipoproyeccion") String equipoproyeccion, @Param("equipoamplificacion") String equipoamplificacion, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE salon SET capacidad = :capacidad, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarSalon(@Param("id") Integer id, @Param("capacidad") Integer capacidad, @Param("hotel_id") Integer hotel_id);
-
+    @Query(value = "UPDATE salon SET id = :id, capacidad = :capacidad, tiposalon = :tiposalon, horauso = :horauso, equipocomputacion = :equipocomputacion, equipoproyeccion = :equipoproyeccion, equipoamplificacion = :equipoamplificacion, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
+    void actualizarSalon(@Param("id") Integer id, @Param("capacidad") Integer capacidad, @Param("tiposalon") String tiposalon, @Param("horauso") String horauso, @Param("equipocomputacion") String equipocomputacion, @Param("equipoproyeccion") String equipoproyeccion, @Param("equipoamplificacion") String equipoamplificacion, @Param("hotel_id") Integer hotel_id);
+    
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM salon WHERE id = :id", nativeQuery = true)

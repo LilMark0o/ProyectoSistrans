@@ -19,13 +19,13 @@ public interface SpaRepository extends JpaRepository<Spa, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO spa (horainicio, horafin, secobra, hotel_id) VALUES (:horainicio, :horafin, :secobra, :hotel_id)", nativeQuery = true)
-    void insertarSpa(@Param("horainicio") Integer horainicio, @Param("horafin") Integer horafin, @Param("secobra") Boolean secobra, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "INSERT INTO spa (id, hotel_id) VALUES (:id, :hotel_id)", nativeQuery = true)
+    void insertarSpa(@Param("id") int id, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE spa SET horainicio = :horainicio, horafin = :horafin, secobra = :secobra, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarSpa(@Param("id") Integer id, @Param("horainicio") Integer horainicio, @Param("horafin") Integer horafin, @Param("secobra") Boolean secobra, @Param("hotel_id") Integer hotel_id);
+    @Query(value = "UPDATE spa SET id = :id, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
+    void actualizarSpa(@Param("id") Integer id, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional

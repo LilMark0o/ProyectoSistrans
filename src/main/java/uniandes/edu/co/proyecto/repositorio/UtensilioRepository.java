@@ -24,9 +24,9 @@ public interface UtensilioRepository extends JpaRepository<Utensilio, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE utensilio SET nombre = :nombre, precio = :precio, tienda_id = :tienda_id WHERE id = :id", nativeQuery = true)
-    void actualizarUtensilio(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Integer precio, @Param("tienda_id") Integer tienda_id);
-
+    @Query(value = "UPDATE utensilio SET id = :id, nombre = :nombre, precio = :precio WHERE id = :id", nativeQuery = true)
+    void actualizarUtensilio(@Param("id") Integer id, @Param("nombre") String nombre, @Param("precio") Float precio);
+    
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM utensilio WHERE id = :id", nativeQuery = true)
