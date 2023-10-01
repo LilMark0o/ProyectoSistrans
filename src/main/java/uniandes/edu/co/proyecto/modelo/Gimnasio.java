@@ -12,7 +12,10 @@ public class Gimnasio {
     @Id
     private Integer id;
 
+    @JoinColumn(name = "horainicio")
     private Integer horainicio;
+
+    @JoinColumn(name = "horafin")
     private Integer horafin;
     private Integer secobra;
 
