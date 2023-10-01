@@ -12,15 +12,15 @@ public class Producto {
 
     private String nombre;
 
-    private Float costo;
+    private Float precio;
 
     public Producto() {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Producto(String nombre, Float costo) {
+    public Producto(String nombre, Float precio) {
         this.nombre = nombre;
-        this.costo = costo;
+        this.precio = precio;
     }
 
     public Integer getId() {
@@ -39,12 +39,12 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Float getCosto() {
-        return costo;
+    public Float getprecio() {
+        return precio;
     }
 
-    public void setCosto(Float costo) {
-        this.costo = costo;
+    public void setprecio(Float precio) {
+        this.precio = precio;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Producto {
         return "Producto{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", costo=" + costo +
+                ", precio=" + precio +
                 '}';
     }
 }
