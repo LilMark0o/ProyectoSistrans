@@ -24,7 +24,7 @@ public class Habitacion {
     private Hotel hotel;
 
     public Habitacion() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Habitacion(Integer capacidad, Float costonoche, String tipohabitacion, Hotel hotel) {

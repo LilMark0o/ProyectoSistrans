@@ -24,7 +24,7 @@ public class Gimnasio {
     private Hotel hotel;
 
     public Gimnasio() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Gimnasio(Integer horainicio, Integer horafin, Boolean secobra, Hotel hotel) {

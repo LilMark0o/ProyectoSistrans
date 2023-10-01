@@ -23,7 +23,7 @@ public class PlanConsumo {
     private Hotel hotel;
 
     public PlanConsumo() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public PlanConsumo(String descripcion, Integer descuento, Hotel hotel) {

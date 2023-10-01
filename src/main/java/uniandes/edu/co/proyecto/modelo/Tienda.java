@@ -20,7 +20,7 @@ public class Tienda {
     private Hotel hotel;
 
     public Tienda() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Tienda(Hotel hotel) {

@@ -20,7 +20,7 @@ public class ProductoSpa {
     private Float precio;
 
     public ProductoSpa() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public ProductoSpa(String nombre, Integer duracion, Float precio) {

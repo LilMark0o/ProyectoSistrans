@@ -9,11 +9,11 @@ import java.io.Serializable;
 public class CuentaInternetPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "idCuenta", referencedColumnName = "id")
+    @JoinColumn(name = "idcuenta", referencedColumnName = "id")
     private CuentaTotal cuentaTotal;
 
     @ManyToOne
-    @JoinColumn(name = "idInternet", referencedColumnName = "id")
+    @JoinColumn(name = "idinternet", referencedColumnName = "id")
     private Internet internet;
 
     public CuentaInternetPK(CuentaTotal cuentaTotal, Internet internet) {
@@ -25,6 +25,7 @@ public class CuentaInternetPK implements Serializable {
     public CuentaInternetPK() {
         super();
     }
+
     public CuentaTotal getCuentaTotal() {
         return cuentaTotal;
     }

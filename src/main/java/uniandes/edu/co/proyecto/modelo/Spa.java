@@ -20,7 +20,7 @@ public class Spa {
     private Hotel hotel;
 
     public Spa() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Spa(Hotel hotel) {

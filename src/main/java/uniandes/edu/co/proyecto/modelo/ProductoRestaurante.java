@@ -5,14 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "productoRestaurante")
+@Table(name = "productorestaurante")
 public class ProductoRestaurante {
 
     @EmbeddedId
     private ProductoRestaurantePK pk;
 
     public ProductoRestaurante() {
-        ;
+        super();
     }
 
     public ProductoRestaurante(Producto producto, Restaurante restaurante) {

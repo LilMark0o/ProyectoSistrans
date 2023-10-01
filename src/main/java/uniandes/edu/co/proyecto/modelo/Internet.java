@@ -24,7 +24,7 @@ public class Internet {
     private Hotel hotel;
 
     public Internet() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Internet(Float capacidad, Float precio, int secobra, Hotel hotel) {

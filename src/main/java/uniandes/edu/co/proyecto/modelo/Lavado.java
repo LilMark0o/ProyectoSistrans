@@ -18,7 +18,7 @@ public class Lavado {
     private Integer cantidadalavar;
 
     public Lavado() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Lavado(Float precio, Integer cantidadalavar) {

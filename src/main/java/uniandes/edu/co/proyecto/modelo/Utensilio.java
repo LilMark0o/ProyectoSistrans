@@ -18,7 +18,7 @@ public class Utensilio {
     private Float precio;
 
     public Utensilio() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Utensilio(String nombre, Float precio) {

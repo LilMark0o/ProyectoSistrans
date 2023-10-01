@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "cuentaTotal") // Ajusta el nombre de la tabla si es necesario
+@Table(name = "cuentatotal") // Ajusta el nombre de la tabla si es necesario
 public class CuentaTotal {
 
     @Id
@@ -19,7 +19,7 @@ public class CuentaTotal {
     private Habitacion habitacion;
 
     public CuentaTotal() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public CuentaTotal(Date fecha, Habitacion habitacion) {

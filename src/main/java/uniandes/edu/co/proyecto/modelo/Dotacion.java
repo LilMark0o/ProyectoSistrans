@@ -24,7 +24,7 @@ public class Dotacion {
     private Habitacion habitacion;
 
     public Dotacion() {
-        // Constructor vacío requerido por Jakarta Persistence
+        ;// Constructor vacío requerido por Jakarta Persistence
     }
 
     public Dotacion(String nombre, Float costo, Boolean cobro, Habitacion habitacion) {
