@@ -7,9 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Usuario;
-import uniandes.edu.co.proyecto.modelo.TipoUsuario; 
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query(value = "SELECT * FROM usuario", nativeQuery = true)
     Collection<Usuario> darUsuarios();
@@ -18,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
     Usuario darUsuarioPorId(@Param("id") int id);
 
     @Query(value = "SELECT * FROM usuario WHERE tipousuario = :tipousuario", nativeQuery = true)
-    Collection<Usuario> darUsuariosPorTipo(@Param("tipousuario") TipoUsuario tipoUsuario);
+    Collection<Usuario> darUsuariosPorTipo(@Param("tipousuario") String tipoUsuario);
 
     @Query(value = "SELECT * FROM usuario WHERE nombre = :nombre", nativeQuery = true)
     Collection<Usuario> buscarUsuarioPorNombre(@Param("nombre") String nombre);
@@ -29,12 +28,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO usuario (id, nombre, username, password, tipousuario, hotel_id) VALUES (:id, :nombre, :username, :password, :tipousuario, :hotel_id)", nativeQuery = true)
-    void insertarUsuario(@Param("id") Integer id, @Param("nombre") String nombre, @Param("username") String username, @Param("password") String password, @Param("tipousuario") TipoUsuario tipousuario, @Param("hotel_id") Integer hotel_id);
+    void insertarUsuario(@Param("id") Integer id, @Param("nombre") String nombre, @Param("username") String username,
+            @Param("password") String password, @Param("tipousuario") String tipousuario,
+            @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE usuario SET nombre = :nombre, username = :username, password = :password, tipousuario = :tipousuario, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarUsuario(@Param("id") Integer id, @Param("nombre") String nombre, @Param("username") String username, @Param("password") String password, @Param("tipousuario") TipoUsuario tipousuario, @Param("hotel_id") Integer hotel_id);
+    void actualizarUsuario(@Param("id") Integer id, @Param("nombre") String nombre, @Param("username") String username,
+            @Param("password") String password, @Param("tipousuario") String tipousuario,
+            @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional

@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -14,8 +15,10 @@ public class Reserva {
     @Id
     private Integer id;
 
+    @Column(name = "fechaentrada") // Asegúrate de que el nombre coincida con la base de datos
     private Date fechaEntrada;
 
+    @Column(name = "fechasalida") // Asegúrate de que el nombre coincida con la base de datos
     private Date fechaSalida;
 
     private Float cobro;

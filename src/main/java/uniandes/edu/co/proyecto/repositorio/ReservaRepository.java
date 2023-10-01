@@ -1,14 +1,18 @@
 package uniandes.edu.co.proyecto.repositorio;
 
+import java.sql.Date;
 import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import uniandes.edu.co.proyecto.modelo.Reserva;
 
-public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
+import uniandes.edu.co.proyecto.modelo.Habitacion;
+import uniandes.edu.co.proyecto.modelo.Reserva;
+import uniandes.edu.co.proyecto.modelo.Usuario;
+
+public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
     @Query(value = "SELECT * FROM reserva", nativeQuery = true)
     Collection<Reserva> darReservas();
@@ -18,18 +22,20 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO reserva (id, cobro, usuario_id, habitacion_id, fechaentrada, fechasalida) VALUES (:id, :cobro, :usuario_id, :habitacion_id, :fechaentrada, :fechasalida)", nativeQuery = true)
-    void insertarReserva(@Param("id") Integer id, @Param("cobro") Integer cobro, @Param("usuario_id") Integer usuario_id, @Param("habitacion_id") Integer habitacion_id, @Param("fechaentrada") String fechaentrada, @Param("fechasalida") String fechasalida);
-    
+    @Query(value = "INSERT INTO reserva (id, cobro, usuario_id, habitacion_id, fechaentrada, fechasalida) VALUES (:id, :cobro, :usuario.id, :habitacion.id, :fechaEntrada, :fechaSalida)", nativeQuery = true)
+    void insertarReserva(@Param("id") Integer id, @Param("cobro") Integer cobro,
+            @Param("usuario") Usuario usuario, @Param("habitacion") Habitacion habitacion,
+            @Param("fechaEntrada") Date fechaEntrada, @Param("fechaSalida") Date fechaSalida);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE reserva SET fecha = :fecha, valor = :valor, cliente_id = :cliente_id, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarReserva(@Param("id") Integer id, @Param("fecha") String fecha, @Param("valor") Integer valor, @Param("cliente_id") Integer cliente_id, @Param("hotel_id") Integer hotel_id);
+    void actualizarReserva(@Param("id") Integer id, @Param("fecha") String fecha, @Param("valor") Integer valor,
+            @Param("cliente_id") Integer cliente_id, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM reserva WHERE id = :id", nativeQuery = true)
     void eliminarReserva(@Param("id") Integer id);
-    
 
 }

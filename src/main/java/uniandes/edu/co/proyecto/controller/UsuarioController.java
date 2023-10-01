@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.Usuario;
-import uniandes.edu.co.proyecto.modelo.TipoUsuario;
 import uniandes.edu.co.proyecto.repositorio.UsuarioRepository;
 
 import java.util.List;
@@ -36,12 +35,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/tipo/{tipoUsuario}")
-    public List<Usuario> consultarUsuariosPorTipo(@PathVariable TipoUsuario tipoUsuario) {
+    public List<Usuario> consultarUsuariosPorTipo(@PathVariable String tipoUsuario) {
         return (List<Usuario>) usuarioRepository.darUsuariosPorTipo(tipoUsuario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable(value = "id") Integer usuarioId, @RequestBody Usuario usuarioDetalles) {
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable(value = "id") Integer usuarioId,
+            @RequestBody Usuario usuarioDetalles) {
         Usuario usuario = usuarioRepository.darUsuarioPorId(usuarioId);
         if (usuario != null) {
             usuario.setNombre(usuarioDetalles.getNombre());
