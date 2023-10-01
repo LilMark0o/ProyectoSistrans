@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -13,7 +14,9 @@ public class Piscina {
     private Integer id;
 
     private Float profundidad;
+    @Column(name = "horainicio") // Asegúrate de que el nombre coincida con la base de datos
     private int horaInicio;
+    @Column(name = "horafin") // Asegúrate de que el nombre coincida con la base de datos
     private int horaFin;
     private int secobra;
 
