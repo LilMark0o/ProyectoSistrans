@@ -55,7 +55,7 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> borrarUsuario(@PathVariable(value = "id") Integer usuarioId) {
         Usuario usuario = usuarioRepository.darUsuarioPorId(usuarioId);
         if (usuario != null) {

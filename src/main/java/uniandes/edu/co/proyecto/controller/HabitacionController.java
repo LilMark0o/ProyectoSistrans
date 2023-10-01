@@ -45,7 +45,8 @@ public class HabitacionController {
 
     // Actualizar una habitación
     @PutMapping("/{id}")
-    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable(value = "id") Integer habitacionId, @RequestBody Habitacion habitacionDetalles) {
+    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable(value = "id") Integer habitacionId,
+            @RequestBody Habitacion habitacionDetalles) {
         Habitacion habitacion = habitacionRepository.darHabitacionPorId(habitacionId);
         if (habitacion != null) {
             habitacion.setCapacidad(habitacionDetalles.getCapacidad());
@@ -59,7 +60,7 @@ public class HabitacionController {
     }
 
     // Borrar una habitación
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> borrarHabitacion(@PathVariable(value = "id") Integer habitacionId) {
         Habitacion habitacion = habitacionRepository.darHabitacionPorId(habitacionId);
         if (habitacion != null) {

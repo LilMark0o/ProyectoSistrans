@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -12,6 +13,7 @@ public class Prestamo {
     @Id
     private Integer id;
 
+    @Column(name = "devuelto")
     private Integer devuelto;
 
     @ManyToOne

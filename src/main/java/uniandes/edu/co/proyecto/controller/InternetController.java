@@ -50,7 +50,7 @@ public class InternetController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarInternet(@PathVariable Integer id) {
         Internet internetExistente = internetRepository.darInternetPorId(id);
         if (internetExistente != null) {

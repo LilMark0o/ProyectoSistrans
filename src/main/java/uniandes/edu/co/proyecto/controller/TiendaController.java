@@ -47,7 +47,7 @@ public class TiendaController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarTienda(@PathVariable Integer id) {
         if (tiendaRepository.darTiendaPorId(id) != null) {
             tiendaRepository.eliminarTienda(id);

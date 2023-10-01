@@ -48,7 +48,7 @@ public class LavadoController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarLavado(@PathVariable Integer id) {
         Lavado lavadoExistente = lavadoRepository.darLavadoPorId(id);
         if (lavadoExistente != null) {

@@ -1,4 +1,5 @@
 package uniandes.edu.co.proyecto.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,21 +33,24 @@ public class PlanConsumoController {
 
     @PostMapping
     public ResponseEntity<PlanConsumo> crearPlanConsumo(@RequestBody PlanConsumo planConsumo) {
-        planConsumoRepository.insertarPlanConsumo(planConsumo.getId(), planConsumo.getDescripcion(), planConsumo.getDescuento(), planConsumo.getHotel().getId());
+        planConsumoRepository.insertarPlanConsumo(planConsumo.getId(), planConsumo.getDescripcion(),
+                planConsumo.getDescuento(), planConsumo.getHotel().getId());
         return new ResponseEntity<>(planConsumo, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanConsumo> actualizarPlanConsumo(@PathVariable Integer id, @RequestBody PlanConsumo planConsumo) {
+    public ResponseEntity<PlanConsumo> actualizarPlanConsumo(@PathVariable Integer id,
+            @RequestBody PlanConsumo planConsumo) {
         if (planConsumoRepository.darPlanConsumoPorId(id) != null) {
-            planConsumoRepository.actualizarPlanConsumo(planConsumo.getId(), planConsumo.getDescripcion(), planConsumo.getDescuento(), planConsumo.getHotel().getId());
+            planConsumoRepository.actualizarPlanConsumo(planConsumo.getId(), planConsumo.getDescripcion(),
+                    planConsumo.getDescuento(), planConsumo.getHotel().getId());
             return new ResponseEntity<>(planConsumo, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarPlanConsumo(@PathVariable Integer id) {
         if (planConsumoRepository.darPlanConsumoPorId(id) != null) {
             planConsumoRepository.eliminarPlanConsumo(id);

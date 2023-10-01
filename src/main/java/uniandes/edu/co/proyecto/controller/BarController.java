@@ -33,7 +33,7 @@ public class BarController {
     @PostMapping
     public ResponseEntity<Bar> crearBar(@RequestBody Bar bar) {
         barRepository.insertarBar(bar.getId(), bar.getEstilo(), bar.getCapacidad());
-        return ResponseEntity.ok(bar); 
+        return ResponseEntity.ok(bar);
     }
 
     @PutMapping("/{id}")
@@ -47,7 +47,7 @@ public class BarController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarBar(@PathVariable Integer id) {
         Bar barExistente = barRepository.darBarPorId(id);
         if (barExistente != null) {

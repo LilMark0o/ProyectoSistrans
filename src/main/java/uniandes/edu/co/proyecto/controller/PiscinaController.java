@@ -33,21 +33,23 @@ public class PiscinaController {
 
     @PostMapping
     public ResponseEntity<Piscina> crearPiscina(@RequestBody Piscina piscina) {
-        piscinaRepository.insertarPiscina(piscina.getId(), piscina.getProfundidad(), piscina.getHoraInicio(), piscina.getHoraFin(), piscina.getSecobra(), piscina.getHotel().getId());
+        piscinaRepository.insertarPiscina(piscina.getId(), piscina.getProfundidad(), piscina.getHoraInicio(),
+                piscina.getHoraFin(), piscina.getSecobra(), piscina.getHotel().getId());
         return new ResponseEntity<>(piscina, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Piscina> actualizarPiscina(@PathVariable Integer id, @RequestBody Piscina piscina) {
         if (piscinaRepository.darPiscinaPorId(id) != null) {
-            piscinaRepository.actualizarPiscina(piscina.getId(), piscina.getProfundidad(), piscina.getHoraInicio(), piscina.getHoraFin(), piscina.getSecobra(), piscina.getHotel().getId());
+            piscinaRepository.actualizarPiscina(piscina.getId(), piscina.getProfundidad(), piscina.getHoraInicio(),
+                    piscina.getHoraFin(), piscina.getSecobra(), piscina.getHotel().getId());
             return new ResponseEntity<>(piscina, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarPiscina(@PathVariable Integer id) {
         if (piscinaRepository.darPiscinaPorId(id) != null) {
             piscinaRepository.eliminarPiscina(id);

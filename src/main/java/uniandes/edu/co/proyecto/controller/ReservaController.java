@@ -50,7 +50,7 @@ public class ReservaController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> borrarReserva(@PathVariable(value = "id") Integer ReservaId) {
         Reserva Reserva = reservaRepository.darReservaPorId(ReservaId);
         if (Reserva != null) {

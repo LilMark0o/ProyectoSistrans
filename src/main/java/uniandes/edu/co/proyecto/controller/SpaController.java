@@ -47,7 +47,7 @@ public class SpaController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarSpa(@PathVariable Integer id) {
         if (spaRepository.darSpaPorId(id) != null) {
             spaRepository.eliminarSpa(id);

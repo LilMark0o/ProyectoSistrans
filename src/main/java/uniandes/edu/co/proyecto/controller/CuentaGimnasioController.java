@@ -36,7 +36,7 @@ public class CuentaGimnasioController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idcuenta}/{idgimnasio}")
     public ResponseEntity<CuentaGimnasio> actualizarCuentaGimnasio(@PathVariable(value = "idcuenta") Integer idcuenta,
             @PathVariable(value = "idgimnasio") Integer idgimnasio,
             @RequestBody CuentaGimnasio CuentaGimnasioDetalles) {
@@ -49,7 +49,7 @@ public class CuentaGimnasioController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idcuenta}/{idgimnasio}/delete")
     public ResponseEntity<Void> borrarCuentaGimnasio(@PathVariable(value = "idcuenta") Integer idcuenta,
             @PathVariable(value = "idgimnasio") Integer idgimnasio) {
         CuentaGimnasio CuentaGimnasio = CuentaGimnasioRepository.findCuentaGimnasioById(idcuenta, idgimnasio);

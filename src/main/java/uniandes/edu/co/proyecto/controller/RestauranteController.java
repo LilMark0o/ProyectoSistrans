@@ -38,7 +38,8 @@ public class RestauranteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Restaurante> actualizarRestaurante(@PathVariable Integer id, @RequestBody Restaurante restaurante) {
+    public ResponseEntity<Restaurante> actualizarRestaurante(@PathVariable Integer id,
+            @RequestBody Restaurante restaurante) {
         if (restauranteRepository.darRestaurantePorId(id) != null) {
             restauranteRepository.actualizarRestaurante(restaurante.getId(), restaurante.getHotel().getId());
             return new ResponseEntity<>(restaurante, HttpStatus.OK);
@@ -47,7 +48,7 @@ public class RestauranteController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarRestaurante(@PathVariable Integer id) {
         if (restauranteRepository.darRestaurantePorId(id) != null) {
             restauranteRepository.eliminarRestaurante(id);

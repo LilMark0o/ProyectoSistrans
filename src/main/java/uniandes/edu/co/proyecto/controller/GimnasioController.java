@@ -34,7 +34,7 @@ public class GimnasioController {
     public ResponseEntity<Gimnasio> crearGimnasio(@RequestBody Gimnasio gimnasio) {
         gimnasioRepository.insertarGimnasio(gimnasio.getId(), gimnasio.getHorainicio(), gimnasio.getHorafin(),
                 gimnasio.getSecobra(), gimnasio.getHotel().getId());
-        return ResponseEntity.ok(gimnasio); 
+        return ResponseEntity.ok(gimnasio);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +49,7 @@ public class GimnasioController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> eliminarGimnasio(@PathVariable Integer id) {
         Gimnasio gimnasioExistente = gimnasioRepository.darGimnasioPorId(id);
         if (gimnasioExistente != null) {

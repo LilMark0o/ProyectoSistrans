@@ -36,7 +36,7 @@ public class CuentaSalonController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idcuenta}/{idsalon}")
     public ResponseEntity<CuentaSalon> actualizarCuentaSalon(@PathVariable(value = "idcuenta") Integer idcuenta,
             @PathVariable(value = "idsalon") Integer idsalon,
             @RequestBody CuentaSalon CuentaSalonDetalles) {
@@ -49,7 +49,7 @@ public class CuentaSalonController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idcuenta}/{idsalon}/delete")
     public ResponseEntity<Void> borrarCuentaSalon(@PathVariable(value = "idcuenta") Integer idcuenta,
             @PathVariable(value = "idsalon") Integer idsalon) {
         CuentaSalon CuentaSalon = CuentaSalonRepository.findCuentaSalonById(idcuenta, idsalon);
