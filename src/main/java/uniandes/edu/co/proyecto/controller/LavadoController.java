@@ -1,6 +1,5 @@
 package uniandes.edu.co.proyecto.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +32,9 @@ public class LavadoController {
 
     @PostMapping
     public ResponseEntity<Lavado> crearLavado(@RequestBody Lavado lavado) {
-        lavadoRepository.insertarLavado(lavado.getPrecio(), lavado.getCantidadalavar());
-        return ResponseEntity.ok(lavado); // Similarmente, podrías querer devolver el objeto completo con el ID asignado.
+        lavadoRepository.insertarLavado(lavado.getId(), lavado.getPrecio(), lavado.getCantidadalavar());
+        return ResponseEntity.ok(lavado); // Similarmente, podrías querer devolver el objeto completo con el ID
+                                          // asignado.
     }
 
     @PutMapping("/{id}")

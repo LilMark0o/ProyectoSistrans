@@ -17,7 +17,7 @@ public class Gimnasio {
 
     private Integer horainicio;
     private Integer horafin;
-    private Boolean secobra;
+    private Integer secobra;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
@@ -27,7 +27,7 @@ public class Gimnasio {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Gimnasio(Integer horainicio, Integer horafin, Boolean secobra, Hotel hotel) {
+    public Gimnasio(Integer horainicio, Integer horafin, Integer secobra, Hotel hotel) {
         this.horainicio = horainicio;
         this.horafin = horafin;
         this.secobra = secobra;
@@ -58,11 +58,11 @@ public class Gimnasio {
         this.horafin = horafin;
     }
 
-    public Boolean getSecobra() {
+    public Integer getSecobra() {
         return secobra;
     }
 
-    public void setSecobra(Boolean secobra) {
+    public void setSecobra(Integer secobra) {
         this.secobra = secobra;
     }
 

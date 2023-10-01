@@ -15,7 +15,7 @@ public class Prestamo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private int devuelto;
+    private Integer devuelto;
 
     @ManyToOne
     @JoinColumn(name = "utensilio_id", referencedColumnName = "id")
@@ -25,7 +25,7 @@ public class Prestamo {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Prestamo(int devuelto, Utensilio utensilio) {
+    public Prestamo(Integer devuelto, Utensilio utensilio) {
         this.devuelto = devuelto;
         this.utensilio = utensilio;
     }
@@ -38,11 +38,11 @@ public class Prestamo {
         this.id = id;
     }
 
-    public int getDevuelto() {
+    public Integer getDevuelto() {
         return devuelto;
     }
 
-    public void setDevuelto(int devuelto) {
+    public void setDevuelto(Integer devuelto) {
         this.devuelto = devuelto;
     }
 

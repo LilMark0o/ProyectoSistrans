@@ -17,7 +17,7 @@ public class Internet {
 
     private Float capacidad;
     private Float precio;
-    private int secobra;
+    private Integer secobra;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
@@ -27,7 +27,7 @@ public class Internet {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Internet(Float capacidad, Float precio, int secobra, Hotel hotel) {
+    public Internet(Float capacidad, Float precio, Integer secobra, Hotel hotel) {
         this.capacidad = capacidad;
         this.precio = precio;
         this.secobra = secobra;
@@ -58,11 +58,11 @@ public class Internet {
         this.precio = precio;
     }
 
-    public int getSecobra() {
+    public Integer getSecobra() {
         return secobra;
     }
 
-    public void setSecobra(int secobra) {
+    public void setSecobra(Integer secobra) {
         this.secobra = secobra;
     }
 

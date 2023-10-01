@@ -32,15 +32,18 @@ public class InternetController {
 
     @PostMapping
     public ResponseEntity<Internet> crearInternet(@RequestBody Internet internet) {
-        internetRepository.insertarInternet(internet.getCapacidad(), internet.getPrecio(), internet.getSecobra(), internet.getHotel().getId());
-        return ResponseEntity.ok(internet); // Similarmente, podrías querer devolver el objeto completo con el ID asignado.
+        internetRepository.insertarInternet(internet.getId(), internet.getCapacidad(), internet.getPrecio(),
+                internet.getSecobra(), internet.getHotel().getId());
+        return ResponseEntity.ok(internet); // Similarmente, podrías querer devolver el objeto completo con el ID
+                                            // asignado.
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Internet> actualizarInternet(@PathVariable Integer id, @RequestBody Internet internet) {
         Internet internetExistente = internetRepository.darInternetPorId(id);
         if (internetExistente != null) {
-            internetRepository.actualizarInternet(id, internet.getCapacidad(), internet.getPrecio(), internet.getSecobra(), internet.getHotel().getId());
+            internetRepository.actualizarInternet(id, internet.getCapacidad(), internet.getPrecio(),
+                    internet.getSecobra(), internet.getHotel().getId());
             return ResponseEntity.ok(internet);
         } else {
             return ResponseEntity.notFound().build();

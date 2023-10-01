@@ -32,15 +32,18 @@ public class GimnasioController {
 
     @PostMapping
     public ResponseEntity<Gimnasio> crearGimnasio(@RequestBody Gimnasio gimnasio) {
-        gimnasioRepository.insertarGimnasio(gimnasio.getHorainicio(), gimnasio.getHorafin(), gimnasio.getSecobra(), gimnasio.getHotel().getId());
-        return ResponseEntity.ok(gimnasio); // Similarmente, podrías querer devolver el objeto completo con el ID asignado.
+        gimnasioRepository.insertarGimnasio(gimnasio.getId(), gimnasio.getHorainicio(), gimnasio.getHorafin(),
+                gimnasio.getSecobra(), gimnasio.getHotel().getId());
+        return ResponseEntity.ok(gimnasio); // Similarmente, podrías querer devolver el objeto completo con el ID
+                                            // asignado.
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Gimnasio> actualizarGimnasio(@PathVariable Integer id, @RequestBody Gimnasio gimnasio) {
         Gimnasio gimnasioExistente = gimnasioRepository.darGimnasioPorId(id);
         if (gimnasioExistente != null) {
-            gimnasioRepository.actualizarGimnasio(id, gimnasio.getHorainicio(), gimnasio.getHorafin(), gimnasio.getSecobra(), gimnasio.getHotel().getId());
+            gimnasioRepository.actualizarGimnasio(id, gimnasio.getHorainicio(), gimnasio.getHorafin(),
+                    gimnasio.getSecobra(), gimnasio.getHotel().getId());
             return ResponseEntity.ok(gimnasio);
         } else {
             return ResponseEntity.notFound().build();
