@@ -1,0 +1,51 @@
+RF1 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR TIPOS DE USUARIOS
+CRUD de los tipos de usuario definidos en la descripción del negocio. Estas operaciones son realizadas
+por el administrador del sistema. Debe incluir todos los tipos de usuario indicados en el enunciado.
+RF2 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR USUARIO
+CRUD de los usuarios quienes tienen una identificación (Tipo de documento, número de documento), un
+nombre, un correo electrónico y su rol respectivo. Estas operaciones son realizadas por el administrador
+de datos del hotel. Considere inicialmente un gerente, un administrador de datos, 2 recepcionistas, 4
+empleados y 4 clientes.
+RF3 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR TIPO DE HABITACIÓN
+CRUD de los tipos de habitaciones de los cuales dispone el hotel con su dotación correspondiente. Estas
+operaciones son realizadas por el administrador de datos del hotel. Considere inicialmente por lo menos 3
+tipos de habitaciones.
+1 Para efectos del curso, no todos los requerimientos descritos acá deben tener interacción con el usuario (interfaz gráfica
+de usuario). Lea atentamente el enunciado de la iteración para saber a cuáles se les debe desarrollar interfaz gráfica y
+cuáles se implementan directamente sobre la base de datos utilizando SQL Developer.
+4
+RF4 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR HABITACIÓN
+CRUD de las instancias de las habitaciones de las cuales dispone el hotel. Estas operaciones son
+realizadas por el administrador de datos del hotel. Considere inicialmente por lo menos 3 habitaciones de
+cada tipo de habitación disponible
+RF5 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR UN SERVICIO DEL HOTEL
+CRUD de la descripción de los servicios de los cuales dispone el hotel. Estas operaciones son realizadas
+por el administrador de datos del hotel. Considere inicialmente por lo menos 1 servicio de cada uno de los
+tipos de servicio descritos en el enunciado (piscina, spa, bar, … El menú de los bares y restaurantes debe
+tener por lo menos tres productos).
+RF6 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR UN PLAN DE CONSUMO
+CRUD de los planes de consumo disponibles en el hotel. Estas operaciones son realizadas por el
+administrador de datos del hotel. Considere los planes descritos en el enunciado y por lo menos uno de
+promoción particular.
+RF7 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR UNA RESERVA DE ALOJAMIENTO
+CRUD de la reservación de una habitación. Una reservación, por un período de tiempo, por parte de un
+cliente, se puede hacer siempre y cuando esté disponible. Estas operaciones son realizadas por un cliente.
+RF8 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR UNA RESERVA DE UN SERVICIO DEL HOTEL POR PARTE
+DE UN CLIENTE
+CRUD de la reservación de un servicio por parte de un cliente. Un servicio se puede reservar siempre y
+cuando haya disponibilidad. Estas operaciones son realizadas por un cliente. Cada servicio registrado está
+asociado a una habitación y tiene descripción y costo (que ya están establecidos al escoger el servicio a
+registrar) y una fecha (que es escogida por el usuario).
+RF9 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR LA LLEGADA DE UN CLIENTE AL HOTEL
+CRUD de la llegada de un cliente al hotel. Al registrar la llegada, se debe tener en cuenta que está
+correspondiente a una reserva ya registrada. Estas operaciones son realizadas por un recepcionista del
+hotel.
+RF10 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR UN CONSUMO DE UN SERVICIO DEL HOTEL POR PARTE DE
+UN CLIENTE O SUS ACOMPAÑANTES
+CRUD del registro un consumo de un servicio por parte de un cliente o sus acompañantes. Estas
+operaciones son realizadas por un empleado del hotel. Cada consumo registrado está asociado a una
+habitación y tiene descripción y costo (que ya están establecidos al escoger el consumo a registrar) y una
+fecha (que es escogida por el usuario).
+RF11 - REGISTRAR / ACTUALIZAR / BORRAR / CONSULTAR LA SALIDA DE UN CLIENTE
+CRUD del registro de la salida de un cliente al hotel, con todo lo que eso implica. Estas operaciones son
+realizadas por un recepcionista del hotel.

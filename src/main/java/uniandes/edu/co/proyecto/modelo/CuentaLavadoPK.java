@@ -26,6 +26,7 @@ public class CuentaLavadoPK implements Serializable {
         this.lavado = lavado;
     }
 
+    
     public CuentaTotal getCuentaTotal() {
         return cuentaTotal;
     }

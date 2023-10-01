@@ -22,6 +22,10 @@ public class CuentaGimnasioPK implements Serializable {
         this.gimnasio = gimnasio;
     }
 
+    public CuentaGimnasioPK() {
+        super();
+    }
+
     public CuentaTotal getCuentaTotal() {
         return cuentaTotal;
     }

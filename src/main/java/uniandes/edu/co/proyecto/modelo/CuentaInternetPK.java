@@ -22,6 +22,9 @@ public class CuentaInternetPK implements Serializable {
         this.internet = internet;
     }
 
+    public CuentaInternetPK() {
+        super();
+    }
     public CuentaTotal getCuentaTotal() {
         return cuentaTotal;
     }
