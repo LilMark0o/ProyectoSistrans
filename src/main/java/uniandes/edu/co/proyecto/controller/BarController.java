@@ -33,8 +33,7 @@ public class BarController {
     @PostMapping
     public ResponseEntity<Bar> crearBar(@RequestBody Bar bar) {
         barRepository.insertarBar(bar.getId(), bar.getEstilo(), bar.getCapacidad());
-        return ResponseEntity.ok(bar); // Aquí, podrías querer devolver el objeto completo con el ID asignado, pero por
-                                       // simplicidad, estamos devolviendo el objeto proporcionado.
+        return ResponseEntity.ok(bar); 
     }
 
     @PutMapping("/{id}")

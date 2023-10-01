@@ -18,7 +18,7 @@ public interface InternetRepository extends JpaRepository<Internet, Integer> {
 
         @Modifying
         @Transactional
-        @Query(value = "INSERT INTO internet (id, capacidad, precio, secobra, hotel_id) VALUES (:id, :capacidad, :precio, :secobra, :hotel_id)", nativeQuery = true)
+        @Query(value = "INSERT INTO internet (id, capacidad, precio, secobra, hotel_id) VALUES (:id, :capacidad, :precio, :hotel_id, :secobra)", nativeQuery = true)
         void insertarInternet(@Param("id") Integer id, @Param("capacidad") Float capacidad,
                         @Param("precio") Float precio,
                         @Param("secobra") int secobra, @Param("hotel_id") Integer hotel_id);
