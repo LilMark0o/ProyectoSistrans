@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Tienda;
 
-public interface TiendaRepository extends JpaRepository<Tienda, Integer>{
+public interface TiendaRepository extends JpaRepository<Tienda, Integer> {
 
     @Query(value = "SELECT * FROM tienda", nativeQuery = true)
     Collection<Tienda> darTiendas();
@@ -16,10 +16,9 @@ public interface TiendaRepository extends JpaRepository<Tienda, Integer>{
     @Query(value = "SELECT * FROM tienda WHERE id = :id", nativeQuery = true)
     Tienda darTiendaPorId(@Param("id") int id);
 
-
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO tienda (id, hotel_id) VALUES (:nombre, :hotel_id)", nativeQuery = true)
+    @Query(value = "INSERT INTO tienda (id, hotel_id) VALUES (:id, :hotel_id)", nativeQuery = true)
     void insertarTienda(@Param("id") int id, @Param("hotel_id") Integer hotel_id);
 
     @Modifying
