@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
-@Table(name = "usuario") // Ajusta el esquema y el nombre de la tabla
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +20,9 @@ public class Usuario {
     private String nombre;
     private String username;
     private String password;
-    private String tipousuario;
+
+    @Enumerated(EnumType.STRING)  
+    private TipoUsuario tipousuario;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
@@ -28,7 +32,7 @@ public class Usuario {
         // Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Usuario(String nombre, String username, String password, String tipousuario, Hotel hotel) {
+    public Usuario(String nombre, String username, String password, TipoUsuario tipousuario, Hotel hotel) {
         this.nombre = nombre;
         this.username = username;
         this.password = password;
@@ -68,11 +72,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getTipousuario() {
+    public TipoUsuario getTipousuario() {
         return tipousuario;
     }
 
-    public void setTipousuario(String tipousuario) {
+    public void setTipousuario(TipoUsuario tipousuario) {
         this.tipousuario = tipousuario;
     }
 
