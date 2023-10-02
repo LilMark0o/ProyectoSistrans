@@ -1,72 +1,72 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.Habitacion;
 import uniandes.edu.co.proyecto.repositorio.HabitacionRepository;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/habitaciones")
+@Controller
+@RequestMapping("/habitaciones")
 public class HabitacionController {
 
     @Autowired
     private HabitacionRepository habitacionRepository;
 
-    // Crear una nueva habitación
-    @PostMapping("/")
-    public Habitacion crearHabitacion(@RequestBody Habitacion habitacion) {
-        return habitacionRepository.save(habitacion);
+    // Mostrar la lista de habitaciones
+    @GetMapping
+    public String listaHabitaciones(Model model) {
+        List<Habitacion> habitaciones = (List<Habitacion>) habitacionRepository.darHabitaciones();
+        model.addAttribute("habitaciones", habitaciones);
+        return "habitaciones";
     }
 
-    // Consultar todas las habitaciones
-    @GetMapping("/")
-    public List<Habitacion> consultarHabitaciones() {
-        return (List<Habitacion>) habitacionRepository.darHabitaciones();
+    // Mostrar el formulario para añadir una nueva habitación
+    @GetMapping("/new")
+    public String nuevaHabitacionForm(Model model) {
+        model.addAttribute("habitacion", new Habitacion());
+        return "habitacionNuevo";
     }
 
-    // Consultar una habitación por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Habitacion> consultarHabitacionPorId(@PathVariable(value = "id") Integer habitacionId) {
-        Habitacion habitacion = habitacionRepository.darHabitacionPorId(habitacionId);
-        if (habitacion != null) {
-            return ResponseEntity.ok(habitacion);
+    // Guardar nueva habitación
+    @PostMapping("/new")
+    public String guardarHabitacion(@ModelAttribute Habitacion habitacion) {
+        habitacionRepository.save(habitacion);
+        return "redirect:/habitaciones";
+    }
+
+    // Mostrar el formulario para editar una habitación
+    @GetMapping("/{id}/edit")
+    public String editarHabitacionForm(@PathVariable Integer id, Model model) {
+        Habitacion habitacion = habitacionRepository.darHabitacionPorId(id);
+        if (habitacion == null) {
+            return "redirect:/habitaciones";
         }
-        return ResponseEntity.notFound().build();
+        model.addAttribute("habitacion", habitacion);
+        return "habitacionEditar";
     }
 
-    // Consultar habitaciones por tipo
-    @GetMapping("/tipo/{tipoHabitacion}")
-    public List<Habitacion> consultarHabitacionesPorTipo(@PathVariable String tipoHabitacion) {
-        return (List<Habitacion>) habitacionRepository.darHabitacionesPorTipo(tipoHabitacion);
-    }
-
-    // Actualizar una habitación
-    @PutMapping("/{id}")
-    public ResponseEntity<Habitacion> actualizarHabitacion(@PathVariable(value = "id") Integer habitacionId,
-            @RequestBody Habitacion habitacionDetalles) {
-        Habitacion habitacion = habitacionRepository.darHabitacionPorId(habitacionId);
-        if (habitacion != null) {
-            habitacion.setCapacidad(habitacionDetalles.getCapacidad());
-            habitacion.setCostonoche(habitacionDetalles.getCostonoche());
-            habitacion.setTipohabitacion(habitacionDetalles.getTipohabitacion());
-            habitacion.setHotel(habitacionDetalles.getHotel());
-            Habitacion habitacionActualizada = habitacionRepository.save(habitacion);
-            return ResponseEntity.ok(habitacionActualizada);
+    // Actualizar habitación
+    @PostMapping("/{id}/edit")
+    public String actualizarHabitacion(@PathVariable Integer id, @ModelAttribute Habitacion habitacion) {
+        Habitacion habitacionExistente = habitacionRepository.darHabitacionPorId(id);
+        if (habitacionExistente != null) {
+            habitacionExistente.setCapacidad(habitacion.getCapacidad());
+            habitacionExistente.setCostonoche(habitacion.getCostonoche());
+            habitacionExistente.setTipohabitacion(habitacion.getTipohabitacion());
+            habitacionExistente.setHotel(habitacion.getHotel());
+            habitacionRepository.save(habitacionExistente);
         }
-        return ResponseEntity.notFound().build();
+        return "redirect:/habitaciones";
     }
 
     // Borrar una habitación
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity<Void> borrarHabitacion(@PathVariable(value = "id") Integer habitacionId) {
-        Habitacion habitacion = habitacionRepository.darHabitacionPorId(habitacionId);
-        if (habitacion != null) {
-            habitacionRepository.delete(habitacion);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/{id}/delete")
+    public String borrarHabitacion(@PathVariable Integer id) {
+        habitacionRepository.deleteById(id);
+        return "redirect:/habitaciones";
     }
 }
