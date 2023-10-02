@@ -29,7 +29,7 @@ public class UsuarioController {
     public String bebidaForm(Model model) {
         model.addAttribute("usuarios", new Usuario());
         model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
-        return "bebidaNuevo";
+        return "usuariosNuevo";
     }
 
     @PostMapping("/usuarios/new/save")
