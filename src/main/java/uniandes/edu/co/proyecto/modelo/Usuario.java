@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -11,6 +12,9 @@ import jakarta.persistence.Table;
 public class Usuario {
     @Id
     private Integer id;
+
+    @Column(name = "tipodedocumento")
+    private String tipodedocumento;
 
     private String nombre;
     private String username;
@@ -26,10 +30,12 @@ public class Usuario {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Usuario(String nombre, String username, String password, String tipousuario, Hotel hotel) {
+    public Usuario(String nombre, String username, String password, String tipodedocumento, String tipousuario,
+            Hotel hotel) {
         this.nombre = nombre;
         this.username = username;
         this.password = password;
+        this.tipodedocumento = tipodedocumento;
         this.tipousuario = tipousuario;
         this.hotel = hotel;
     }
@@ -72,6 +78,14 @@ public class Usuario {
 
     public void setTipousuario(String tipousuario) {
         this.tipousuario = tipousuario;
+    }
+
+    public String getTipodedocumento() {
+        return tipodedocumento;
+    }
+
+    public void setTipodedocumento(String tipodedocumento) {
+        this.tipodedocumento = tipodedocumento;
     }
 
     public Hotel getHotel() {
