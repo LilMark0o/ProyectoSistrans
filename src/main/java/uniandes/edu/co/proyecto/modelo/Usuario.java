@@ -13,14 +13,14 @@ public class Usuario {
     @Id
     private Integer id;
 
-    @Column(name = "tipodedocumento")
-    private String tipodedocumento;
-
+    
     private String nombre;
     private String username;
     private String password;
-
+    
     private String tipousuario;
+    @Column(name = "tipodedocumento")
+    private String tipodedocumento;
 
     public Usuario() {
         ;// Constructor vacío requerido por Jakarta Persistence
@@ -30,8 +30,8 @@ public class Usuario {
         this.nombre = nombre;
         this.username = username;
         this.password = password;
-        this.tipodedocumento = tipodedocumento;
         this.tipousuario = tipousuario;
+        this.tipodedocumento = tipodedocumento;
     }
 
     public Integer getId() {

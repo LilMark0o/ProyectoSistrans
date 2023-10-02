@@ -25,7 +25,7 @@ public class HabitacionController {
     }
 
     // Mostrar el formulario para añadir una nueva habitación
-    @GetMapping("/habitacionNuevo")
+    @GetMapping("/new")
     public String nuevaHabitacionForm(Model model) {
         model.addAttribute("habitacion", new Habitacion());
         return "habitacionNuevo";

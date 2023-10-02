@@ -52,9 +52,13 @@ public class UsuarioController {
 
     @GetMapping("/usuarios/{id}/edit")
     public String usuariosEditarForm(@PathVariable("id") Integer id, Model model) {
-        // usuariosRepository.eliminarUsuario(id);
-        model.addAttribute("usuarios", new Usuario());
+        Usuario usuario = usuariosRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            return "redirect:/usuarios";
+        }
+        model.addAttribute("usuario", usuario);
         model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
-        return "usuariosNuevo";
+        return "usuarioEditar";
     }
+    
 }
