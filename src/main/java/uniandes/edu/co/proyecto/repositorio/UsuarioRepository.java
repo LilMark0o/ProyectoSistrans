@@ -13,6 +13,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
         @Query(value = "SELECT * FROM usuario", nativeQuery = true)
         Collection<Usuario> darUsuarios();
 
+        @Query(value = "SELECT DISTINCT tipoUsuario FROM usuario;", nativeQuery = true)
+        Collection<Usuario> darTipoUsuario();
+
         @Query(value = "SELECT * FROM usuario WHERE id = :id", nativeQuery = true)
         Usuario darUsuarioPorId(@Param("id") int id);
 
@@ -27,21 +30,19 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
         @Modifying
         @Transactional
-        @Query(value = "INSERT INTO usuario (id, tipodedocumento, nombre, username, password, tipousuario, hotel_id) VALUES (:id, :tipodedocumento,:nombre, :username, :password, :tipousuario, :hotel_id)", nativeQuery = true)
+        @Query(value = "INSERT INTO usuario (id, tipodedocumento, nombre, username, password, tipousuario) VALUES (:id, :tipodedocumento,:nombre, :username, :password, :tipousuario)", nativeQuery = true)
         void insertarUsuario(@Param("id") Integer id, @Param("nombre") String nombre,
                         @Param("username") String username,
                         @Param("password") String password, @Param("tipousuario") String tipousuario,
-                        @Param("tipodedocumento") String tipodedocumento,
-                        @Param("hotel_id") Integer hotel_id);
+                        @Param("tipodedocumento") String tipodedocumento);
 
         @Modifying
         @Transactional
-        @Query(value = "UPDATE usuario SET tipodedocumento = :tipodedocumento, nombre = :nombre, username = :username, password = :password, tipousuario = :tipousuario, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
+        @Query(value = "UPDATE usuario SET tipodedocumento = :tipodedocumento, nombre = :nombre, username = :username, password = :password, tipousuario = :tipousuario WHERE id = :id", nativeQuery = true)
         void actualizarUsuario(@Param("id") Integer id, @Param("nombre") String nombre,
                         @Param("username") String username,
                         @Param("password") String password, @Param("tipousuario") String tipousuario,
-                        @Param("tipodedocumento") String tipodedocumento,
-                        @Param("hotel_id") Integer hotel_id);
+                        @Param("tipodedocumento") String tipodedocumento);
 
         @Modifying
         @Transactional

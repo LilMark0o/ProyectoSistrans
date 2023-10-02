@@ -1,67 +1,60 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import uniandes.edu.co.proyecto.modelo.Usuario;
-import uniandes.edu.co.proyecto.repositorio.UsuarioRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import uniandes.edu.co.proyecto.modelo.*;
+import uniandes.edu.co.proyecto.repositorio.*;
 
-@RestController
-@RequestMapping("/api/usuarios")
+import java.util.Collection;
+
+@Controller
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuariosRepository;
 
-    @PostMapping("/")
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    @GetMapping("/usuarios")
+    public String usuarios(Model model) {
+        model.addAttribute("usuarios", usuariosRepository.darUsuarios());
+        return "usuarios";
     }
 
-    @GetMapping("/")
-    public List<Usuario> consultarUsuarios() {
-        return (List<Usuario>) usuarioRepository.darUsuarios();
+    @GetMapping("/usuarios/new")
+    public String bebidaForm(Model model) {
+        model.addAttribute("usuarios", new Usuario());
+        model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
+        return "bebidaNuevo";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> consultarUsuarioPorId(@PathVariable(value = "id") Integer usuarioId) {
-        Usuario usuario = usuarioRepository.darUsuarioPorId(usuarioId);
-        if (usuario != null) {
-            return ResponseEntity.ok(usuario);
-        }
-        return ResponseEntity.notFound().build();
+    @PostMapping("/usuarios/new/save")
+    public String usuariosGuardar(@ModelAttribute("tipodedocumento") String tipodedocumento,
+            @ModelAttribute("id") Integer id, @ModelAttribute("nombre") String nombre,
+            @ModelAttribute("username") String username, @ModelAttribute("password") String password,
+            @ModelAttribute("tipousuario") String tipousuario) {
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setTipodedocumento(tipodedocumento);
+        usuario.setTipousuario(tipousuario);
+        usuariosRepository.insertarUsuario(usuario.getId(),
+                usuario.getNombre(),
+                usuario.getUsername(),
+                usuario.getPassword(),
+                usuario.getTipousuario(),
+                usuario.getTipodedocumento());
+        return "redirect:/usuarios";
     }
 
-    @GetMapping("/tipo/{tipoUsuario}")
-    public List<Usuario> consultarUsuariosPorTipo(@PathVariable String tipoUsuario) {
-        return (List<Usuario>) usuarioRepository.darUsuariosPorTipo(tipoUsuario);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable(value = "id") Integer usuarioId,
-            @RequestBody Usuario usuarioDetalles) {
-        Usuario usuario = usuarioRepository.darUsuarioPorId(usuarioId);
-        if (usuario != null) {
-            usuario.setNombre(usuarioDetalles.getNombre());
-            usuario.setUsername(usuarioDetalles.getUsername());
-            usuario.setPassword(usuarioDetalles.getPassword());
-            usuario.setTipousuario(usuarioDetalles.getTipousuario());
-            usuario.setHotel(usuarioDetalles.getHotel());
-            Usuario usuarioActualizado = usuarioRepository.save(usuario);
-            return ResponseEntity.ok(usuarioActualizado);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{id}/delete")
-    public ResponseEntity<Void> borrarUsuario(@PathVariable(value = "id") Integer usuarioId) {
-        Usuario usuario = usuarioRepository.darUsuarioPorId(usuarioId);
-        if (usuario != null) {
-            usuarioRepository.delete(usuario);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/usuarios/{id}/edit")
+    public String usuariosEditarForm(@PathVariable("id") Integer id, Model model) {
+        // usuariosRepository.eliminarUsuario(id);
+        model.addAttribute("usuarios", new Usuario());
+        model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
+        return "usuariosNuevo";
     }
 }

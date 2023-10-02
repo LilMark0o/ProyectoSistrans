@@ -12,17 +12,12 @@
     <div class="text-center">
         <h1>Lista de Usuarios</h1>
 
-        <p>Hay <span th:text="${bebedoresGustanBebidasMayorGrado}"></span> bebedores que
-            gustan de bebidas con el mayor grado de alcohol</p>
-        <p>Hay <span th:text="${bebedoresGustanBebidasMayorGrado}"></span> bebedores que
-            gustan de bebidas con el menor grado de alcohol</p>
-
         <br />
-        <form th:action="@{bebedores}" method="get">
+        <form th:action="@{usuarios}" method="get">
             <div class="input-group input-group-sm mb-2 justify-content-center">
-                <input class='w-25' id="txtSearch" type="text" name="nombre">
+                <input class='w-25' id="txtSearch" type="text" name="id">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary">Buscar por nombre</button>
+                    <button type="submit" class="btn btn-secondary">Buscar por id</button>
                 </div>
             </div>
         </form>
@@ -32,23 +27,26 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
+                    <th>Tipo de documento</th>
                     <th>Nombre</th>
-                    <th>Ciudad</th>
-                    <th>Presupuesto</th>
-                    <th>Acciones</th>
+                    <th>Username</th>
+                    <th>Contraseña</th>
+                    <th>Tipo de usuario</th>
                 </tr>
             </thead>
             <tbody>
-                <th:block th:each="bebedor : ${bebedores}">
+                <th:block th:each="usuario : ${usuarios}">
                     <tr>
-                        <td th:text="${bebedor.id}"></td>
-                        <td th:text="${bebedor.nombre}"></td>
-                        <td th:text="${bebedor.ciudad}"></td>
-                        <td th:text="${bebedor.presupuesto}"></td>
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.tipodedocumento}"></td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.username}"></td>
+                        <td th:text="${usuario.password}"></td>
+                        <td th:text="${usuario.tipousuario}"></td>
                         <td>
-                            <a th:href="@{bebedores/{id}/edit(id=${bebedor.id})}">Editar</a>
-                            <a th:href="@{bebedores/{id}/delete(id=${bebedor.id})}"
-                                onclick="return confirm('¿Estás seguro de borrar este bebedor?')">Borrar</a>
+                            <a th:href="@{usuarios/{id}/edit(id=${usuario.id})}">Editar</a>
+                            <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}"
+                                onclick="return confirm('¿Estás seguro de borrar este usuario?')">Borrar</a>
                         </td>
                     </tr>
 
@@ -56,9 +54,8 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a th:href='@{bebedores/new}' class="btn btn-primary">Añadir Bebedor</a>
-            <a th:href="@{frecuentan/new}" class="btn btn-primary">Añadir Visita a Bar</a>
-            <a th:href="@{/}" class="btn btn-primary"> Volver Atrás</a>
+            <a th:href='@{/usuariosnew}' class="btn btn-primary">Añadir usuario</a>
+            <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
             </br>
         </div>
         <br />

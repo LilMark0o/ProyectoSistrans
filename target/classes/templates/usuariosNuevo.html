@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crear usuarios</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+
+</head>
+
+<body>
+    </br>
+    <form action="#" th:action="@{/usuarios/new/save}" method="post">
+        <div th:replace="~{fragments/usuarioForm :: usuariosForm(titulo='Crear usuarios')}">
+    </form>
+    </div>
+
+</body>
+
+</html>

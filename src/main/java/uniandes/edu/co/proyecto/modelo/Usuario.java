@@ -22,22 +22,16 @@ public class Usuario {
 
     private String tipousuario;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
     public Usuario() {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Usuario(String nombre, String username, String password, String tipodedocumento, String tipousuario,
-            Hotel hotel) {
+    public Usuario(String nombre, String username, String password, String tipodedocumento, String tipousuario) {
         this.nombre = nombre;
         this.username = username;
         this.password = password;
         this.tipodedocumento = tipodedocumento;
         this.tipousuario = tipousuario;
-        this.hotel = hotel;
     }
 
     public Integer getId() {
@@ -88,22 +82,13 @@ public class Usuario {
         this.tipodedocumento = tipodedocumento;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", username='" + username + '\'' +
-                ", tipousuario='" + tipousuario + '\'' +
-                ", hotel=" + hotel +
+                ", tipousuario='" + tipousuario +
                 '}';
     }
 }
