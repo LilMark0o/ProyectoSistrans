@@ -10,7 +10,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "prestamo") // Ajusta el nombre de la tabla si es necesario
 public class Prestamo {
-    @Id
+    @Id // TODO PONER COMO TOCA XD
+
     private Integer id;
 
     @Column(name = "devuelto")

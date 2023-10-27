@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "internet") // Ajusta el nombre de la tabla si es necesario
 public class Internet {
+    // TODO PONER COMO TOCA XD
+
     @Id
     private Integer id;
 

@@ -9,7 +9,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "restaurante") // Ajusta el nombre de la tabla si es necesario
 public class Restaurante {
-    @Id
+    @Id // TODO PONER COMO TOCA XD
+
     private Integer id;
 
     @ManyToOne

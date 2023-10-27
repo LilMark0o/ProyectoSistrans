@@ -10,7 +10,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "piscina")
 public class Piscina {
-    @Id
+    @Id // TODO PONER COMO TOCA XD
+
     private Integer id;
 
     private Float profundidad;

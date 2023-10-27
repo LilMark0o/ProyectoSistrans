@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "producto") // Ajusta el nombre de la tabla si es necesario
 public class Producto {
     @Id
+
     private Integer id;
 
     private String nombre;

@@ -10,14 +10,14 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    @Id
+    @Id // TODO PONER COMO TOCA XD
+
     private Integer id;
 
-    
     private String nombre;
     private String username;
     private String password;
-    
+
     private String tipousuario;
     @Column(name = "tipodedocumento")
     private String tipodedocumento;

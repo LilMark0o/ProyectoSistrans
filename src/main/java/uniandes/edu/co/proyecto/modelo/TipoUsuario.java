@@ -7,3 +7,4 @@ public enum TipoUsuario {
     ADMINISTRADOR,
     GERENTE
 }
+// TODO PONER COMO TOCA RIGUROSO
