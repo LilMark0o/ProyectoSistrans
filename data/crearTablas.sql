@@ -1,7 +1,7 @@
 -- Generado por Oracle SQL Developer Data Modeler 23.1.0.087.0806
---   en:        2023-10-01 22:40:20 COT
---   sitio:      Oracle Database 12c
---   tipo:      Oracle Database 12c
+--   en:        2023-10-27 13:41:19 COT
+--   sitio:      Oracle Database 11g
+--   tipo:      Oracle Database 11g
 
 
 
@@ -18,160 +18,91 @@ CREATE TABLE acompanante (
 ALTER TABLE acompanante ADD CONSTRAINT acompanante_pk PRIMARY KEY ( id );
 
 CREATE TABLE bar (
-    id        INTEGER NOT NULL,
-    estilo    VARCHAR2(4000),
-    capacidad INTEGER,
-    hotel_id  INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL,
+    estilo      VARCHAR2(4000),
+    capacidad   INTEGER
 );
 
-ALTER TABLE bar ADD CONSTRAINT bar_pk PRIMARY KEY ( id );
+ALTER TABLE bar ADD CONSTRAINT bar_pk PRIMARY KEY ( servicio_id );
 
-CREATE TABLE cuentagimnasio (
-    cuentatotal_id INTEGER NOT NULL,
-    gimnasio_id    INTEGER NOT NULL
+CREATE TABLE cuentaservicio (
+    id            INTEGER NOT NULL,
+    fecha         DATE,
+    tiposervicio  VARCHAR2(4000) NOT NULL,
+    servicio_id   INTEGER NOT NULL,
+    habitacion_id INTEGER NOT NULL
 );
 
-ALTER TABLE cuentagimnasio ADD CONSTRAINT relation_44_pk PRIMARY KEY ( cuentatotal_id,
-                                                                       gimnasio_id );
-
-CREATE TABLE cuentainternet (
-    internet_id    INTEGER NOT NULL,
-    cuentatotal_id INTEGER NOT NULL
-);
-
-ALTER TABLE cuentainternet ADD CONSTRAINT relation_49_pk PRIMARY KEY ( internet_id,
-                                                                       cuentatotal_id );
-
-CREATE TABLE cuentalavado (
-    cuentatotal_id INTEGER NOT NULL,
-    lavado_id      INTEGER NOT NULL
-);
-
-ALTER TABLE cuentalavado ADD CONSTRAINT relation_41_pk PRIMARY KEY ( cuentatotal_id,
-                                                                     lavado_id );
-
-CREATE TABLE cuentapiscina (
-    piscina_id     INTEGER NOT NULL,
-    cuentatotal_id INTEGER NOT NULL
-);
-
-ALTER TABLE cuentapiscina ADD CONSTRAINT relation_39_pk PRIMARY KEY ( piscina_id,
-                                                                      cuentatotal_id );
-
-CREATE TABLE cuentaprestamo (
-    cuentatotal_id INTEGER NOT NULL,
-    prestamo_id    INTEGER NOT NULL
-);
-
-ALTER TABLE cuentaprestamo ADD CONSTRAINT relation_53_pk PRIMARY KEY ( cuentatotal_id,
-                                                                       prestamo_id );
-
-CREATE TABLE cuentaproducto (
-    cuentatotal_id INTEGER NOT NULL,
-    producto_id    INTEGER NOT NULL
-);
-
-ALTER TABLE cuentaproducto ADD CONSTRAINT relation_51_pk PRIMARY KEY ( cuentatotal_id,
-                                                                       producto_id );
-
-CREATE TABLE cuentaproductospa (
-    cuentatotal_id INTEGER NOT NULL,
-    productospa_id INTEGER NOT NULL
-);
-
-ALTER TABLE cuentaproductospa ADD CONSTRAINT relation_52_pk PRIMARY KEY ( cuentatotal_id,
-                                                                          productospa_id );
-
-CREATE TABLE cuentatotal (
-    id             INTEGER NOT NULL,
-    fecha          DATE,
-    tiposervicio   VARCHAR2(4000) NOT NULL,
-    piscina_id     INTEGER NOT NULL,
-    bar_id         INTEGER NOT NULL,
-    restaurante_id INTEGER NOT NULL,
-    tienda_id      INTEGER NOT NULL,
-    spa_id         INTEGER NOT NULL,
-    gimnasio_id    INTEGER NOT NULL,
-    lavado_id      INTEGER NOT NULL,
-    internet_id    INTEGER NOT NULL,
-    habitacion_id  INTEGER NOT NULL
-);
-
-ALTER TABLE cuentatotal ADD CONSTRAINT cuentatotal_pk PRIMARY KEY ( id );
+ALTER TABLE cuentaservicio ADD CONSTRAINT cuentaservicio_pk PRIMARY KEY ( id );
 
 CREATE TABLE dotacion (
     id            INTEGER NOT NULL,
     nombre        VARCHAR2(4000),
     costo         FLOAT,
-    cobro         NUMBER,
+    cobro         CHAR(1),
     habitacion_id INTEGER NOT NULL
 );
 
 ALTER TABLE dotacion ADD CONSTRAINT dotacion_pk PRIMARY KEY ( id );
 
 CREATE TABLE gimnasio (
-    id         INTEGER NOT NULL,
-    horainicio INTEGER,
-    horafin    INTEGER,
-    secobra    NUMBER,
-    hotel_id   INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL,
+    horainicio  INTEGER,
+    horafin     INTEGER,
+    secobra     CHAR(1)
 );
 
-ALTER TABLE gimnasio ADD CONSTRAINT gimnasio_pk PRIMARY KEY ( id );
+ALTER TABLE gimnasio ADD CONSTRAINT gimnasio_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE habitacion (
-    id             INTEGER NOT NULL,
-    capacidad      INTEGER,
-    costonoche     FLOAT,
-    tipohabitacion VARCHAR2(4000),
-    hotel_id       INTEGER NOT NULL
+    id                INTEGER NOT NULL,
+    capacidad         INTEGER,
+    costonoche        FLOAT,
+    tipohabitación_id INTEGER NOT NULL
 );
 
 ALTER TABLE habitacion ADD CONSTRAINT habitacion_pk PRIMARY KEY ( id );
 
 CREATE TABLE hotel (
-    id INTEGER NOT NULL
+    id     INTEGER NOT NULL,
+    nombre VARCHAR2(4000)
 );
 
 ALTER TABLE hotel ADD CONSTRAINT hotel_pk PRIMARY KEY ( id );
 
 CREATE TABLE internet (
-    id        INTEGER NOT NULL,
-    capacidad FLOAT,
-    precio    FLOAT,
-    secobra   NUMBER,
-    hotel_id  INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL,
+    capacidad   FLOAT,
+    precio      FLOAT
 );
 
-ALTER TABLE internet ADD CONSTRAINT internet_pk PRIMARY KEY ( id );
+ALTER TABLE internet ADD CONSTRAINT internet_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE lavado (
-    id             INTEGER NOT NULL,
+    servicio_id    INTEGER NOT NULL,
     precio         FLOAT,
-    cantidadalavar INTEGER,
-    hotel_id       INTEGER NOT NULL
+    cantidadalavar INTEGER
 );
 
-ALTER TABLE lavado ADD CONSTRAINT lavado_pk PRIMARY KEY ( id );
+ALTER TABLE lavado ADD CONSTRAINT lavado_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE maquina (
-    id          INTEGER NOT NULL,
-    nombre      VARCHAR2(4000),
-    gimnasio_id INTEGER NOT NULL
+    id                   INTEGER NOT NULL,
+    nombre               VARCHAR2(4000),
+    gimnasio_servicio_id INTEGER NOT NULL
 );
 
 ALTER TABLE maquina ADD CONSTRAINT maquina_pk PRIMARY KEY ( id );
 
 CREATE TABLE piscina (
-    id          INTEGER NOT NULL,
+    servicio_id INTEGER NOT NULL,
     profundidad FLOAT,
     horainicio  INTEGER,
     horafin     INTEGER,
-    secobra     NUMBER,
-    hotel_id    INTEGER NOT NULL
+    secobra     CHAR(1)
 );
 
-ALTER TABLE piscina ADD CONSTRAINT piscina_pk PRIMARY KEY ( id );
+ALTER TABLE piscina ADD CONSTRAINT piscina_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE planconsumo (
     id          INTEGER NOT NULL,
@@ -183,36 +114,27 @@ CREATE TABLE planconsumo (
 ALTER TABLE planconsumo ADD CONSTRAINT planconsumo_pk PRIMARY KEY ( id );
 
 CREATE TABLE prestamo (
-    id             INTEGER NOT NULL,
-    devuelto       NUMBER,
-    cuentatotal_id INTEGER NOT NULL,
-    hotel_id       INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL,
+    devuelto    CHAR(1)
 );
 
-CREATE UNIQUE INDEX prestamo__idx ON
-    prestamo (
-        cuentatotal_id
-    ASC );
-
-ALTER TABLE prestamo ADD CONSTRAINT prestamo_pk PRIMARY KEY ( id );
+ALTER TABLE prestamo ADD CONSTRAINT prestamo_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE producto (
-    id             INTEGER NOT NULL,
-    precio         FLOAT,
-    nombre         VARCHAR2(4000),
-    restaurante_id INTEGER NOT NULL,
-    tienda_id      INTEGER NOT NULL,
-    bar_id         INTEGER NOT NULL
+    id                      INTEGER NOT NULL,
+    precio                  FLOAT,
+    nombre                  VARCHAR2(4000),
+    bar_servicio_id         INTEGER NOT NULL,
+    restaurante_servicio_id INTEGER NOT NULL,
+    tienda_servicio_id      INTEGER NOT NULL
 );
 
 ALTER TABLE producto ADD CONSTRAINT producto_pk PRIMARY KEY ( id );
 
 CREATE TABLE productospa (
-    id       INTEGER NOT NULL,
-    nombre   VARCHAR2(4000) NOT NULL,
-    duracion INTEGER,
-    precio   FLOAT,
-    spa_id   INTEGER NOT NULL
+    id              INTEGER NOT NULL,
+    duracion        INTEGER,
+    spa_servicio_id INTEGER NOT NULL
 );
 
 ALTER TABLE productospa ADD CONSTRAINT productospa_pk PRIMARY KEY ( id );
@@ -228,80 +150,94 @@ CREATE TABLE reserva (
 ALTER TABLE reserva ADD CONSTRAINT reserva_pk PRIMARY KEY ( id );
 
 CREATE TABLE reservasalon (
-    id           INTEGER NOT NULL,
-    fecha        DATE,
-    tiempoespera INTEGER,
-    salon_id     INTEGER NOT NULL
+    id               INTEGER NOT NULL,
+    fecha            DATE,
+    tiempoespera     INTEGER,
+    salon_service_id INTEGER NOT NULL
 );
 
 ALTER TABLE reservasalon ADD CONSTRAINT reservasalon_pk PRIMARY KEY ( id );
 
 CREATE TABLE reservaspa (
-    id     INTEGER NOT NULL,
-    fecha  DATE,
-    hora   INTEGER,
-    spa_id INTEGER NOT NULL
+    id              INTEGER NOT NULL,
+    fecha           DATE,
+    hora            INTEGER,
+    spa_servicio_id INTEGER NOT NULL
 );
 
 ALTER TABLE reservaspa ADD CONSTRAINT reservaspa_pk PRIMARY KEY ( id );
 
 CREATE TABLE restaurante (
-    id       INTEGER NOT NULL,
-    hotel_id INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL
 );
 
-ALTER TABLE restaurante ADD CONSTRAINT restaurante_pk PRIMARY KEY ( id );
+ALTER TABLE restaurante ADD CONSTRAINT restaurante_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE salon (
-    id                  INTEGER NOT NULL,
+    service_id          INTEGER NOT NULL,
     capacidad           INTEGER,
     tiposalon           VARCHAR2(4000),
     horasuso            INTEGER,
-    equipocomputacion   NUMBER,
-    equipoproyeccion    NUMBER,
-    equipoamplificacion NUMBER,
-    hotel_id            INTEGER NOT NULL
+    equipocomputacion   CHAR(1),
+    equipoproyeccion    CHAR(1),
+    equipoamplificacion CHAR(1),
+    servicio_id         INTEGER NOT NULL
 );
 
-ALTER TABLE salon ADD CONSTRAINT salon_pk PRIMARY KEY ( id );
+ALTER TABLE salon ADD CONSTRAINT salon_pk PRIMARY KEY ( service_id );
+
+CREATE TABLE servicio (
+    id       INTEGER NOT NULL,
+    nombre   VARCHAR2(4000),
+    secobra  INTEGER,
+    hotel_id INTEGER NOT NULL
+);
+
+ALTER TABLE servicio ADD CONSTRAINT servicio_pk PRIMARY KEY ( id );
 
 CREATE TABLE spa (
-    id       INTEGER NOT NULL,
-    hotel_id INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL
 );
 
-ALTER TABLE spa ADD CONSTRAINT spa_pk PRIMARY KEY ( id );
+ALTER TABLE spa ADD CONSTRAINT spa_pk PRIMARY KEY ( servicio_id );
 
 CREATE TABLE tienda (
-    id       INTEGER NOT NULL,
-    hotel_id INTEGER NOT NULL
+    servicio_id INTEGER NOT NULL
 );
 
-ALTER TABLE tienda ADD CONSTRAINT tienda_pk PRIMARY KEY ( id );
+ALTER TABLE tienda ADD CONSTRAINT tienda_pk PRIMARY KEY ( servicio_id );
+
+CREATE TABLE tipohabitacion (
+    id         INTEGER NOT NULL,
+    costonoche FLOAT,
+    capacidad  INTEGER,
+    nombre     VARCHAR2(4000)
+);
+
+ALTER TABLE tipohabitacion ADD CONSTRAINT tipohabitación_pk PRIMARY KEY ( id );
+
+CREATE TABLE tipousuario (
+    nombre VARCHAR2(4000) NOT NULL
+);
+
+ALTER TABLE tipousuario ADD CONSTRAINT tipousuario_pk PRIMARY KEY ( nombre );
 
 CREATE TABLE usuario (
-    id              INTEGER NOT NULL,
-    nombre          VARCHAR2(4000) NOT NULL,
-    username        VARCHAR2(4000) NOT NULL,
-    password        VARCHAR2(4000) NOT NULL,
-    tipousuario     VARCHAR2(4000) NOT NULL,
-    hotel_id        INTEGER NOT NULL,
-    tipodedocumento VARCHAR2(4000)
+    id                 INTEGER NOT NULL,
+    nombre             VARCHAR2(4000) NOT NULL,
+    username           VARCHAR2(4000) NOT NULL,
+    password           VARCHAR2(4000) NOT NULL,
+    tipousuario_nombre VARCHAR2(4000) NOT NULL
 );
 
 ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY ( id );
 
 CREATE TABLE utensilio (
-    id          INTEGER NOT NULL,
-    nombre      VARCHAR2(4000),
-    precio      FLOAT(2),
-    prestamo_id INTEGER NOT NULL
+    id                   INTEGER NOT NULL,
+    nombre               VARCHAR2(4000),
+    precio               FLOAT(2),
+    prestamo_servicio_id INTEGER NOT NULL
 );
-
-CREATE UNIQUE INDEX utensilio__idx ON
-    utensilio (
-        prestamo_id
-    ASC );
 
 ALTER TABLE utensilio ADD CONSTRAINT utensilio_pk PRIMARY KEY ( id );
 
@@ -309,157 +245,45 @@ ALTER TABLE acompanante
     ADD CONSTRAINT acompanante_usuario_fk FOREIGN KEY ( usuario_id )
         REFERENCES usuario ( id );
 
-ALTER TABLE bar
-    ADD CONSTRAINT bar_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_bar_fk FOREIGN KEY ( bar_id )
-        REFERENCES bar ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_gimnasio_fk FOREIGN KEY ( gimnasio_id )
-        REFERENCES gimnasio ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_habitacion_fk FOREIGN KEY ( habitacion_id )
+ALTER TABLE cuentaservicio
+    ADD CONSTRAINT cuentaservicio_habitacion_fk FOREIGN KEY ( habitacion_id )
         REFERENCES habitacion ( id );
 
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_internet_fk FOREIGN KEY ( internet_id )
-        REFERENCES internet ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_lavado_fk FOREIGN KEY ( lavado_id )
-        REFERENCES lavado ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_piscina_fk FOREIGN KEY ( piscina_id )
-        REFERENCES piscina ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_restaurante_fk FOREIGN KEY ( restaurante_id )
-        REFERENCES restaurante ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_spa_fk FOREIGN KEY ( spa_id )
-        REFERENCES spa ( id );
-
-ALTER TABLE cuentatotal
-    ADD CONSTRAINT cuentatotal_tienda_fk FOREIGN KEY ( tienda_id )
-        REFERENCES tienda ( id );
+ALTER TABLE cuentaservicio
+    ADD CONSTRAINT cuentaservicio_servicio_fk FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
 
 ALTER TABLE dotacion
     ADD CONSTRAINT dotacion_habitacion_fk FOREIGN KEY ( habitacion_id )
         REFERENCES habitacion ( id );
 
-ALTER TABLE gimnasio
-    ADD CONSTRAINT gimnasio_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
-
 ALTER TABLE habitacion
-    ADD CONSTRAINT habitacion_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
-
-ALTER TABLE internet
-    ADD CONSTRAINT internet_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
-
-ALTER TABLE lavado
-    ADD CONSTRAINT lavado_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+    ADD CONSTRAINT habitacion_tipohabitación_fk FOREIGN KEY ( tipohabitación_id )
+        REFERENCES tipohabitacion ( id );
 
 ALTER TABLE maquina
-    ADD CONSTRAINT maquina_gimnasio_fk FOREIGN KEY ( gimnasio_id )
-        REFERENCES gimnasio ( id );
-
-ALTER TABLE piscina
-    ADD CONSTRAINT piscina_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+    ADD CONSTRAINT maquina_gimnasio_fk FOREIGN KEY ( gimnasio_servicio_id )
+        REFERENCES gimnasio ( servicio_id );
 
 ALTER TABLE planconsumo
     ADD CONSTRAINT planconsumo_hotel_fk FOREIGN KEY ( hotel_id )
         REFERENCES hotel ( id );
 
-ALTER TABLE prestamo
-    ADD CONSTRAINT prestamo_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE prestamo
-    ADD CONSTRAINT prestamo_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+ALTER TABLE producto
+    ADD CONSTRAINT producto_bar_fk FOREIGN KEY ( bar_servicio_id )
+        REFERENCES bar ( servicio_id );
 
 ALTER TABLE producto
-    ADD CONSTRAINT producto_bar_fk FOREIGN KEY ( bar_id )
-        REFERENCES bar ( id );
+    ADD CONSTRAINT producto_restaurante_fk FOREIGN KEY ( restaurante_servicio_id )
+        REFERENCES restaurante ( servicio_id );
 
 ALTER TABLE producto
-    ADD CONSTRAINT producto_restaurante_fk FOREIGN KEY ( restaurante_id )
-        REFERENCES restaurante ( id );
-
-ALTER TABLE producto
-    ADD CONSTRAINT producto_tienda_fk FOREIGN KEY ( tienda_id )
-        REFERENCES tienda ( id );
+    ADD CONSTRAINT producto_tienda_fk FOREIGN KEY ( tienda_servicio_id )
+        REFERENCES tienda ( servicio_id );
 
 ALTER TABLE productospa
-    ADD CONSTRAINT productospa_spa_fk FOREIGN KEY ( spa_id )
-        REFERENCES spa ( id );
-
-ALTER TABLE cuentapiscina
-    ADD CONSTRAINT relation_39_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentapiscina
-    ADD CONSTRAINT relation_39_piscina_fk FOREIGN KEY ( piscina_id )
-        REFERENCES piscina ( id );
-
-ALTER TABLE cuentalavado
-    ADD CONSTRAINT relation_41_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentalavado
-    ADD CONSTRAINT relation_41_lavado_fk FOREIGN KEY ( lavado_id )
-        REFERENCES lavado ( id );
-
-ALTER TABLE cuentagimnasio
-    ADD CONSTRAINT relation_44_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentagimnasio
-    ADD CONSTRAINT relation_44_gimnasio_fk FOREIGN KEY ( gimnasio_id )
-        REFERENCES gimnasio ( id );
-
-ALTER TABLE cuentainternet
-    ADD CONSTRAINT relation_49_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentainternet
-    ADD CONSTRAINT relation_49_internet_fk FOREIGN KEY ( internet_id )
-        REFERENCES internet ( id );
-
-ALTER TABLE cuentaproducto
-    ADD CONSTRAINT relation_51_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentaproducto
-    ADD CONSTRAINT relation_51_producto_fk FOREIGN KEY ( producto_id )
-        REFERENCES producto ( id );
-
-ALTER TABLE cuentaproductospa
-    ADD CONSTRAINT relation_52_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentaproductospa
-    ADD CONSTRAINT relation_52_productospa_fk FOREIGN KEY ( productospa_id )
-        REFERENCES productospa ( id );
-
-ALTER TABLE cuentaprestamo
-    ADD CONSTRAINT relation_53_cuentatotal_fk FOREIGN KEY ( cuentatotal_id )
-        REFERENCES cuentatotal ( id );
-
-ALTER TABLE cuentaprestamo
-    ADD CONSTRAINT relation_53_prestamo_fk FOREIGN KEY ( prestamo_id )
-        REFERENCES prestamo ( id );
+    ADD CONSTRAINT productospa_spa_fk FOREIGN KEY ( spa_servicio_id )
+        REFERENCES spa ( servicio_id );
 
 ALTER TABLE reserva
     ADD CONSTRAINT reserva_habitacion_fk FOREIGN KEY ( habitacion_id )
@@ -470,44 +294,72 @@ ALTER TABLE reserva
         REFERENCES usuario ( id );
 
 ALTER TABLE reservasalon
-    ADD CONSTRAINT reservasalon_salon_fk FOREIGN KEY ( salon_id )
-        REFERENCES salon ( id );
+    ADD CONSTRAINT reservasalon_salon_fk FOREIGN KEY ( salon_service_id )
+        REFERENCES salon ( service_id );
 
 ALTER TABLE reservaspa
-    ADD CONSTRAINT reservaspa_spa_fk FOREIGN KEY ( spa_id )
-        REFERENCES spa ( id );
+    ADD CONSTRAINT reservaspa_spa_fk FOREIGN KEY ( spa_servicio_id )
+        REFERENCES spa ( servicio_id );
 
 ALTER TABLE restaurante
-    ADD CONSTRAINT restaurante_hotel_fk FOREIGN KEY ( hotel_id )
+    ADD CONSTRAINT restaurante_servicio_fk FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE servicio
+    ADD CONSTRAINT servicio_hotel_fk FOREIGN KEY ( hotel_id )
         REFERENCES hotel ( id );
 
-ALTER TABLE salon
-    ADD CONSTRAINT salon_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+ALTER TABLE lavado
+    ADD CONSTRAINT servicio_id FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
 
-ALTER TABLE spa
-    ADD CONSTRAINT spa_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+ALTER TABLE bar
+    ADD CONSTRAINT servicio_idv2 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
 
 ALTER TABLE tienda
-    ADD CONSTRAINT tienda_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+    ADD CONSTRAINT servicio_idv3 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE internet
+    ADD CONSTRAINT servicio_idv4 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE piscina
+    ADD CONSTRAINT servicio_idv5 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE salon
+    ADD CONSTRAINT servicio_idv6 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE gimnasio
+    ADD CONSTRAINT servicio_idv7 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE prestamo
+    ADD CONSTRAINT servicio_idv8 FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
+
+ALTER TABLE spa
+    ADD CONSTRAINT spa_servicio_fk FOREIGN KEY ( servicio_id )
+        REFERENCES servicio ( id );
 
 ALTER TABLE usuario
-    ADD CONSTRAINT usuario_hotel_fk FOREIGN KEY ( hotel_id )
-        REFERENCES hotel ( id );
+    ADD CONSTRAINT usuario_tipousuario_fk FOREIGN KEY ( tipousuario_nombre )
+        REFERENCES tipousuario ( nombre );
 
 ALTER TABLE utensilio
-    ADD CONSTRAINT utensilio_prestamo_fk FOREIGN KEY ( prestamo_id )
-        REFERENCES prestamo ( id );
+    ADD CONSTRAINT utensilio_prestamo_fk FOREIGN KEY ( prestamo_servicio_id )
+        REFERENCES prestamo ( servicio_id );
 
 
 
 -- Informe de Resumen de Oracle SQL Developer Data Modeler: 
 -- 
--- CREATE TABLE                            31
--- CREATE INDEX                             2
--- ALTER TABLE                             80
+-- CREATE TABLE                            27
+-- CREATE INDEX                             0
+-- ALTER TABLE                             55
 -- CREATE VIEW                              0
 -- ALTER VIEW                               0
 -- CREATE PACKAGE                           0
@@ -538,7 +390,6 @@ ALTER TABLE utensilio
 -- DROP DATABASE                            0
 -- 
 -- REDACTION POLICY                         0
--- TSDP POLICY                              0
 -- 
 -- ORDS DROP SCHEMA                         0
 -- ORDS ENABLE SCHEMA                       0
