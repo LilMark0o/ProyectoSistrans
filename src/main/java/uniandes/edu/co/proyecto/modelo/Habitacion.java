@@ -9,30 +9,30 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "habitacion") // Ajusta el nombre de la tabla si es necesario
 public class Habitacion {
-    // TODO PONER COMO TOCA XD
 
     @Id
     private Integer id;
 
     private Integer capacidad;
     private Float costonoche;
-    private String tipohabitacion;
+    private TipoHabitacion tipohabitacion;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     private Hotel hotel;
 
-    public Habitacion() {
-        ;// Constructor vacío requerido por Jakarta Persistence
-    }
+    public Habitacion() {}
 
-    public Habitacion(Integer capacidad, Float costonoche, String tipohabitacion, Hotel hotel) {
+    // Parameterized constructor
+    public Habitacion(Integer id, Integer capacidad, Float costonoche, TipoHabitacion tipohabitacion, Hotel hotel) {
+        this.id = id;
         this.capacidad = capacidad;
         this.costonoche = costonoche;
         this.tipohabitacion = tipohabitacion;
         this.hotel = hotel;
     }
 
+    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -57,11 +57,11 @@ public class Habitacion {
         this.costonoche = costonoche;
     }
 
-    public String getTipohabitacion() {
+    public TipoHabitacion getTipohabitacion() {
         return tipohabitacion;
     }
 
-    public void setTipohabitacion(String tipohabitacion) {
+    public void setTipohabitacion(TipoHabitacion tipohabitacion) {
         this.tipohabitacion = tipohabitacion;
     }
 
@@ -71,16 +71,5 @@ public class Habitacion {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
-    }
-
-    @Override
-    public String toString() {
-        return "Habitacion{" +
-                "id=" + id +
-                ", capacidad=" + capacidad +
-                ", costonoche=" + costonoche +
-                ", tipohabitacion='" + tipohabitacion + '\'' +
-                ", hotel=" + hotel +
-                '}';
     }
 }

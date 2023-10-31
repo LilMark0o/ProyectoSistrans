@@ -1,37 +1,42 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    @Id // TODO PONER COMO TOCA XDD
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(name = "nombre", nullable = false, length = 4000)
     private String nombre;
+
+    @Column(name = "username", nullable = false, length = 4000)
     private String username;
+
+    @Column(name = "password", nullable = false, length = 4000)
     private String password;
 
-    private String tipousuario;
-    @Column(name = "tipodedocumento")
-    private String tipodedocumento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipousuario_nombre", referencedColumnName = "nombre", nullable = false)
+    private TipoUsuario tipoUsuario;
 
-    public Usuario() {
-        ;// Constructor vacío requerido por Jakarta Persistence
-    }
+    // Default constructor required by Jakarta Persistence
+    public Usuario() {}
 
-    public Usuario(String nombre, String username, String password, String tipodedocumento, String tipousuario) {
+    public Usuario(Integer id, String nombre, String username, String password, TipoUsuario tipoUsuario) {
+        this.id = id;
         this.nombre = nombre;
         this.username = username;
         this.password = password;
-        this.tipousuario = tipousuario;
-        this.tipodedocumento = tipodedocumento;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Usuario(String nombre, String username, String password, TipoUsuario tipoUsuario) {
+        this(null, nombre, username, password, tipoUsuario);
     }
 
     public Integer getId() {
@@ -40,6 +45,14 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNombre() {
@@ -62,25 +75,7 @@ public class Usuario {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getTipousuario() {
-        return tipousuario;
-    }
-
-    public void setTipousuario(String tipousuario) {
-        this.tipousuario = tipousuario;
-    }
-
-    public String getTipodedocumento() {
-        return tipodedocumento;
-    }
-
-    public void setTipodedocumento(String tipodedocumento) {
-        this.tipodedocumento = tipodedocumento;
-    }
 
     @Override
     public String toString() {
@@ -88,7 +83,8 @@ public class Usuario {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", username='" + username + '\'' +
-                ", tipousuario='" + tipousuario +
+                ", tipoUsuario=" + tipoUsuario +
                 '}';
     }
+
 }
