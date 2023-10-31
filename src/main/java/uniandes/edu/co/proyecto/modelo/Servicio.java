@@ -10,8 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "servicio") // Ajusta el nombre de la tabla si es necesario
 public class Servicio {
-    @Id // TODO PONER COMO TOCA XD
-
+    @Id
     private Integer id;
 
     private String nombre;
@@ -29,14 +28,6 @@ public class Servicio {
         this.nombre = nombre;
         this.secobra = seCobra;
         this.hotel = hotel;
-    }
-
-    @Override
-    public String toString() {
-        return "Spa{" +
-                "id=" + id +
-                ", hotel=" + hotel +
-                '}';
     }
 
     public Integer getId() {

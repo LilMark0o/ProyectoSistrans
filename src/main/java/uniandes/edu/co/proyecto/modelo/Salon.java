@@ -1,6 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,9 +11,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "salon") // Ajusta el nombre de la tabla si es necesario
 public class Salon {
-    @Id // TODO PONER COMO TOCA XD
-
-    private Integer id;
+    @EmbeddedId
+    private ServicioPK pk;
 
     @Column(name = "capacidad")
     private Integer capacidad;
@@ -32,31 +32,27 @@ public class Salon {
     @Column(name = "equipoamplificacion")
     private Character equipoAmplificacion;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
     public Salon() {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Salon(Integer capacidad, String tipoSalon, Integer horasUso, Character equipoComputacion,
-            Character equipoProyeccion, Character equipoAmplificacion, Hotel hotel) {
+    public Salon(Servicio servicio, Integer capacidad, String tipoSalon, Integer horasUso, Character equipoComputacion,
+            Character equipoProyeccion, Character equipoAmplificacion) {
+        this.pk = new ServicioPK(servicio);
         this.capacidad = capacidad;
         this.tipoSalon = tipoSalon;
         this.horasUso = horasUso;
         this.equipoComputacion = equipoComputacion;
         this.equipoProyeccion = equipoProyeccion;
         this.equipoAmplificacion = equipoAmplificacion;
-        this.hotel = hotel;
     }
 
-    public Integer getId() {
-        return id;
+    public ServicioPK getPk() {
+        return pk;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPk(ServicioPK pk) {
+        this.pk = pk;
     }
 
     public Integer getCapacidad() {
@@ -105,27 +101,5 @@ public class Salon {
 
     public void setEquipoAmplificacion(Character equipoAmplificacion) {
         this.equipoAmplificacion = equipoAmplificacion;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
-    @Override
-    public String toString() {
-        return "Salon{" +
-                "id=" + id +
-                ", capacidad=" + capacidad +
-                ", tipoSalon='" + tipoSalon + '\'' +
-                ", horasUso=" + horasUso +
-                ", equipoComputacion=" + equipoComputacion +
-                ", equipoProyeccion=" + equipoProyeccion +
-                ", equipoAmplificacion=" + equipoAmplificacion +
-                ", hotel=" + hotel +
-                '}';
     }
 }
