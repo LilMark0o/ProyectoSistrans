@@ -18,10 +18,6 @@ public class Gimnasio {
     @JoinColumn(name = "horafin")
     private Integer horafin;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
     public Integer getHorainicio() {
         return horainicio;
     }
@@ -38,23 +34,14 @@ public class Gimnasio {
         this.horafin = horafin;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
     public Gimnasio() {
         ;
     }
 
-    public Gimnasio(Servicio servicio, Integer horainicio, Integer horafin, Hotel hotel) {
+    public Gimnasio(Servicio servicio, Integer horainicio, Integer horafin) {
         this.pk = new ServicioPK(servicio);
         this.horainicio = horainicio;
         this.horafin = horafin;
-        this.hotel = hotel;
     }
 
     public ServicioPK getPk() {

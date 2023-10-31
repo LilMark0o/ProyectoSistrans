@@ -3,7 +3,6 @@ package uniandes.edu.co.proyecto.modelo;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,20 +20,15 @@ public class Piscina {
     @JoinColumn(name = "horafin")
     private Integer horafin;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
     public Piscina() {
         ;
     }
 
-    public Piscina(Servicio servicio, Integer horainicio, Integer horafin, Float profundidad, Hotel hotel) {
+    public Piscina(Servicio servicio, Integer horainicio, Integer horafin, Float profundidad) {
         this.pk = new ServicioPK(servicio);
         this.horainicio = horainicio;
         this.horafin = horafin;
         this.profundidad = profundidad;
-        this.hotel = hotel;
     }
 
     public ServicioPK getPk() {
@@ -68,13 +62,4 @@ public class Piscina {
     public void setHorafin(Integer horafin) {
         this.horafin = horafin;
     }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
 }
