@@ -1,8 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -10,39 +9,40 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "piscina")
 public class Piscina {
-    @Id // TODO PONER COMO TOCA XD
 
-    private Integer id;
+    @EmbeddedId
+    private ServicioPK pk;
 
     private Float profundidad;
-    @Column(name = "horainicio") // Asegúrate de que el nombre coincida con la base de datos
-    private int horaInicio;
-    @Column(name = "horafin") // Asegúrate de que el nombre coincida con la base de datos
-    private int horaFin;
-    private int secobra;
+
+    @JoinColumn(name = "horainicio")
+    private Integer horainicio;
+
+    @JoinColumn(name = "horafin")
+    private Integer horafin;
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     private Hotel hotel;
 
     public Piscina() {
-        ;// Constructor vacío requerido por Jakarta Persistence
+        ;
     }
 
-    public Piscina(Float profundidad, int horaInicio, int horaFin, int secobra, Hotel hotel) {
+    public Piscina(Servicio servicio, Integer horainicio, Integer horafin, Float profundidad, Hotel hotel) {
+        this.pk = new ServicioPK(servicio);
+        this.horainicio = horainicio;
+        this.horafin = horafin;
         this.profundidad = profundidad;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.secobra = secobra;
         this.hotel = hotel;
     }
 
-    public Integer getId() {
-        return id;
+    public ServicioPK getPk() {
+        return pk;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPk(ServicioPK pk) {
+        this.pk = pk;
     }
 
     public Float getProfundidad() {
@@ -53,28 +53,20 @@ public class Piscina {
         this.profundidad = profundidad;
     }
 
-    public int getHoraInicio() {
-        return horaInicio;
+    public Integer getHorainicio() {
+        return horainicio;
     }
 
-    public void setHoraInicio(int horaInicio) {
-        this.horaInicio = horaInicio;
+    public void setHorainicio(Integer horainicio) {
+        this.horainicio = horainicio;
     }
 
-    public int getHoraFin() {
-        return horaFin;
+    public Integer getHorafin() {
+        return horafin;
     }
 
-    public void setHoraFin(int horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public int getSecobra() {
-        return secobra;
-    }
-
-    public void setSecobra(int secobra) {
-        this.secobra = secobra;
+    public void setHorafin(Integer horafin) {
+        this.horafin = horafin;
     }
 
     public Hotel getHotel() {
@@ -85,15 +77,4 @@ public class Piscina {
         this.hotel = hotel;
     }
 
-    @Override
-    public String toString() {
-        return "Piscina{" +
-                "id=" + id +
-                ", profundidad=" + profundidad +
-                ", horaInicio=" + horaInicio +
-                ", horaFin=" + horaFin +
-                ", secobra=" + secobra +
-                ", hotel=" + hotel +
-                '}';
-    }
 }

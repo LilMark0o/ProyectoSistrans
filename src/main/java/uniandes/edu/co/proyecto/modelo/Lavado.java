@@ -1,43 +1,57 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "lavado") // Ajusta el nombre de la tabla si es necesario
+@Table(name = "lavado")
 public class Lavado {
-    @Id // TODO PONER COMO TOCA XD
 
-    private Integer id;
-
-    private Float precio;
-
+    @EmbeddedId
+    private ServicioPK pk;
+    private Float capacidad;
     private Integer cantidadalavar;
 
+    public Float getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(Float capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
+    private Hotel hotel;
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
     public Lavado() {
-        ;// Constructor vacío requerido por Jakarta Persistence
+        ;
     }
 
-    public Lavado(Float precio, Integer cantidadalavar) {
-        this.precio = precio;
+    public Lavado(Servicio servicio, Float capacidad, Integer cantidadalavar, Hotel hotel) {
+        this.pk = new ServicioPK(servicio);
+        this.capacidad = capacidad;
         this.cantidadalavar = cantidadalavar;
+        this.hotel = hotel;
     }
 
-    public Integer getId() {
-        return id;
+    public ServicioPK getPk() {
+        return pk;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Float precio) {
-        this.precio = precio;
+    public void setPk(ServicioPK pk) {
+        this.pk = pk;
     }
 
     public Integer getCantidadalavar() {
@@ -48,12 +62,4 @@ public class Lavado {
         this.cantidadalavar = cantidadalavar;
     }
 
-    @Override
-    public String toString() {
-        return "Lavado{" +
-                "id=" + id +
-                ", precio=" + precio +
-                ", cantidadalavar=" + cantidadalavar +
-                '}';
-    }
 }

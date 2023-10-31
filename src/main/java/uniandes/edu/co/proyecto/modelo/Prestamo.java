@@ -1,6 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,9 +11,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "prestamo") // Ajusta el nombre de la tabla si es necesario
 public class Prestamo {
-    @Id // TODO PONER COMO TOCA XD
-
-    private Integer id;
+    @EmbeddedId
+    private ServicioPK pk;
 
     @Column(name = "devuelto")
     private Integer devuelto;
@@ -25,17 +25,10 @@ public class Prestamo {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Prestamo(Integer devuelto, Utensilio utensilio) {
+    public Prestamo(ServicioPK pk, Integer devuelto, Utensilio utensilio) {
+        this.pk = pk;
         this.devuelto = devuelto;
         this.utensilio = utensilio;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getDevuelto() {
@@ -54,12 +47,11 @@ public class Prestamo {
         this.utensilio = utensilio;
     }
 
-    @Override
-    public String toString() {
-        return "Prestamo{" +
-                "id=" + id +
-                ", devuelto=" + devuelto +
-                ", utensilio=" + utensilio +
-                '}';
+    public ServicioPK getPk() {
+        return pk;
+    }
+
+    public void setPk(ServicioPK pk) {
+        this.pk = pk;
     }
 }

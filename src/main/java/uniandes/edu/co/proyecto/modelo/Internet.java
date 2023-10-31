@@ -1,45 +1,19 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "internet") // Ajusta el nombre de la tabla si es necesario
+@Table(name = "internet")
 public class Internet {
-    // TODO PONER COMO TOCA XD
 
-    @Id
-    private Integer id;
-
+    @EmbeddedId
+    private ServicioPK pk;
     private Float capacidad;
     private Float precio;
-    private Integer secobra;
-
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
-    public Internet() {
-        ;// Constructor vacío requerido por Jakarta Persistence
-    }
-
-    public Internet(Float capacidad, Float precio, Integer secobra, Hotel hotel) {
-        this.capacidad = capacidad;
-        this.precio = precio;
-        this.secobra = secobra;
-        this.hotel = hotel;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Float getCapacidad() {
         return capacidad;
@@ -57,13 +31,9 @@ public class Internet {
         this.precio = precio;
     }
 
-    public Integer getSecobra() {
-        return secobra;
-    }
-
-    public void setSecobra(Integer secobra) {
-        this.secobra = secobra;
-    }
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
+    private Hotel hotel;
 
     public Hotel getHotel() {
         return hotel;
@@ -73,14 +43,23 @@ public class Internet {
         this.hotel = hotel;
     }
 
-    @Override
-    public String toString() {
-        return "Internet{" +
-                "id=" + id +
-                ", capacidad=" + capacidad +
-                ", precio=" + precio +
-                ", secobra=" + secobra +
-                ", hotel=" + hotel +
-                '}';
+    public Internet() {
+        ;
     }
+
+    public Internet(Servicio servicio, Float capacidad, Float precio, Hotel hotel) {
+        this.pk = new ServicioPK(servicio);
+        this.capacidad = capacidad;
+        this.precio = precio;
+        this.hotel = hotel;
+    }
+
+    public ServicioPK getPk() {
+        return pk;
+    }
+
+    public void setPk(ServicioPK pk) {
+        this.pk = pk;
+    }
+
 }
