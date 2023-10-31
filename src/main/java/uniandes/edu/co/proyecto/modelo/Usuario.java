@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    @Id // TODO PONER COMO TOCA XD
+    @Id // TODO PONER COMO TOCA XDD
 
     private Integer id;
 
