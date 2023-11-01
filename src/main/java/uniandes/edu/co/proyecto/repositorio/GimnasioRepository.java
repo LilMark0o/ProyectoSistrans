@@ -10,28 +10,27 @@ import uniandes.edu.co.proyecto.modelo.Gimnasio;
 
 public interface GimnasioRepository extends JpaRepository<Gimnasio, Integer> {
 
-    @Query(value = "SELECT * FROM gimnasio", nativeQuery = true)
-    Collection<Gimnasio> darGimnasios();
+        @Query(value = "SELECT * FROM gimnasio", nativeQuery = true)
+        Collection<Gimnasio> darGimnasios();
 
-    @Query(value = "SELECT * FROM gimnasio WHERE id = :id", nativeQuery = true)
-    Gimnasio darGimnasioPorId(@Param("id") int id);
+        @Query(value = "SELECT * FROM gimnasio WHERE id = :servicio_id", nativeQuery = true)
+        Gimnasio darGimnasioPorId(@Param("servicio_id") int servicio_id);
 
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO gimnasio (id, horainicio, horafin, secobra, hotel_id) VALUES (:id, :horainicio, :horafin, :secobra, :hotel_id)", nativeQuery = true)
-    void insertarGimnasio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
-            @Param("horafin") Integer horafin,
-            @Param("secobra") int secobra, @Param("hotel_id") Integer hotel_id);
+        @Modifying
+        @Transactional
+        @Query(value = "INSERT INTO gimnasio (id, horainicio, horafin) VALUES (:servicio_id, :horainicio, :horafin)", nativeQuery = true)
+        void insertarGimnasio(@Param("servicio_id") Integer servicio_id, @Param("horainicio") Integer horainicio,
+                        @Param("horafin") Integer horafin);
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE gimnasio SET horainicio = :horainicio, horafin = :horafin, secobra = :secobra, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarGimnasio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
-            @Param("horafin") Integer horafin, @Param("secobra") int secobra, @Param("hotel_id") Integer hotel_id);
+        @Modifying
+        @Transactional
+        @Query(value = "UPDATE gimnasio SET horainicio = :horainicio, horafin = :horafin WHERE id = :servicio_id", nativeQuery = true)
+        void actualizarGimnasio(@Param("servicio_id") Integer servicio_id, @Param("horainicio") Integer horainicio,
+                        @Param("horafin") Integer horafin);
 
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM gimnasio WHERE id = :id", nativeQuery = true)
-    void eliminarGimnasio(@Param("id") Integer id);
+        @Modifying
+        @Transactional
+        @Query(value = "DELETE FROM gimnasio WHERE id = :servicio_id", nativeQuery = true)
+        void eliminarGimnasio(@Param("servicio_id") Integer servicio_id);
 
 }

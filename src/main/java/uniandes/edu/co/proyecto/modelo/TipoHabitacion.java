@@ -1,13 +1,14 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tipohabitacion")
 public class TipoHabitacion {
-
     @Id
-    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "costonoche")
@@ -16,26 +17,19 @@ public class TipoHabitacion {
     @Column(name = "capacidad")
     private Integer capacidad;
 
-    @Column(name = "nombre", length = 4000)
+    @Column(name = "nombre")
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
+    public TipoHabitacion() {
+        // Default constructor required by Jakarta Persistence
+    }
 
-    // Constructors, Getters, Setters, etc.
-    public TipoHabitacion() {}
-
-    // Parameterized constructor
-    public TipoHabitacion(Integer id, Float costonoche, Integer capacidad, String nombre, Hotel hotel) {
-        this.id = id;
+    public TipoHabitacion(Float costonoche, Integer capacidad, String nombre) {
         this.costonoche = costonoche;
         this.capacidad = capacidad;
         this.nombre = nombre;
-        this.hotel = hotel;
     }
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -68,11 +62,4 @@ public class TipoHabitacion {
         this.nombre = nombre;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class ServicioPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "idservicio", referencedColumnName = "id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Servicio servicio;
 
     public ServicioPK(Servicio servicio) {

@@ -57,7 +57,6 @@ public class HabitacionController {
             habitacionExistente.setCapacidad(habitacion.getCapacidad());
             habitacionExistente.setCostonoche(habitacion.getCostonoche());
             habitacionExistente.setTipohabitacion(habitacion.getTipohabitacion());
-            habitacionExistente.setHotel(habitacion.getHotel());
             habitacionRepository.save(habitacionExistente);
         }
         return "redirect:/habitaciones";

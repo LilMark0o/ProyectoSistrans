@@ -15,21 +15,19 @@ public class Habitacion {
 
     private Integer capacidad;
     private Float costonoche;
+    @ManyToOne
+    @JoinColumn(name = "tipohabitación_id", referencedColumnName = "id")
     private TipoHabitacion tipohabitacion;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
-
-    public Habitacion() {}
+    public Habitacion() {
+    }
 
     // Parameterized constructor
-    public Habitacion(Integer id, Integer capacidad, Float costonoche, TipoHabitacion tipohabitacion, Hotel hotel) {
+    public Habitacion(Integer id, Integer capacidad, Float costonoche, TipoHabitacion tipohabitacion) {
         this.id = id;
         this.capacidad = capacidad;
         this.costonoche = costonoche;
         this.tipohabitacion = tipohabitacion;
-        this.hotel = hotel;
     }
 
     // Getters and Setters
@@ -63,13 +61,5 @@ public class Habitacion {
 
     public void setTipohabitacion(TipoHabitacion tipohabitacion) {
         this.tipohabitacion = tipohabitacion;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
     }
 }
