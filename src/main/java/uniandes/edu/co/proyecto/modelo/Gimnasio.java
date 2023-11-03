@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -11,10 +12,11 @@ public class Gimnasio {
 
     @EmbeddedId
     private ServicioPK pk;
-    @JoinColumn(name = "horainicio")
+
+    @Column(name = "horainicio")
     private Integer horainicio;
 
-    @JoinColumn(name = "horafin")
+    @Column(name = "horafin")
     private Integer horafin;
 
     public Integer getHorainicio() {
