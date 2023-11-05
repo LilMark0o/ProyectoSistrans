@@ -13,7 +13,8 @@
         <h1>Lista de Usuarios</h1>
 
         <br />
-        <form th:action="@{usuarios}" method="get">
+        <!-- Form para buscar por id -->
+        <form th:action="@{/usuarios/id}" method="get">
             <div class="input-group input-group-sm mb-2 justify-content-center">
                 <input class='w-25' id="txtSearch" type="text" name="id">
                 <div class="input-group-append">
@@ -34,21 +35,27 @@
                 </tr>
             </thead>
             <tbody>
-                <th:block th:each="usuario : ${usuarios}">
+                <th:block th:if="${not #lists.isEmpty(usuarios)}">
+                    <th:block th:each="usuario : ${usuarios}">
+                        <tr>
+                            <td th:text="${usuario.id}"></td>
+                            <td th:text="${usuario.nombre}"></td>
+                            <td th:text="${usuario.username}"></td>
+                            <td th:text="${usuario.password}"></td>
+                            <!-- Assuming 'nombre' is a property of 'TipoUsuario' -->
+                            <td th:text="${usuario.tipoUsuario.nombre}"></td>
+                            <td>
+                                <a th:href="@{usuarios/{id}/edit(id=${usuario.id})}">Editar</a>
+                                <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}"
+                                    onclick="return confirm('¿Estás seguro de borrar este usuario?')">Borrar</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                </th:block>
+                <th:block th:if="${#lists.isEmpty(usuarios)}">
                     <tr>
-                        <td th:text="${usuario.id}"></td>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.username}"></td>
-                        <td th:text="${usuario.password}"></td>
-                        <!-- Assuming 'nombre' is a property of 'TipoUsuario' -->
-                        <td th:text="${usuario.tipoUsuario.nombre}"></td>
-                        <td>
-                            <a th:href="@{usuarios/{id}/edit(id=${usuario.id})}">Editar</a>
-                            <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}"
-                                onclick="return confirm('¿Estás seguro de borrar este usuario?')">Borrar</a>
-                        </td>
+                        <td colspan="5">No se encontró ningún usuario.</td>
                     </tr>
-
                 </th:block>
             </tbody>
         </table>

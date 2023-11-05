@@ -12,10 +12,8 @@
     <div class="text-center">
         <h1>Lista de Tipos de Usuario</h1>
         <br />
-        <a th:href="@{/tiposUsuario/new}" class="btn btn-primary">Crear Tipo de Usuario</a>
         <br />
-        <br />
-        <form th:action="@{tiposUsuario}" method="get">
+        <form th:action="@{/tiposUsuario/id}" method="get">
             <div class="input-group input-group-sm mb-2 justify-content-center">
                 <input class='w-25' id="txtSearch" type="text" name="id">
                 <div class="input-group-append">
@@ -46,7 +44,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a th:href='@{/usuarios/new}' class="btn btn-primary">Añadir Tipo usuario</a>
+            <a th:href='@{/tiposUsuario/new}' class="btn btn-primary">Añadir Tipo usuario</a>
             <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
             </br>
         </div>

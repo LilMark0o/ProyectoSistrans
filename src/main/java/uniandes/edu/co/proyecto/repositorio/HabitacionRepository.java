@@ -19,23 +19,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
     @Query(value = "SELECT * FROM habitacion WHERE tipohabitacion = :tipohabitacion", nativeQuery = true)
     Collection<Habitacion> darHabitacionesPorTipo(@Param("tipohabitacion") String tipohabitacion);
 
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO habitacion (id, capacidad, costonoche, tipohabitacion, hotel_id) VALUES (:id, :capacidad, :costonoche, :tipohabitacion, :hotel_id)", nativeQuery = true)
-    void insertarHabitacion(@Param("id") Integer id, @Param("capacidad") Integer capacidad,
-            @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion,
-            @Param("hotel_id") Integer hotel_id);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE habitacion SET capacidad = :capacidad, costonoche = :costonoche, tipohabitacion = :tipohabitacion, hotel_id = :hotel_id WHERE id = :id", nativeQuery = true)
-    void actualizarHabitacion(@Param("id") Integer id, @Param("capacidad") Integer capacidad,
-            @Param("costonoche") Float costonoche, @Param("tipohabitacion") String tipohabitacion,
-            @Param("hotel_id") Integer hotel_id);
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM habitacion WHERE id = :id", nativeQuery = true)
-    void eliminarHabitacion(@Param("id") Integer id);
+   
 
 }

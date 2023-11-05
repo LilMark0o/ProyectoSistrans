@@ -22,13 +22,13 @@ public class TipoUsuarioController {
         return "tiposUsuario";
     }
 
-    @GetMapping("/tiposUsuario/{id}")
-    public String obtenerTipoUsuarioPorId(@PathVariable String id, Model model) {
+    @GetMapping("/tiposUsuario/id")
+    public String obtenerTipoUsuarioPorId(@RequestParam("id")  String id, Model model) {
         TipoUsuario tipoUsuario = tipoUsuarioRepository.findTipoUsuarioByNombre(id);
         System.out.println(tipoUsuario);
         if (tipoUsuario != null) {
-            model.addAttribute("tipoUsuario", tipoUsuario);
-            return "tiposUsuarioDetalle";
+            model.addAttribute("tiposUsuario", tipoUsuario);
+            return "tiposUsuario";
         } else {
             return "redirect:/tiposUsuario";
         }

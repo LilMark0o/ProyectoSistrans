@@ -9,6 +9,7 @@ import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Controller
 public class UsuarioController {
@@ -25,16 +26,16 @@ public class UsuarioController {
         return "Usuarios";
     }
 
-    @GetMapping("/usuarios/{id}")
-    public String obtenerUsuarioPorId(@PathVariable Integer id, Model model) {
-        Usuario usuario = usuarioRepository.findUserById(id);
-        System.out.println(usuario);
-        if (usuario != null) {
-            model.addAttribute("usuario", usuario);
-            return "usuariosDetalle";
-        } else {
-            return "redirect:/usuarios";
+    @GetMapping("/usuarios/id")
+    public String obtenerUsuarioPorId(@RequestParam("id") Integer id, Model model) {
+        try {
+            Usuario usuario = usuarioRepository.findById(id).orElse(null);
+            model.addAttribute("usuarios", usuario != null ? Collections.singletonList(usuario) : Collections.emptyList());
+        } catch (Exception e) {
+            model.addAttribute("usuarios", Collections.emptyList());
+            model.addAttribute("searchError", "Please enter a valid ID.");
         }
+        return "Usuarios";
     }
 
     @GetMapping("/usuarios/new")
@@ -62,7 +63,7 @@ public class UsuarioController {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         if (usuario != null) {
             model.addAttribute("usuario", usuario);
-            model.addAttribute("tiposUsuario", tipoUsuarioRepository.findTipoUsuarioByNombre(usuario.getTipoUsuario().getNombre())); // Adjust if using a custom method
+            model.addAttribute("tiposUsuario", tipoUsuarioRepository.findAll()); // Adjust if using a custom method
             return "usuariosEditar";
         } else {
             // Handle the case where the usuario is not found

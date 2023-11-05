@@ -8,11 +8,34 @@
 
 <body>
     <br>
-    <form th:action="@{/usuarios/new/save}" method="post">
-        <div th:replace="~{fragments/usuarioForm :: usuarioForm (titulo='Crear Usuario', usuario=${usuario})}">
-            <!-- This will include the user form fragment -->
+    <!-- Form for creating a new user -->
+    <form th:action="@{usuarios/new}" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre"
+                th:value="${usuario.nombre}" />
         </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" name="username"
+                th:value="${usuario.username}" />
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="text" class="form-control" id="password" placeholder="Contraseña" name="password"
+                th:value="${usuario.password}" />
+        </div>
+        <div class="form-group">
+            <label for="tipoUsuario">Tipo de usuario:</label>
+            <select class="form-control" id="tipoUsuario" name="tipoUsuario">
+                <option th:each="tipoUsuario : ${tiposUsuario}" th:value="${tipoUsuario.nombre}"
+                    th:text="${tipoUsuario.nombre}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/usuarios}" class="btn btn-primary">Cancelar</a>
     </form>
+
 </body>
 
 </html>
