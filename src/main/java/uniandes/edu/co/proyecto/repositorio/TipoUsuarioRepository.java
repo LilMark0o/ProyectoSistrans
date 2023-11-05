@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.TipoUsuario;
 import uniandes.edu.co.proyecto.modelo.Usuario;
 
-public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, Integer> {
+public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, String> {
     // List<Usuario> findByTipoUsuario_Nombre(String tipoUsuario);
     // Optional<Usuario> findByUsername(String username);
 
