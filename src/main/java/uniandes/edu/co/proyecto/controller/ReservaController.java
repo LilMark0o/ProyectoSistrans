@@ -47,7 +47,7 @@ public class ReservaController {
         Reserva.setFechaSalida(fechasalida);
         Habitacion habitacion = habitacionRepository.darHabitacionPorId(id_habitacion);
         Reserva.setHabitacion(habitacion);
-        Usuario usuario = usuarioRepository.darUsuarioPorId(id_usuario);
+        Usuario usuario = usuarioRepository.findUserById(id_usuario);
         Reserva.setUsuario(usuario);
         ReservasRepository.insertarReserva(Reserva.getId(),
                 Reserva.getCobro(),

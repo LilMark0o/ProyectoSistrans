@@ -1,67 +1,93 @@
-// package uniandes.edu.co.proyecto.controller;
+package uniandes.edu.co.proyecto.controller;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-// import uniandes.edu.co.proyecto.modelo.*;
-// import uniandes.edu.co.proyecto.repositorio.*;
+import uniandes.edu.co.proyecto.modelo.*;
+import uniandes.edu.co.proyecto.repositorio.*;
 
-// import java.util.Collection;
+import java.util.Collection;
 
-// @Controller
-// public class UsuarioController {
+@Controller
+public class UsuarioController {
 
-// @Autowired
-// private UsuarioRepository usuariosRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-// @GetMapping("/usuarios")
-// public String usuarios(Model model) {
-// model.addAttribute("usuarios", usuariosRepository.darUsuarios());
-// return "usuarios";
-// }
+    @Autowired
+    private TipoUsuarioRepository tipoUsuarioRepository; // Assuming you have a repository for TipoUsuario
 
-// @GetMapping("/usuarios/new")
-// public String bebidaForm(Model model) {
-// model.addAttribute("usuarios", new Usuario());
-// model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
-// return "usuariosNuevo";
-// }
+    @GetMapping("/usuarios")
+    public String listarUsuarios(Model model) {
+        model.addAttribute("usuarios", usuarioRepository.findAllUsers());
+        return "Usuarios";
+    }
 
-// @PostMapping("/usuarios/new/save")
-// public String usuariosGuardar(@ModelAttribute("tipodedocumento") String
-// tipodedocumento,
-// @ModelAttribute("id") Integer id, @ModelAttribute("nombre") String nombre,
-// @ModelAttribute("username") String username, @ModelAttribute("password")
-// String password,
-// @ModelAttribute("tipousuario") String tipousuario) {
-// Usuario usuario = new Usuario();
-// usuario.setId(id);
-// usuario.setTipodedocumento(tipodedocumento);
-// usuario.setTipousuario(tipousuario);
-// usuariosRepository.insertarUsuario(usuario.getId(),
-// usuario.getNombre(),
-// usuario.getUsername(),
-// usuario.getPassword(),
-// usuario.getTipousuario(),
-// usuario.getTipodedocumento());
-// return "redirect:/usuarios";
-// }
+    @GetMapping("/usuarios/{id}")
+    public String obtenerUsuarioPorId(@PathVariable Integer id, Model model) {
+        Usuario usuario = usuarioRepository.findUserById(id);
+        System.out.println(usuario);
+        if (usuario != null) {
+            model.addAttribute("usuario", usuario);
+            return "usuariosDetalle";
+        } else {
+            return "redirect:/usuarios";
+        }
+    }
 
-// @GetMapping("/usuarios/{id}/edit")
-// public String usuariosEditarForm(@PathVariable("id") Integer id, Model model)
-// {
-// Usuario usuario = usuariosRepository.findById(id).orElse(null);
-// if (usuario == null) {
-// return "redirect:/usuarios";
-// }
-// model.addAttribute("usuario", usuario);
-// model.addAttribute("tiposUsuario", usuariosRepository.darTipoUsuario());
-// return "usuarioEditar";
-// }
+    @GetMapping("/usuarios/new")
+    public String mostrarFormularioNuevoUsuario(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("tiposUsuario", tipoUsuarioRepository.findAll()); // Adjust if using a custom method
+        return "usuariosNuevo";
+    }
+ 
+    @PostMapping("/usuarios/new/save")
+    public String guardarNuevoUsuario(@ModelAttribute Usuario usuario, @RequestParam("tipoUsuarioNombre") String tipoUsuarioNombre) {
+        TipoUsuario tipoUsuario = tipoUsuarioRepository.findTipoUsuarioByNombre(tipoUsuarioNombre);
+        if (tipoUsuario != null) {
+            usuario.setTipoUsuario(tipoUsuario);
+            usuarioRepository.save(usuario); // Assuming save method in the repository
+        } else {
+            // Handle the case where the tipoUsuario is not found, maybe redirect with an error message
+        }
+        return "redirect:/usuarios";
+    }
 
-// }
+
+    @GetMapping("/usuarios/{id}/edit")
+    public String mostrarFormularioEditarUsuario(@PathVariable("id") Integer id, Model model) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        if (usuario != null) {
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("tiposUsuario", tipoUsuarioRepository.findTipoUsuarioByNombre(usuario.getTipoUsuario().getNombre())); // Adjust if using a custom method
+            return "usuariosEditar";
+        } else {
+            // Handle the case where the usuario is not found
+            return "redirect:/usuarios";
+        }
+    }
+    @PostMapping("/usuarios/{id}/update")
+    public String actualizarUsuario(@PathVariable("id") Integer id, @ModelAttribute Usuario usuario) {
+        Usuario existingUsuario = usuarioRepository.findById(id).orElse(null);
+        if (existingUsuario != null) {
+            // Update the existing user with the values from `usuario`
+            // Note: You might need to handle TipoUsuario again like in the save method
+            usuarioRepository.save(existingUsuario);
+        } else {
+            // Handle the case where the usuario is not found
+        }
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/usuarios/{id}/delete")
+    public String eliminarUsuario(@PathVariable("id") Integer id) {
+        usuarioRepository.deleteById(id); // Assumes this method exists in your repository
+        return "redirect:/usuarios";
+    }
+
+
+    // Add more methods for update and delete operations
+}

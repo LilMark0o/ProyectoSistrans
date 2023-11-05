@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Editar Bebedor</title>
+    <title>Editar Usuario</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-
 </head>
 
 <body>
     <br>
-    <form th:action="@{'/usuarios/' + ${id} + '/edit/save'}" th:object="${usuario}" method="post">
-        <div th:replace="~{fragments/usuarioForm :: usuarioForm(titulo='Editar usuario', usuario=${usuario})}">
+    <form th:action="@{/usuarios/{id}/edit/save(id=${usuario.id})}" method="post">
+        <div th:replace="~{fragments/usuarioForm :: usuarioForm (titulo='Editar Usuario', usuario=${usuario})}">
+            <!-- This will include the user form fragment with the user data -->
+        </div>
     </form>
 </body>
 
