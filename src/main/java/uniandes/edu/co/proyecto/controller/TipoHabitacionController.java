@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
 
-import java.util.Collection;
-
 @Controller
 public class TipoHabitacionController {
 
@@ -24,7 +22,7 @@ public class TipoHabitacionController {
     }
 
     @GetMapping("/tiposHabitacion/id")
-    public String obtenerTipoHabitacionPorId(@RequestParam("id")  Integer id, Model model) {
+    public String obtenerTipoHabitacionPorId(@RequestParam("id") Integer id, Model model) {
         TipoHabitacion tipoHabitacion = tipoHabitacionRepository.findTipoHabitacionById(id);
         System.out.println(tipoHabitacion);
         if (tipoHabitacion != null) {
@@ -60,7 +58,8 @@ public class TipoHabitacionController {
     }
 
     @PostMapping("/tiposHabitacion/{id}/edit/save")
-    public String guardarEdicionTipoHabitacion(@PathVariable Integer id, @ModelAttribute TipoHabitacion tipoHabitacion) {
+    public String guardarEdicionTipoHabitacion(@PathVariable Integer id,
+            @ModelAttribute TipoHabitacion tipoHabitacion) {
         TipoHabitacion tipoHabitacionActual = tipoHabitacionRepository.findTipoHabitacionById(id);
         if (tipoHabitacionActual != null) {
             tipoHabitacionRepository.save(tipoHabitacion);

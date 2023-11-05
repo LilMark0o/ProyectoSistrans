@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
 
-import java.util.Collection;
-
 @Controller
 public class TipoUsuarioController {
 
@@ -23,7 +21,7 @@ public class TipoUsuarioController {
     }
 
     @GetMapping("/tiposUsuario/id")
-    public String obtenerTipoUsuarioPorId(@RequestParam("id")  String id, Model model) {
+    public String obtenerTipoUsuarioPorId(@RequestParam("id") String id, Model model) {
         TipoUsuario tipoUsuario = tipoUsuarioRepository.findTipoUsuarioByNombre(id);
         System.out.println(tipoUsuario);
         if (tipoUsuario != null) {
@@ -78,4 +76,4 @@ public class TipoUsuarioController {
             return "redirect:/tiposUsuario";
         }
     }
-}   
+}
