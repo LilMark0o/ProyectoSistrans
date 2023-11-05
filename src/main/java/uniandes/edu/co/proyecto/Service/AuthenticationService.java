@@ -16,7 +16,7 @@ public class AuthenticationService {
     public Usuario authenticate(String username, String password) {
         Usuario usuario = usuarioRepository.findUserByUsername(username);
         if (usuario != null && usuario.getPassword().equals(password)) {
-            // Aquí deberías encriptar y comparar las contraseñas
+
             return usuario;
         }
         return null;

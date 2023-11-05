@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="container mx-auto w-25">
+    <div class="container mx-auto w-25" sec:authorize="isAuthenticated()">
 
         <h1>Hoteles</h1>
         <img th:src="@{/images/logo.png}" width="250">
@@ -16,7 +16,7 @@
         <div>
             <a th:href="@{/release1}" class="btn btn-primary">Release 1</a>
         </div>
-        <div>
+        <div sec:authorize="${session.loggedInUser.tipoUsuario.nombre == 'Administrador'}">
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 1</a>
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 2</a>
             <a th:href="@{/api/reservas/}" class="btn btn-primary">Req 3</a>
@@ -58,6 +58,10 @@
           </button>
         </div>
         <div class="modal-body">
+            <!-- Mensaje de Error de Inicio de Sesión -->
+        <div th:if="${loginError}" class="alert alert-danger" role="alert">
+            <p th:text="${loginError}"></p>
+        </div>
           <!-- Formulario de Inicio de Sesión -->
           <form id="loginForm" th:action="@{/login}" method="post">
             <div class="form-group">
@@ -74,6 +78,7 @@
       </div>
     </div>
   </div>
+  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

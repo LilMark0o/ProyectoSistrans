@@ -13,8 +13,7 @@ public class Habitacion {
     @Id
     private Integer id;
 
-    private Integer capacidad;
-    private Float costonoche;
+    private String descripcion;
     @ManyToOne
     @JoinColumn(name = "tipohabitación_id", referencedColumnName = "id")
     private TipoHabitacion tipohabitacion;

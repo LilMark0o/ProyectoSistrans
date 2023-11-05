@@ -21,15 +21,22 @@ public class LoginController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        Usuario usuario = authenticationService.authenticate(username, password);
-        if (usuario != null) {
-            session.setAttribute("loggedInUser", usuario);
-            // Redirigir a una página basada en el tipo de usuario
-            return "redirect:/dashboard";
-        } else {
-            return "redirect:/login?error";
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
+        try {
+            Usuario usuario = authenticationService.authenticate(username, password);
+            if (usuario != null) {
+                
+                session.setAttribute("loggedInUser", usuario);
+                return "redirect:/";
+            } else {
+                model.addAttribute("loginError", "Usuario o contraseña incorrecta");
+                return "login"; // Nombre de la vista que contiene el formulario de login
+            }
+        } catch (Exception e) {
+            model.addAttribute("loginError", "Error al procesar el inicio de sesión");
+            return "login"; // Nombre de la vista que contiene el formulario de login
         }
     }
+
 
 }
