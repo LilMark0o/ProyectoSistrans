@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Crear Cuenta de Servicio</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <br>
+    <form th:action="@{/cuentaservicios/new}" method="post">
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <input type="text" class="form-control" id="descripcion" placeholder="Descripción" name="descripcion" />
+        </div>
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="text" class="form-control" id="fecha" placeholder="Fecha" name="fecha" />
+        </div>
+        <div class="form-group">
+            <label for="reserva">Reserva ID:</label>
+            <input type="text" class="form-control" id="reserva" placeholder="Reserva ID" name="reserva" />
+        </div>
+        <div class="form-group">
+            <label for="producto">Producto ID:</label>
+            <input type="text" class="form-control" id="producto" placeholder="Producto ID" name="producto" />
+        </div>
+        <div class="form-group">
+            <label for="servicio">Servicio ID:</label>
+            <input type="text" class="form-control" id="servicio" placeholder="Servicio ID" name="servicio" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/cuentaservicios}" class="btn btn-primary">Cancelar</a>
+    </form>
+</body>
+
+</html>

@@ -1,38 +1,35 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "cuentaservicio") // Ajusta el nombre de la tabla si es necesario
-public class CuentaServicio {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "cuentaservicio")
+public class CuentaServicio {
     @Id
     private Integer id;
 
-    @Column(name = "tiposervicio") // Asegúrate de que el nombre coincida con la base de datos
-    private String tiposervicio;
+    @Column(name = "descripcion", length = 4000)
+    private String descripcion;
 
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha")
     private Date fecha;
 
     @ManyToOne
-    @JoinColumn(name = "habitacion_id", referencedColumnName = "id")
-    private Habitacion habitacion;
+    @JoinColumn(name = "reserva_id", referencedColumnName = "id")
+    private Reserva reserva;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    private Producto producto;
 
     @ManyToOne
     @JoinColumn(name = "servicio_id", referencedColumnName = "id")
     private Servicio servicio;
 
     public CuentaServicio() {
-        ;// Constructor vacío requerido por Jakarta Persistence
-    }
-
-    public CuentaServicio(Date fecha, String tiposervicio, Habitacion habitacion, Servicio servicio) {
-        this.fecha = fecha;
-        this.habitacion = habitacion;
-        this.tiposervicio = tiposervicio;
-        this.servicio = servicio;
+        // Constructor vacío requerido por Jakarta Persistence
     }
 
     public Integer getId() {
@@ -43,6 +40,14 @@ public class CuentaServicio {
         this.id = id;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public Date getFecha() {
         return fecha;
     }
@@ -51,20 +56,27 @@ public class CuentaServicio {
         this.fecha = fecha;
     }
 
-    public Habitacion getHabitacion() {
-        return habitacion;
+    public Reserva getReserva() {
+        return reserva;
     }
 
-    public void setHabitacion(Habitacion habitacion) {
-        this.habitacion = habitacion;
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
-    @Override
-    public String toString() {
-        return "CuentaServicio{" +
-                "id=" + id +
-                ", fecha=" + fecha +
-                ", habitacion=" + habitacion +
-                '}';
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 }
