@@ -10,6 +10,9 @@ import java.util.Date;
 
 public interface CuentaServicioRepository extends JpaRepository<CuentaServicio, Integer> {
 
+        @Query(value = "SELECT * FROM cuentaservicio", nativeQuery = true)
+        Collection<CuentaServicio> darCuentaServicios();
+
         @Query(value = "SELECT * FROM cuentaservicio WHERE producto_id IS NULL", nativeQuery = true)
         Collection<CuentaServicio> darCuentaServiciosConProducto();
 

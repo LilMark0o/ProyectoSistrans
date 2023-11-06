@@ -31,11 +31,8 @@ public class CuentaServicioController {
 
     @GetMapping("/cuentaservicios")
     public String cuentaServicios(Model model) {
-        Collection<CuentaServicio> cuentaServicios = cuentaServicioRepository.darCuentaServiciosConProducto();
-        model.addAttribute("cuentaServiciosSinProducto", cuentaServicios);
-        Collection<CuentaServicio> cuentaServiciosConProducto = cuentaServicioRepository
-                .darCuentaServiciosSinProducto();
-        model.addAttribute("cuentaServiciosConProducto", cuentaServiciosConProducto);
+        Collection<CuentaServicio> cuentaServicios = cuentaServicioRepository.darCuentaServicios();
+        model.addAttribute("cuentaServicios", cuentaServicios);
         return "cuentaservicios";
     }
 
@@ -69,13 +66,8 @@ public class CuentaServicioController {
     public String obtenerCuentaServicioPorId(@RequestParam("id") Integer id, Model model) {
         try {
             CuentaServicio cuentaServicio = cuentaServicioRepository.findById(id).orElse(null);
-            if (cuentaServicio.getProducto() == null) {
-                model.addAttribute("cuentaServiciosSinProducto",
-                        cuentaServicio != null ? Collections.singletonList(cuentaServicio) : Collections.emptyList());
-            } else {
-                model.addAttribute("cuentaServiciosConProducto",
-                        cuentaServicio != null ? Collections.singletonList(cuentaServicio) : Collections.emptyList());
-            }
+            model.addAttribute("cuentaServicios",
+                    cuentaServicio != null ? Collections.singletonList(cuentaServicio) : Collections.emptyList());
         } catch (Exception e) {
             model.addAttribute("cuentaServicios", Collections.emptyList());
             model.addAttribute("searchError", "Please enter a valid ID.");
