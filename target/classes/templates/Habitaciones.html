@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Lista de Habitaciones</title>
+    <title>Lista de habitaciones</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
     <script th:src="@{/css/jquery.min.js}"></script>
     <script th:src="@{/css/bootstrap.min.js}"></script>
@@ -10,9 +10,9 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de Habitaciones</h1>
+        <h1>Lista de habitaciones</h1>
         <br />
-        <form th:action="@{/habitacion/id}" method="get">
+        <form th:action="@{/habitaciones/id}" method="get">
             <div class="input-group input-group-sm mb-2 justify-content-center">
                 <input class='w-25' id="txtSearch" type="text" name="id">
                 <div class="input-group-append">
@@ -24,31 +24,37 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Tipo de Habitacion</th>
                     <th>Costo por noche</th>
-                    <th>Descripcion</th>
+                    <th>Capacidad</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody>
                 <th:block th:each="habitacion :  ${habitaciones}">
                     <tr>
+
                         <td th:text="${habitacion.id}"></td>
-                        <td th:text="${habitacion.tipoHabitacion.nombre}"></td>
-                        <td th:text="${habitacion.tipoHabitacion.costonoche}"></td>
+                        <td th:text="${habitacion.tipohabitacion.costonoche}"></td>
+                        <td th:text="${habitacion.tipohabitacion.capacidad}"></td>
+                        <td th:text="${habitacion.tipohabitacion.nombre}"></td>
                         <td th:text="${habitacion.descripcion}"></td>
+
                         <td>
-                            <a th:href="@{/habitacion/{id}/edit(id=${habitacion.id})}">Editar</a>
-                            <a th:href="@{/habitacion/{id}/delete(id=${habitacion.id})}"
-                                onclick="return confirm('¿Estás seguro de borrar esta Habitacion?')">Borrar</a>
+                            <a th:href="@{habitaciones/{id}/edit(id=${habitacion.id})}">Editar</a>
+                            <a th:href="@{habitaciones/{id}/delete(id=${habitacion.id})}"
+                                onclick="return confirm('¿Estás seguro de borrar este tipo de Habitacion')">Borrar</a>
                         </td>
                     </tr>
+
                 </th:block>
             </tbody>
         </table>
 
         <div class="text-center">
-            <a th:href='@{/habitacion/new}' class="btn btn-primary">Añadir Habitacion</a>
+            <a th:href='@{/habitaciones/new}' class="btn btn-primary">Añadir habitación</a>
             <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
+            </br>
         </div>
         <br />
         <br />
