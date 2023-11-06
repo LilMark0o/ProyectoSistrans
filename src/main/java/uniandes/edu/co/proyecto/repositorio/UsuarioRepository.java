@@ -33,5 +33,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Collection<Usuario> findUsersByNombre(@Param("nombre") String nombre);
 
     @Query(value = "SELECT u FROM Usuario u WHERE u.username = :username")
-    Usuario findUserByUsername(@Param("username") String username);
+    Usuario findUserByUsername(@Param("username") String username) ;
 }

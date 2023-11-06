@@ -16,7 +16,7 @@
         <div>
             <a th:href="@{/release1}" class="btn btn-primary">Release 1</a>
         </div>
-        <div sec:authorize="${session.loggedInUser.tipoUsuario.nombre == 'Administrador'}">
+        <div sec:authorize="isAuthenticated() and hasRole('ROLE_ADMINISTRADOR')">
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 1</a>
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 2</a>
             <a th:href="@{/api/reservas/}" class="btn btn-primary">Req 3</a>

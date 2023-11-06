@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import uniandes.edu.co.proyecto.Service.AuthenticationService;
 import uniandes.edu.co.proyecto.modelo.*;
-import uniandes.edu.co.proyecto.repositorio.*;
-
-
-import java.util.Collection;
 
 
 @Controller
