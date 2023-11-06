@@ -13,9 +13,11 @@
         <h1>Hoteles</h1>
         <img th:src="@{/images/logo.png}" width="250">
         <br />
+        <br />
         <div>
             <a th:href="@{/release1}" class="btn btn-primary">Release 1</a>
         </div>
+        <br>
         <div sec:authorize="isAuthenticated() and hasRole('ROLE_ADMINISTRADOR')">
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 1</a>
             <a th:href="@{/usuarios}" class="btn btn-primary">Req 2</a>
@@ -41,11 +43,11 @@
         </div>
         <br />
 
+        <!-- Botón para abrir el modal de inicio de sesión -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+            Iniciar Sesión
+          </button>
     </div>
-    <!-- Botón para abrir el modal de inicio de sesión -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-    Iniciar Sesión
-  </button>
   
   <!-- Modal de Inicio de Sesión -->
   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
