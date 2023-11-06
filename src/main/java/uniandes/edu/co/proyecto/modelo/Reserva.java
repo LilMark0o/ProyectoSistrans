@@ -6,41 +6,45 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
-@Table(name = "reserva") // Ajusta el nombre de la tabla si es necesario
+@Table(name = "reserva")
 public class Reserva {
     @Id
     private Integer id;
 
-    @Column(name = "fechaentrada") // Asegúrate de que el nombre coincida con la base de datos
-    private Date fechaEntrada;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "checkin")
+    private Date checkin;
 
-    @Column(name = "fechasalida") // Asegúrate de que el nombre coincida con la base de datos
-    private Date fechaSalida;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "checkout")
+    private Date checkout;
 
-    private Float cobro;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @Column(name = "precio")
+    private Float precio;
 
     @ManyToOne
     @JoinColumn(name = "habitacion_id", referencedColumnName = "id")
     private Habitacion habitacion;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
     public Reserva() {
-        ;// Constructor vacío requerido por Jakarta Persistence
+        // Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Reserva(Date fechaEntrada, Date fechaSalida, Float cobro, Usuario usuario, Habitacion habitacion) {
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
-        this.cobro = cobro;
-        this.usuario = usuario;
+    public Reserva(Date checkin, Date checkout, Float precio, Habitacion habitacion, Usuario usuario) {
+        this.checkin = checkin;
+        this.checkout = checkout;
+        this.precio = precio;
         this.habitacion = habitacion;
+        this.usuario = usuario;
     }
 
     public Integer getId() {
@@ -51,36 +55,28 @@ public class Reserva {
         this.id = id;
     }
 
-    public Date getFechaEntrada() {
-        return fechaEntrada;
+    public Date getCheckin() {
+        return checkin;
     }
 
-    public void setFechaEntrada(Date fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
+    public void setCheckin(Date checkin) {
+        this.checkin = checkin;
     }
 
-    public Date getFechaSalida() {
-        return fechaSalida;
+    public Date getCheckout() {
+        return checkout;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
-        this.fechaSalida = fechaSalida;
+    public void setCheckout(Date checkout) {
+        this.checkout = checkout;
     }
 
-    public Float getCobro() {
-        return cobro;
+    public Float getPrecio() {
+        return precio;
     }
 
-    public void setCobro(Float cobro) {
-        this.cobro = cobro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPrecio(Float precio) {
+        this.precio = precio;
     }
 
     public Habitacion getHabitacion() {
@@ -91,15 +87,11 @@ public class Reserva {
         this.habitacion = habitacion;
     }
 
-    @Override
-    public String toString() {
-        return "Reserva{" +
-                "id=" + id +
-                ", fechaEntrada=" + fechaEntrada +
-                ", fechaSalida=" + fechaSalida +
-                ", cobro=" + cobro +
-                ", usuario=" + usuario +
-                ", habitacion=" + habitacion +
-                '}';
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
