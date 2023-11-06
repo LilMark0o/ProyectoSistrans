@@ -9,27 +9,29 @@ import uniandes.edu.co.proyecto.modelo.ReservaServicio;
 
 public interface ReservaServicioRepository extends JpaRepository<ReservaServicio, Integer> {
 
-    @Query(value = "SELECT * FROM reservaservicio", nativeQuery = true)
-    Collection<ReservaServicio> darReservaServicios();
+        @Query(value = "SELECT * FROM reservaservicio where usuario_id IS NOT NULL", nativeQuery = true)
+        Collection<ReservaServicio> darReservaServicios();
 
-    @Query(value = "SELECT * FROM reservaservicio WHERE id = :id", nativeQuery = true)
-    ReservaServicio darReservaServicioPorId(@Param("id") Integer id);
+        @Query(value = "SELECT * FROM reservaservicio WHERE id = :id", nativeQuery = true)
+        ReservaServicio darReservaServicioPorId(@Param("id") Integer id);
 
-    // Ajusta la sentencia SQL de inserción de acuerdo a la estructura de tu tabla
-    // de reservaservicio
-    @Query(value = "INSERT INTO reservaservicio (id, horainicio, horafin, servicio_id) " +
-            "VALUES (:id, :horainicio, :horafin, :servicio.id)", nativeQuery = true)
-    void insertarReservaServicio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
-            @Param("horafin") Integer horafin, @Param("servicio") Integer servicioId);
+        // Ajusta la sentencia SQL de inserción de acuerdo a la estructura de tu tabla
+        // de reservaservicio
+        @Query(value = "INSERT INTO reservaservicio (id, horainicio, horafin, servicio_id, usuario) " +
+                        "VALUES (:id, :horainicio, :horafin, :servicio.id, :usuario.id)", nativeQuery = true)
+        void insertarReservaServicio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
+                        @Param("horafin") Integer horafin, @Param("servicio") Integer servicioId,
+                        @Param("usuario") Integer usuarioId);
 
-    // Ajusta la sentencia SQL de actualización de acuerdo a la estructura de tu
-    // tabla de reservaservicio
-    @Query(value = "UPDATE reservaservicio SET horainicio = :horainicio, horafin = :horafin, servicio_id = :servicio.id "
-            +
-            "WHERE id = :id", nativeQuery = true)
-    void actualizarReservaServicio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
-            @Param("horafin") Integer horafin, @Param("servicio") Integer servicioId);
+        // Ajusta la sentencia SQL de actualización de acuerdo a la estructura de tu
+        // tabla de reservaservicio
+        @Query(value = "UPDATE reservaservicio SET horainicio = :horainicio, horafin = :horafin, servicio_id = :servicio.id, usuario_id = :usuario.id "
+                        +
+                        "WHERE id = :id", nativeQuery = true)
+        void actualizarReservaServicio(@Param("id") Integer id, @Param("horainicio") Integer horainicio,
+                        @Param("horafin") Integer horafin, @Param("servicio") Integer servicioId,
+                        @Param("usuario") Integer usuarioId);
 
-    @Query(value = "DELETE FROM reservaservicio WHERE id = :id", nativeQuery = true)
-    void eliminarReservaServicio(@Param("id") Integer id);
+        @Query(value = "DELETE FROM reservaservicio WHERE id = :id", nativeQuery = true)
+        void eliminarReservaServicio(@Param("id") Integer id);
 }

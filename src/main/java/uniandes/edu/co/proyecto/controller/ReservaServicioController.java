@@ -16,6 +16,8 @@ public class ReservaServicioController {
     private ReservaServicioRepository reservaServicioRepository;
     @Autowired
     private ServicioRepository servicioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping("/reservaServicios")
     public String reservaServicios(Model model) {
@@ -35,24 +37,32 @@ public class ReservaServicioController {
             @ModelAttribute("id") Integer id,
             @ModelAttribute("horainicio") Integer horainicio,
             @ModelAttribute("horafin") Integer horafin,
-            @ModelAttribute("servicio_id") Integer servicioId) {
+            @ModelAttribute("servicio_id") Integer servicioId,
+            @ModelAttribute("usuario_id") Integer usuarioId) {
         ReservaServicio reservaServicio = new ReservaServicio();
         reservaServicio.setId(id);
         reservaServicio.setHorainicio(horainicio); // Cambio en el nombre del método
         reservaServicio.setHorafin(horafin); // Cambio en el nombre del método
         Servicio servicio = servicioRepository.findById(servicioId).orElse(null);
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
 
         if (servicio == null) {
             // Manejo de error, servicio no encontrado
             return "redirect:/reservaServicios";
         }
+        if (usuario == null) {
+            // Manejo de error, usuario no encontrado
+            return "redirect:/reservaServicios";
+        }
 
         reservaServicio.setServicio(servicio);
+        reservaServicio.setUsuario(usuario);
         reservaServicioRepository.insertarReservaServicio(
                 reservaServicio.getId(),
                 reservaServicio.getHorainicio(),
                 reservaServicio.getHorafin(),
-                reservaServicio.getServicio().getId());
+                reservaServicio.getServicio().getId(),
+                reservaServicio.getUsuario().getId());
 
         return "redirect:/reservaServicios";
     }

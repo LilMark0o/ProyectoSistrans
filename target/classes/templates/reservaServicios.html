@@ -27,6 +27,7 @@
                     <th>Hora Inicio</th>
                     <th>Hora Fin</th>
                     <th>Servicio</th>
+                    <th>Usuario</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                         <td th:text="${reserva.horainicio}"></td>
                         <td th:text="${reserva.horafin}"></td>
                         <td th:text="${reserva.servicio.nombre}"></td>
+                        <td th:text="${reserva.usuario.nombre}"></td>
                         <td>
                             <a th:href="@{reservaServicios/{id}/edit(id=${reserva.id})}">Editar</a>
                             <a th:href="@{reservaServicios/{id}/delete(id=${reserva.id})}"

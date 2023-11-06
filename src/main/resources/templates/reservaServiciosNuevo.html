@@ -18,13 +18,19 @@
             <input type="text" class="form-control" id="horafin" placeholder="Hora de Fin" name="horafin" />
         </div>
         <div class="form-group">
-            <label for="producto">Producto:</label>
-            <!-- Assuming that the Producto object has an id and a nombre -->
-            <select class="form-control" id="producto" name="producto">
-                <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre}">
-                    Producto</option>
+            <label for="servicio">Servicio:</label>
+            <!-- Assuming that the Servicio object has an id and a nombre -->
+            <select class="form-control" id="servicio" name="servicio">
+                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"
+                    th:selected="${servicio.id == reservaServicio.servicio.id}">Servicio</option>
             </select>
-        </div>
+        <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <!-- Assuming that the Usuario object has an id and a nombre -->
+            <select class="form-control" id="usuario" name="usuario">
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}">
+                    Usuario</option>
+            </select>
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a th:href="@{/reservaproductos}" class="btn btn-primary">Cancelar</a>
     </form>

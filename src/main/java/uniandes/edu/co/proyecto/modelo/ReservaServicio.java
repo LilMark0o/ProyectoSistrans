@@ -23,14 +23,19 @@ public class ReservaServicio {
     @JoinColumn(name = "servicio_id", referencedColumnName = "id")
     private Servicio servicio;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
     public ReservaServicio() {
         // Constructor vacío requerido por Jakarta Persistence
     }
 
-    public ReservaServicio(Integer horainicio, Integer horafin, Servicio servicio) {
+    public ReservaServicio(Integer horainicio, Integer horafin, Servicio servicio, Usuario usuario) {
         this.horainicio = horainicio;
         this.horafin = horafin;
         this.servicio = servicio;
+        this.usuario = usuario;
     }
 
     public Integer getId() {
@@ -64,4 +69,13 @@ public class ReservaServicio {
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }
