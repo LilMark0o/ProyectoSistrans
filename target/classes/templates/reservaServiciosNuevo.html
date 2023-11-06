@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Crear Reserva de Producto</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <br>
+    <form th:action="@{/reservaproducto/new}" method="post">
+        <div class="form-group">
+            <label for="horainicio">Hora de Inicio:</label>
+            <input type="text" class="form-control" id="horainicio" placeholder="Hora de Inicio" name="horainicio" />
+        </div>
+        <div class="form-group">
+            <label for="horafin">Hora de Fin:</label>
+            <input type="text" class="form-control" id="horafin" placeholder="Hora de Fin" name="horafin" />
+        </div>
+        <div class="form-group">
+            <label for="producto">Producto:</label>
+            <!-- Assuming that the Producto object has an id and a nombre -->
+            <select class="form-control" id="producto" name="producto">
+                <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre}">
+                    Producto</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/reservaproductos}" class="btn btn-primary">Cancelar</a>
+    </form>
+</body>
+
+</html>

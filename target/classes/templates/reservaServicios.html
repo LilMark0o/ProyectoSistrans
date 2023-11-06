@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lista de Reservas de Servicios</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/css/jquery.min.js}"></script>
+    <script th:src="@{/css/bootstrap.min.js}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>Lista de Reservas de Servicios</h1>
+            <br />
+            <form th:action="@{/reservaServicios/id}" method="get">
+                <div class="input-group input-group-sm mb-2 justify-content-center">
+                    <input class="form-control" id="txtSearch" type="text" name="id" placeholder="Buscar por ID">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Buscar</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Servicio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reserva : ${reservaServicios}">
+                        <td th:text="${reserva.id}"></td>
+                        <td th:text="${reserva.horainicio}"></td>
+                        <td th:text="${reserva.horafin}"></td>
+                        <td th:text="${reserva.servicio.nombre}"></td>
+                        <td>
+                            <a th:href="@{'/reservaServicios/' + ${reserva.id} + '/edit'}">Editar</a>
+                            <a th:href="@{'/reservaServicios/' + ${reserva.id} + '/delete'}"
+                                onclick="return confirm('¿Estás seguro de borrar esta reserva de servicio?')">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center">
+                <a th:href="@{/reservaServicios/new}" class="btn btn-primary">Añadir reserva de servicio</a>
+                <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
