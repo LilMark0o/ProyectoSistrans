@@ -13,9 +13,12 @@ public class Servicio {
     @Id
     private Integer id;
 
+    @Column(name = "nombre") // Asegúrate de que el nombre coincida con la base de datos
     private String nombre;
-    @Column(name = "secobra") // Asegúrate de que el nombre coincida con la base de datos
-    private Integer secobra;
+    @Column(name = "descripcion") // Asegúrate de que el nombre coincida con la base de datos
+    private String descripcion;
+    @Column(name = "precio") // Asegúrate de que el nombre coincida con la base de datos
+    private Float precio;
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     private Hotel hotel;
@@ -24,9 +27,10 @@ public class Servicio {
         ;// Constructor vacío requerido por Jakarta Persistence
     }
 
-    public Servicio(String nombre, Integer seCobra, Hotel hotel) {
+    public Servicio(String nombre, String descripcion, Float precio, Hotel hotel) {
         this.nombre = nombre;
-        this.secobra = seCobra;
+        this.descripcion = descripcion;
+        this.precio = precio;
         this.hotel = hotel;
     }
 
@@ -46,12 +50,20 @@ public class Servicio {
         this.nombre = nombre;
     }
 
-    public Integer getSecobra() {
-        return secobra;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setSecobra(Integer secobra) {
-        this.secobra = secobra;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
     }
 
     public Hotel getHotel() {
@@ -61,4 +73,5 @@ public class Servicio {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
 }

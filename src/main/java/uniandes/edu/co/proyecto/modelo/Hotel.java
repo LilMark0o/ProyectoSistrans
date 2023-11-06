@@ -9,13 +9,15 @@ import jakarta.persistence.Table;
 public class Hotel {
     @Id
     private Integer id;
+    private String nombre;
 
     public Hotel() {
         ;// Constructor vacío requerido por JPA
     }
 
-    public Hotel(Integer id) {
+    public Hotel(Integer id, String nombre) {
         this.id = id;
+        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -25,4 +27,13 @@ public class Hotel {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }
