@@ -186,6 +186,9 @@ ALTER TABLE usuario
     ADD CONSTRAINT usuario_tipousuario_fk FOREIGN KEY ( tipousuario_nombre )
         REFERENCES tipousuario ( nombre );
 
+-- ALTER TABLE reservaServicio
+--     ADD CONSTRAINT usuario_tipousuario_fk FOREIGN KEY ( tipousuario_nombre )
+--         REFERENCES tipousuario ( nombre );
 
 
 -- Oracle SQL Developer Data Modeler Summary Report: 

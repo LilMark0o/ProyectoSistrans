@@ -57,7 +57,7 @@ last_names = list({
 })
 
 
-tipousuario_data = ["Admin", "Guest", "Manager", "Staff"]
+tipousuario_data = ["Administrador", "Gerente", "Recepcionista", "Cliente", "Empleado"]
 
 # Hotels 
 adjectives = ["Grand", "Royal", "Luxury", "Elegant", "Majestic", "Prestige", "Regal", "Golden", "Classic", "Serene"]
@@ -68,14 +68,14 @@ room_types = ["Individual", "Doble", "Triple", "Suite", "Suite Junior", "Suite P
 
 # Create a dictionary with the room types with the price per night
 room_types_prices = {
-    "Individual": 50,
-    "Doble": 75,
-    "Triple": 100,
-    "Suite": 150,
-    "Suite Junior": 200,
-    "Suite Presidencial": 250,
-    "Suite Real": 300,
-    "Suite Imperial": 350
+    "Individual": 50000,
+    "Doble": 75000,
+    "Triple": 100000,
+    "Suite": 150000,
+    "Suite Junior": 200000,
+    "Suite Presidencial": 250000,
+    "Suite Real": 300000,
+    "Suite Imperial": 350000
 }
 
 # Define service names that are coherent with each table
@@ -196,3 +196,15 @@ product_name_restaurant_food = ["Hamburger", "Cheeseburger", "Double Cheeseburge
                 "Arroz con mariscos y carne", "Arroz con camarones y verduras", "Arroz con camarones y carne", "Arroz con verduras y carne",
                 "Arroz con pollo, verduras y camarones", "Arroz con pollo, verduras y carne", "Arroz con pollo, camarones y carne",
 ]
+
+
+spa_product_names = ["Massage", "Relaxation Massage", "Therapeutic Massage", "Deluxe Massage", "Good Hands Massage", "Satisfaction Massage",
+                    "Skin Treatment", "Facial Treatment", "Skin Care Treatment", "Skin Care", "Facial Care", "Facial", "Skin Care",
+                    "Sauna Treatment", "Steam Treatment", "Spa Treatment"]
+
+
+
+
+
+
+    
