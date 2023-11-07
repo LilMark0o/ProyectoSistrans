@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uniandes.edu.co.proyecto.dtos.Req2DTO;
+import uniandes.edu.co.proyecto.dtos.Req6DTO;
 import uniandes.edu.co.proyecto.dtos.ServicioResumenDTO;
 import uniandes.edu.co.proyecto.repositorio.ServicioRepository;
 
@@ -26,6 +27,21 @@ public class ServicioService {
                     ((Number) result[0]).intValue(),
                     (String) result[1],
                     ((Number) result[2]).intValue()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    public List<Req6DTO> findFechaOcupacion() {
+        List<Object[]> results = servicioRepository.findFechaFilter();
+        List<Req6DTO> dtos = new ArrayList<>();
+        for (Object[] result : results) {
+
+            Req6DTO dto = new Req6DTO(
+                    (String) result[0],
+                    (String) result[1],
+                    ((BigDecimal) result[2]).intValue()
             );
             dtos.add(dto);
         }

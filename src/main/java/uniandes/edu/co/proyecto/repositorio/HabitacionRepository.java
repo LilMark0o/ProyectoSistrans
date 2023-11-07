@@ -48,5 +48,57 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
             "    dinero_recolectado DESC", nativeQuery = true)
         List<Object[]> findServicioResumenData();
 
+ 
+
+        @Query(value = """
+                WITH ReservasPorHabitacion AS (
+                SELECT
+                        h.id AS habitacion_id,
+                        COUNT(r.id) AS total_reservas
+                FROM
+                        habitacion h
+                        LEFT JOIN reserva r ON h.id = r.habitacion_id
+                WHERE
+                        r.checkin >= TRUNC(SYSDATE) - INTERVAL '1' YEAR
+                GROUP BY
+                        h.id
+                ),
+                DiasOcupadosPorHabitacion AS (
+                SELECT
+                        r.habitacion_id,
+                        SUM(
+                        CASE
+                                WHEN r.checkin >= TRUNC(SYSDATE) - INTERVAL '1' YEAR THEN
+                                LEAST(r.checkout, TRUNC(SYSDATE)) - GREATEST(r.checkin, TRUNC(SYSDATE) - INTERVAL '1' YEAR) + 1
+                                ELSE
+                                LEAST(r.checkout, TRUNC(SYSDATE)) - TRUNC(SYSDATE) + 1
+                        END
+                        ) AS total_dias_ocupados
+                FROM
+                        reserva r
+                WHERE
+                        r.checkout >= TRUNC(SYSDATE) - INTERVAL '1' YEAR
+                GROUP BY
+                        r.habitacion_id
+                )
+                SELECT
+                h.id AS habitacion_id,
+                COALESCE(DO.total_dias_ocupados, 0) AS total_dias_ocupados,
+                COALESCE(RP.total_reservas, 0) AS total_reservas,
+                ROUND(
+                        CASE
+                        WHEN COALESCE(DO.total_dias_ocupados, 0) = 0 THEN 0
+                        ELSE (DO.total_dias_ocupados / 365) * 100
+                        END, 2
+                ) AS indice_ocupacion
+                FROM
+                habitacion h
+                LEFT JOIN ReservasPorHabitacion RP ON h.id = RP.habitacion_id
+                LEFT JOIN DiasOcupadosPorHabitacion DO ON h.id = DO.habitacion_id
+                ORDER BY
+                indice_ocupacion DESC;          
+
+                        """, nativeQuery = true)
+        List<Object[]> findHabitacionResumenData();
 
 }

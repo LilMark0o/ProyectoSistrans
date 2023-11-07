@@ -1,6 +1,7 @@
 package uniandes.edu.co.proyecto.controller;
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import uniandes.edu.co.proyecto.Service.HabitacionService;
 import uniandes.edu.co.proyecto.Service.ServicioService;
+import uniandes.edu.co.proyecto.Service.UsuarioService;
 import uniandes.edu.co.proyecto.dtos.ServicioResumenDTO;
 import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
@@ -23,6 +25,12 @@ public class RequerimientosController {
 
     @Autowired
     private ServicioService servicioService;
+
+    @Autowired
+    private ServicioRepository servicioRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
     
     @GetMapping("/req1")
     public String requerimiento1(Model model) {
@@ -47,6 +55,57 @@ public class RequerimientosController {
         return "req2"; // Retornamos el nombre de la vista que queremos mostrar
     }
 
+    @GetMapping("/req3")
+    public String requerimiento3(Model model) {
+        // System.out.println(habitacionService.findServicioResumen());
+        model.addAttribute("resumen", habitacionService.findReq3());
+        return "req3";
+    }
+
+    @GetMapping("/req4")
+    public String requerimiento4(Model model) {
+        return "req4";
+    }
+
+
+    @PostMapping("/req4")
+    public String requerimiento4post(
+        @RequestParam("precio_min") Float precio_min, 
+        @RequestParam("precio_max") Float precio_max, 
+        @RequestParam("fecha_inicio") String fecha_inicio, 
+        @RequestParam("fecha_fin") String fecha_fin, 
+        Model model) {
+        model.addAttribute("resumen", servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
+        return "req4"; 
+    }
     
+    @GetMapping("/req5")
+    public String requerimiento5(Model model) {
+        return "req5";
+    }
+    // List<Object[]> findUserResumenData(@Param("given_user_id") Integer given_user_id, @Param("start_date") String start_date, @Param("end_date") String end_date);
+
+    @PostMapping("/req5")
+    public String requerimiento5post(
+        @RequestParam("id_usuario") Integer id_usuario, 
+        @RequestParam("fecha_inicio") String fecha_inicio, 
+        @RequestParam("fecha_fin") String fecha_fin, 
+        Model model) {
+        model.addAttribute("resumen", usuarioService.findServicioResumen(id_usuario, fecha_inicio, fecha_fin));
+        return "req5"; 
+    }
+
+    @GetMapping("/req6")
+    public String requerimiento6(Model model) {
+        model.addAttribute("resumen", servicioService.findFechaOcupacion());
+        return "req6";
+    }
+
+    @GetMapping("/req7")
+    public String requerimiento7(Model model) {
+        model.addAttribute("resumen", usuarioService.findBuenCliente());
+        return "req7";
+    }
+
    
 }
