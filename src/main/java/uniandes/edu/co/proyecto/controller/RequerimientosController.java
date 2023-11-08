@@ -1,4 +1,5 @@
 package uniandes.edu.co.proyecto.controller;
+
 import java.sql.Date;
 
 import org.hibernate.mapping.List;
@@ -19,7 +20,6 @@ import uniandes.edu.co.proyecto.dtos.ServicioResumenDTO;
 import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
 
-
 @Controller
 public class RequerimientosController {
     @Autowired
@@ -33,7 +33,7 @@ public class RequerimientosController {
 
     @Autowired
     private UsuarioService usuarioService;
-    
+
     @GetMapping("/req1")
     public String requerimiento1(Model model) {
         // System.out.println(habitacionService.findServicioResumen());
@@ -43,16 +43,16 @@ public class RequerimientosController {
 
     @GetMapping("/req2")
     public String requerimiento2(
-        Model model) {
+            Model model) {
         // System.out.println(habitacionService.findServicioResumen());
         return "req2";
     }
 
     @PostMapping("/req2")
     public String requerimiento2post(
-        @RequestParam("date1") String date1, 
-        @RequestParam("date2") String date2, 
-        Model model) {
+            @RequestParam("date1") String date1,
+            @RequestParam("date2") String date2,
+            Model model) {
         model.addAttribute("resumen", servicioService.findServicioResumen(date1, date2));
         return "req2"; // Retornamos el nombre de la vista que queremos mostrar
     }
@@ -69,32 +69,34 @@ public class RequerimientosController {
         return "req4";
     }
 
-
     @PostMapping("/req4")
     public String requerimiento4post(
-        @RequestParam("precio_min") Float precio_min, 
-        @RequestParam("precio_max") Float precio_max, 
-        @RequestParam("fecha_inicio") String fecha_inicio, 
-        @RequestParam("fecha_fin") String fecha_fin, 
-        Model model) {
-        model.addAttribute("resumen", servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
-        return "req4"; 
+            @RequestParam("precio_min") Float precio_min,
+            @RequestParam("precio_max") Float precio_max,
+            @RequestParam("fecha_inicio") String fecha_inicio,
+            @RequestParam("fecha_fin") String fecha_fin,
+            Model model) {
+        model.addAttribute("resumen",
+                servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
+        return "req4";
     }
-    
+
     @GetMapping("/req5")
     public String requerimiento5(Model model) {
         return "req5";
     }
-    // List<Object[]> findUserResumenData(@Param("given_user_id") Integer given_user_id, @Param("start_date") String start_date, @Param("end_date") String end_date);
+    // List<Object[]> findUserResumenData(@Param("given_user_id") Integer
+    // given_user_id, @Param("start_date") String start_date, @Param("end_date")
+    // String end_date);
 
     @PostMapping("/req5")
     public String requerimiento5post(
-        @RequestParam("id_usuario") Integer id_usuario, 
-        @RequestParam("fecha_inicio") String fecha_inicio, 
-        @RequestParam("fecha_fin") String fecha_fin, 
-        Model model) {
+            @RequestParam("id_usuario") Integer id_usuario,
+            @RequestParam("fecha_inicio") String fecha_inicio,
+            @RequestParam("fecha_fin") String fecha_fin,
+            Model model) {
         model.addAttribute("resumen", usuarioService.findServicioResumen(id_usuario, fecha_inicio, fecha_fin));
-        return "req5"; 
+        return "req5";
     }
 
     @GetMapping("/req6")
@@ -111,7 +113,7 @@ public class RequerimientosController {
 
     @GetMapping("/req8")
     public String requerimiento8(Model model) {
-        model.addAttribute("resumen", servicioService.findServiciosSolicitados());
+        model.addAttribute("resumen", servicioService.findFechaOcupacion());
         return "req8";
     }
 
@@ -120,17 +122,17 @@ public class RequerimientosController {
         return "req9";
     }
 
-    
     @PostMapping("/req9")
     public String requerimiento9post(
-        @RequestParam("id_servicio") Integer id_servicio, 
-        @RequestParam("fecha_inicio") String fecha_inicio, 
-        @RequestParam("fecha_fin") String fecha_fin, 
-        @RequestParam("agrupamiento") String agrupamiento,
-        @RequestParam("ordenamiento") String ordenamiento,
-        Model model) {
-        model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
-        return "req9"; 
+            @RequestParam("id_servicio") Integer id_servicio,
+            @RequestParam("fecha_inicio") String fecha_inicio,
+            @RequestParam("fecha_fin") String fecha_fin,
+            @RequestParam("agrupamiento") String agrupamiento,
+            @RequestParam("ordenamiento") String ordenamiento,
+            Model model) {
+        model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin,
+                agrupamiento, ordenamiento));
+        return "req9";
     }
 
     @GetMapping("/req10")
@@ -140,27 +142,29 @@ public class RequerimientosController {
 
     @PostMapping("/req10")
     public String requerimiento10post(
-        @RequestParam("id_servicio") Integer id_servicio, 
-        @RequestParam("fecha_inicio") Date fecha_inicio, 
-        @RequestParam("fecha_fin") Date fecha_fin, 
-        @RequestParam("agrupamiento") String agrupamiento,
-        @RequestParam("ordenamiento") String ordenamiento,
-        Model model) {
-        model.addAttribute("resumen", usuarioService.findClientesSinConsumoDeServicio(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
-        return "req10"; 
+            @RequestParam("id_servicio") Integer id_servicio,
+            @RequestParam("fecha_inicio") Date fecha_inicio,
+            @RequestParam("fecha_fin") Date fecha_fin,
+            @RequestParam("agrupamiento") String agrupamiento,
+            @RequestParam("ordenamiento") String ordenamiento,
+            Model model) {
+        model.addAttribute("resumen", usuarioService.findClientesSinConsumoDeServicio(id_servicio, fecha_inicio,
+                fecha_fin, agrupamiento, ordenamiento));
+        return "req10";
     }
-   
+
     @GetMapping("/req11")
     public String requerimiento11(Model model) {
         return "req11";
     }
-    // List<Object[]> findHabitacionPorSemana(@Param("fecha_inicio") String fecha_inicio, @Param("fecha_fin") String fecha_fin);
+    // List<Object[]> findHabitacionPorSemana(@Param("fecha_inicio") String
+    // fecha_inicio, @Param("fecha_fin") String fecha_fin);
 
     @PostMapping("/req11")
     public String requerimiento11post(
-        @RequestParam("fecha_inicio") String fecha_inicio, 
-        @RequestParam("fecha_fin") String fecha_fin, 
-        Model model) {
+            @RequestParam("fecha_inicio") String fecha_inicio,
+            @RequestParam("fecha_fin") String fecha_fin,
+            Model model) {
         model.addAttribute("resumen", habitacionService.findReq11(fecha_inicio, fecha_fin));
         return "req11";
     }
@@ -171,5 +175,4 @@ public class RequerimientosController {
         return "req12";
     }
 
-   
 }
