@@ -71,11 +71,31 @@ public class RequerimientosController {
 
     @PostMapping("/req4")
     public String requerimiento4post(
-            @RequestParam("precio_min") Float precio_min,
-            @RequestParam("precio_max") Float precio_max,
-            @RequestParam("fecha_inicio") String fecha_inicio,
-            @RequestParam("fecha_fin") String fecha_fin,
+            @RequestParam("precio_min") Object precio_min,
+            @RequestParam("precio_max") Object precio_max,
+            @RequestParam("fecha_inicio") Object fecha_inicio,
+            @RequestParam("fecha_fin") Object fecha_fin,
             Model model) {
+        if (precio_min.equals("")) {
+            precio_min = null;
+        } else {
+            precio_min = Float.parseFloat((String) precio_min);
+        }
+        if (precio_max.equals("")) {
+            precio_max = null;
+        } else {
+            precio_max = Float.parseFloat((String) precio_max);
+        }
+        if (fecha_inicio.equals("")) {
+            fecha_inicio = null;
+        } else {
+            fecha_inicio = (String) fecha_inicio;
+        }
+        if (fecha_fin.equals("")) {
+            fecha_fin = null;
+        } else {
+            fecha_fin = (String) fecha_fin;
+        }
         model.addAttribute("resumen",
                 servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
         return "req4";
