@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Req1</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/css/jquery.min.js}"></script>
+    <script th:src="@{/css/bootstrap.min.js}"></script>
+</head>
+
+<body>
+    <div class="text-center">
+        <h1>Req1</h1>
+        <br />
+        <!-- <form th:action="@{/reserva/id}" method="get">
+            <div class="input-group input-group-sm mb-2 justify-content-center">
+                <input class="w-25" id="txtSearch" type="text" name="id">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary">Buscar por ID</button>
+                </div>
+            </div>
+        </form> -->
+        <table class="table table-condensed table-hover table-bordered" style="border-collapse: collapse;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dinero Recolectado</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="servicioResumen : ${resumen}">
+                    <tr>
+                        <td th:text="${servicioResumen.habitacionId}"></td>
+                        <td th:text="${servicioResumen.servicioNombre}"></td>
+                        <td th:text="${servicioResumen.dineroRecolectado}"></td>
+                        
+                        
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
+        </div>
+        <br />
+        <br />
+    </div>
+</body>
+
+</html>

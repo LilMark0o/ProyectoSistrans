@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Lista de Reserva</title>
+    <title>Lista de Reservas</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
     <script th:src="@{/css/jquery.min.js}"></script>
     <script th:src="@{/css/bootstrap.min.js}"></script>
@@ -10,57 +10,52 @@
 
 <body>
     <div class="text-center">
-        <h1>Lista de Reserva</h1>
-
+        <h1>Lista de Reservas</h1>
         <br />
-        <form th:action="@{reserva}" method="get">
+        <form th:action="@{/reserva/id}" method="get">
             <div class="input-group input-group-sm mb-2 justify-content-center">
-                <input class='w-25' id="txtSearch" type="text" name="id">
+                <input class="w-25" id="txtSearch" type="text" name="id">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary">Buscar por id</button>
+                    <button type="submit" class="btn btn-secondary">Buscar por ID</button>
                 </div>
             </div>
         </form>
-        <br />
-
-        <table class="table table-condensed table-hover table-bordered" style="border-collapse:collapse;">
+        <table class="table table-condensed table-hover table-bordered" style="border-collapse: collapse;">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Fecha Entrada</th>
-                    <th>Fecha Salida</th>
-                    <th>Cobro</th>
-                    <th>Usuario</th>
-                    <th>Habitacion ID</th>
-                    <th>Habitacion Tipo</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Precio</th>
+                    <th>Habitación ID</th>
+                    <th>Usuario ID</th>
                 </tr>
             </thead>
             <tbody>
-                <th:block th:each="reserva : ${reserva}">
+                <th:block th:each="reserva : ${reservas}">
                     <tr>
                         <td th:text="${reserva.id}"></td>
-                        <td th:text="${reserva.fechaEntrada}"></td>
-                        <td th:text="${reserva.fechaSalida}">%</td>
-                        <td th:text="${reserva.cobro}">%</td>
-                        <td th:text="${reserva.usuario.getNombre()}"></td>
-                        <td th:text="${reserva.habitacion.getId()}"></td>
-                        <td th:text="${reserva.habitacion.getTipohabitacion()}"></td>
+                        <td th:text="${reserva.checkin}"></td>
+                        <td th:text="${reserva.checkout}"></td>
+                        <td th:text="${reserva.precio}"></td>
+                        <td th:text="${reserva.habitacion.tipohabitacion.nombre}"></td>
+                        <td th:text="${reserva.usuario.nombre}"></td>
                         <td>
-                            <a th:href="@{reserva/{id}/edit(id=${reserva.id})}">Editar</a>
-                            <a th:href="@{reserva/{id}/delete(id=${reserva.id})}"
-                                onclick="return confirm('¿Estás seguro de borrar este reserva?')">Borrar</a>
+                            <a th:href="@{/reserva/{id}/edit(id=${reserva.id})}">Editar</a>
+                            <a th:href="@{/reserva/{id}/delete(id=${reserva.id})}"
+                                onclick="return confirm('¿Estás seguro de borrar esta reserva?')">Borrar</a>
                         </td>
                     </tr>
-
                 </th:block>
             </tbody>
         </table>
         <div class="text-center">
-            <a th:href='@{/reserva}' class="btn btn-primary">Añadir reserva</a>
+            <a th:href="@{/reserva/new}" class="btn btn-primary">Añadir Reserva</a>
             <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
-            </br>
         </div>
         <br />
+        <br />
+    </div>
 </body>
 
 </html>

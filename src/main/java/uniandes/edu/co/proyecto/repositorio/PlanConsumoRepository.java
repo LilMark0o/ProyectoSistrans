@@ -56,3 +56,4 @@ public interface PlanConsumoRepository extends JpaRepository<PlanConsumo, Intege
     void eliminarPlanConsumo(@Param("id") Integer id);
 
 }
+

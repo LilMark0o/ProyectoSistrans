@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Editar Reserva de Servicio</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <br>
+    <form th:action="@{/reservaservicio/{id}/edit(id=${reservaServicio.id})}" method="post">
+        <div class="form-group">
+            <label for="horainicio">Hora de Inicio:</label>
+            <input type="text" class="form-control" id="horainicio" placeholder="Hora de Inicio" name="horainicio"
+                th:value="${reservaServicio.horainicio}" />
+        </div>
+        <div class="form-group">
+            <label for="horafin">Hora de Fin:</label>
+            <input type="text" class="form-control" id="horafin" placeholder="Hora de Fin" name="horafin"
+                th:value="${reservaServicio.horafin}" />
+        </div>
+        <div class="form-group">
+            <label for="servicio">Servicio:</label>
+            <!-- Assuming that the Servicio object has an id and a nombre -->
+            <select class="form-control" id="servicio" name="servicio">
+                <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}"
+                    th:selected="${servicio.id == reservaServicio.servicio.id}">Servicio</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <!-- Assuming that the Usuario object has an id and a nombre -->
+            <select class="form-control" id="usuario" name="usuario">
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}"
+                    th:selected="${usuario.id == reservaServicio.usuario.id}">Usuario</option>
+            </select>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/reservaservicios}" class="btn btn-primary">Cancelar</a>
+    </form>
+</body>
+
+</html>

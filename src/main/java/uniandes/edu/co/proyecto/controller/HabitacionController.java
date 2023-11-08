@@ -6,66 +6,78 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.Habitacion;
 import uniandes.edu.co.proyecto.repositorio.HabitacionRepository;
-
-import java.util.List;
+import uniandes.edu.co.proyecto.repositorio.TipoHabitacionRepository;
 
 @Controller
-@RequestMapping("/habitaciones")
 public class HabitacionController {
 
     @Autowired
     private HabitacionRepository habitacionRepository;
 
-    // Mostrar la lista de habitaciones
-    @GetMapping
-    public String listaHabitaciones(Model model) {
-        List<Habitacion> habitaciones = (List<Habitacion>) habitacionRepository.darHabitaciones();
-        model.addAttribute("habitaciones", habitaciones);
-        return "habitaciones";
+    // Assuming you also have a repository for TipoHabitacion if it is a separate
+    // entity
+    @Autowired
+    private TipoHabitacionRepository tipoHabitacionRepository;
+
+    @GetMapping("/habitaciones")
+    public String listarHabitaciones(Model model) {
+        model.addAttribute("habitaciones", habitacionRepository.darHabitaciones());
+        return "habitaciones"; // Replace with the actual name of the list view
     }
 
-    // Mostrar el formulario para añadir una nueva habitación
-    @GetMapping("/new")
-    public String nuevaHabitacionForm(Model model) {
+    @GetMapping("/habitaciones/new")
+    public String mostrarFormularioNuevaHabitacion(Model model) {
         model.addAttribute("habitacion", new Habitacion());
-        return "habitacionNuevo";
+        // Assuming 'tiposHabitacion' is needed for a dropdown or similar
+        model.addAttribute("tiposHabitacion", tipoHabitacionRepository.findAllTipoHabitacion());
+        return "habitacionesNuevo"; // Replace with the actual name of the create view
     }
 
-    // Guardar nueva habitación
-    @PostMapping("/new")
-    public String guardarHabitacion(@ModelAttribute Habitacion habitacion) {
-        habitacionRepository.save(habitacion);
-        return "redirect:/habitaciones";
-    }
-
-    // Mostrar el formulario para editar una habitación
-    @GetMapping("/{id}/edit")
-    public String editarHabitacionForm(@PathVariable Integer id, Model model) {
-        Habitacion habitacion = habitacionRepository.darHabitacionPorId(id);
-        if (habitacion == null) {
+    @GetMapping("/habitaciones/id")
+    public String obtenerHabitacionPorId(@RequestParam("id") Integer id, Model model) {
+        Habitacion habitacion = habitacionRepository.findById(id).orElse(null);
+        if (habitacion != null) {
+            model.addAttribute("habitaciones", habitacion);
+            return "habitaciones"; // Replace with the actual name of the view
+        } else {
             return "redirect:/habitaciones";
         }
-        model.addAttribute("habitacion", habitacion);
-        return "habitacionEditar";
     }
 
-    // Actualizar habitación
-    @PostMapping("/{id}/edit")
-    public String actualizarHabitacion(@PathVariable Integer id, @ModelAttribute Habitacion habitacion) {
-        Habitacion habitacionExistente = habitacionRepository.darHabitacionPorId(id);
-        if (habitacionExistente != null) {
-            habitacionExistente.setCapacidad(habitacion.getCapacidad());
-            habitacionExistente.setCostonoche(habitacion.getCostonoche());
-            habitacionExistente.setTipohabitacion(habitacion.getTipohabitacion());
-            habitacionExistente.setHotel(habitacion.getHotel());
-            habitacionRepository.save(habitacionExistente);
+    @PostMapping("/habitaciones/new/save")
+    public String guardarNuevaHabitacion(@ModelAttribute Habitacion habitacion) {
+        habitacionRepository.save(habitacion); // Assuming the save method is defined in the repository
+        return "redirect:/habitaciones";
+    }
+
+    @GetMapping("/habitaciones/{id}/edit")
+    public String mostrarFormularioEditarHabitacion(@PathVariable("id") Integer id, Model model) {
+        Habitacion habitacion = habitacionRepository.findById(id).orElse(null);
+        if (habitacion != null) {
+            model.addAttribute("habitacion", habitacion);
+            // Assuming 'tiposHabitacion' is needed for a dropdown or similar
+            model.addAttribute("tiposHabitacion", tipoHabitacionRepository.findAll());
+            return "habitacionesEditar"; // Replace with the actual name of the edit view
+        } else {
+            return "redirect:/habitaciones";
+        }
+    }
+
+    @PostMapping("/habitaciones/{id}/update")
+    public String actualizarHabitacion(@PathVariable("id") Integer id, @ModelAttribute Habitacion habitacion) {
+        Habitacion existingHabitacion = habitacionRepository.findById(id).orElse(null);
+        if (existingHabitacion != null) {
+            // Update properties of the existing habitacion with that of the form's
+            existingHabitacion.setDescripcion(habitacion.getDescripcion());
+            existingHabitacion.setTipohabitacion(habitacion.getTipohabitacion());
+            habitacionRepository.save(existingHabitacion);
         }
         return "redirect:/habitaciones";
     }
 
-    // Borrar una habitación
-    @GetMapping("/{id}/delete")
-    public String borrarHabitacion(@PathVariable Integer id) {
+    // Include a delete method if necessary
+    @GetMapping("/habitaciones/{id}/delete")
+    public String eliminarHabitacion(@PathVariable("id") Integer id) {
         habitacionRepository.deleteById(id);
         return "redirect:/habitaciones";
     }

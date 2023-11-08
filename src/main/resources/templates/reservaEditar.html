@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Editar reserva</title>
+    <title>Editar Reserva</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-
 </head>
 
 <body>
     <br>
-    <form th:action="@{'/reserva/' + ${id} + '/edit/save'}" th:object="${reserva}" method="post">
-        <div th:replace="~{fragments/usuarioForm :: usuarioForm(titulo='Editar reserva', reserva=${reserva})}">
+    <form th:action="@{/reserva/{id}/edit(id=${reserva.id})}" method="post">
+        <div class="form-group">
+            <label for="checkin">Check-In:</label>
+            <input type="date" class="form-control" id="checkin" name="checkin" th:value="${reserva.checkin}" />
+        </div>
+        <div class="form-group">
+            <label for="checkout">Check-Out:</label>
+            <input type="date" class="form-control" id="checkout" name="checkout" th:value="${reserva.checkout}" />
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="text" class="form-control" id="precio" placeholder="Precio" name="precio"
+                th:value="${reserva.precio}" />
+        </div>
+        <div class="form-group">
+            <label for="habitacionId">Habitación ID:</label>
+            <input type="number" class="form-control" id="habitacionId" placeholder="Habitación ID" name="habitacionId"
+                th:value="${reserva.habitacion.id}" />
+        </div>
+        <div class="form-group">
+            <label for="usuarioId">Usuario ID:</label>
+            <input type="number" class="form-control" id="usuarioId" placeholder="Usuario ID" name="usuarioId"
+                th:value="${reserva.usuario.id}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/reserva}" class="btn btn-primary">Cancelar</a>
     </form>
 </body>
 

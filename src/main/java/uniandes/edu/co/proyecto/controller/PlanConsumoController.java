@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import uniandes.edu.co.proyecto.modelo.*;
 import uniandes.edu.co.proyecto.repositorio.*;
 
-import java.util.Collection;
 
 @Controller
 public class PlanConsumoController {
