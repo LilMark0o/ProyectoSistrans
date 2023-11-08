@@ -115,18 +115,17 @@ public class UsuarioService {
         String sql = "SELECT DISTINCT u " +
                 "FROM usuario u " +
                 "WHERE u.id NOT IN (" +
-                "    SELECT DISTINCT u.id " +
-                "    FROM usuario u " +
-                "    JOIN reserva r ON u.id = r.usuario_id " +
+                "    SELECT DISTINCT r.usuario_id " +
+                "    FROM reserva r " +
                 "    JOIN cuentaservicio cs ON r.id = cs.reserva_id " +
                 "    WHERE cs.servicio_id = :servicioId " +
                 "    AND cs.fecha BETWEEN :fechaInicio AND :fechaFin" +
                 ") ";
 
         // Agregar el agrupamiento y ordenamiento
-        if (agrupamiento != null && !agrupamiento.isEmpty()) {
-            sql += "GROUP BY " + agrupamiento + " ";
-        }
+        // if (agrupamiento != null && !agrupamiento.isEmpty()) {
+            sql += "GROUP BY " + "u.id" + " ";
+        // }
         if (ordenamiento != null && !ordenamiento.isEmpty()) {
             sql += "ORDER BY " + (agrupamiento != null ? agrupamiento : "u.id") + " " + ordenamiento;
         }
