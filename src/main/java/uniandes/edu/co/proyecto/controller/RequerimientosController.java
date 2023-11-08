@@ -71,15 +71,16 @@ public class RequerimientosController {
 
     @PostMapping("/req4")
     public String requerimiento4post(
-            @RequestParam("precio_min") Float precio_min,
-            @RequestParam("precio_max") Float precio_max,
-            @RequestParam("fecha_inicio") String fecha_inicio,
-            @RequestParam("fecha_fin") String fecha_fin,
-            Model model) {
-        model.addAttribute("resumen",
-                servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
-        return "req4";
-    }
+        @RequestParam(value = "precio_min", required = false) Float precio_min,
+        @RequestParam(value = "precio_max", required = false) Float precio_max,
+        @RequestParam(value = "fecha_inicio", required = false) String fecha_inicio,
+        @RequestParam(value = "fecha_fin", required = false) String fecha_fin,
+        Model model) {
+    model.addAttribute("resumen",
+            servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
+    return "req4";
+}
+
 
     @GetMapping("/req5")
     public String requerimiento5(Model model) {
