@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -75,7 +76,7 @@ public class UsuarioService {
                 "JOIN servicio s ON cs.servicio_id = s.id " +
                 "WHERE s.id = :servicioId " +
                 "AND cs.fecha BETWEEN :fechaInicio AND :fechaFin " +
-                "GROUP BY " + "cs" + " " +
+                "GROUP BY " + "u.id, u.nombre" + " " +
                 "ORDER BY " + agrupamiento + " " + ordenamiento;
 
         // Ejecuta la consulta
@@ -94,9 +95,10 @@ public class UsuarioService {
         List<ReqDTO9> dtos = new ArrayList<>();
         for (Object[] result : results) {
             ReqDTO9 dto = new ReqDTO9(
-                    ((String) result[0]),
+                    ((Number) result[0]).intValue(),
                     (String) result[1],
-                    ((Number) result[2]).intValue());
+                    ((Number) result[2]).intValue(),
+                    new Date(((Timestamp) result[3]).getTime()));
             dtos.add(dto);
         }
         return dtos;
