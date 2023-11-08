@@ -143,7 +143,7 @@ public class UsuarioService {
     }
 
     public List<Req12DTO> findBuenClienteAlternativo() {
-        List<Object[]> results = usuarioRepository.findBuenosClientes();
+        List<Object[]> results = usuarioRepository.findBuenosClientesAlternativo();
         List<Req12DTO> dtos = new ArrayList<>();
         for (Object[] result : results) {
             Req12DTO dto = new Req12DTO(
