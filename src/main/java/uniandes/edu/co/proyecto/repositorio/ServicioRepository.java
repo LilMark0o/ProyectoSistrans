@@ -57,7 +57,7 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
 
 
 
-        @Query(value = "SELECT s.* " +
+        @Query(value = "SELECT distinct s.* " +
                 "FROM servicio s " +
                 "JOIN cuentaservicio cs ON s.id = cs.servicio_id " +
                 "WHERE (:p_precio_min IS NULL OR s.precio >= :p_precio_min) " +
