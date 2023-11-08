@@ -154,33 +154,22 @@ public class RequerimientosController {
     public String requerimiento11(Model model) {
         return "req11";
     }
+    // List<Object[]> findHabitacionPorSemana(@Param("fecha_inicio") String fecha_inicio, @Param("fecha_fin") String fecha_fin);
 
     @PostMapping("/req11")
     public String requerimiento11post(
-        @RequestParam("id_servicio") Integer id_servicio, 
-        @RequestParam("fecha_inicio") Date fecha_inicio, 
-        @RequestParam("fecha_fin") Date fecha_fin, 
-        @RequestParam("agrupamiento") String agrupamiento,
-        @RequestParam("ordenamiento") String ordenamiento,
+        @RequestParam("fecha_inicio") String fecha_inicio, 
+        @RequestParam("fecha_fin") String fecha_fin, 
         Model model) {
-        // model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
-        return "req11"; 
+        model.addAttribute("resumen", habitacionService.findReq11(fecha_inicio, fecha_fin));
+        return "req11";
     }
 
     @GetMapping("/req12")
     public String requerimiento12(Model model) {
+        model.addAttribute("resumen", usuarioService.findBuenClienteAlternativo());
         return "req12";
     }
 
-    @PostMapping("/req12")
-    public String requerimiento12post(
-        @RequestParam("id_servicio") Integer id_servicio, 
-        @RequestParam("fecha_inicio") Date fecha_inicio, 
-        @RequestParam("fecha_fin") Date fecha_fin, 
-        @RequestParam("agrupamiento") String agrupamiento,
-        @RequestParam("ordenamiento") String ordenamiento,
-        Model model) {
-        // model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
-        return "req12"; 
-    }
+   
 }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import uniandes.edu.co.proyecto.dtos.Req11DTO;
 import uniandes.edu.co.proyecto.dtos.Req3DTO;
 import uniandes.edu.co.proyecto.dtos.ServicioResumenDTO;
 import uniandes.edu.co.proyecto.modelo.ServicioResumen;
@@ -48,5 +49,21 @@ public class HabitacionService {
         return dtos;
     }
 
+    public List<Req11DTO> findReq11(String date1, String date2) {
+        List<Object[]> results = habitacionRepository.findHabitacionPorSemana(date1, date2);
+        List<Req11DTO> dtos = new ArrayList<>();
+        for (Object[] result : results) {
+            Req11DTO dto = new Req11DTO(
+                ((String) result[0]),
+                ((String) result[1]),
+                ((String) result[2]),
+                ((String) result[3]),
+                ((String) result[4]));
+
+            dtos.add(dto);
+
+             }
+        return dtos;
+    }
                     
 }

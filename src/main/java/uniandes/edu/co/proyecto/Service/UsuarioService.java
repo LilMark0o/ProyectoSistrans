@@ -15,10 +15,11 @@ import java.sql.Date;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import uniandes.edu.co.proyecto.dtos.Req12DTO;
 import uniandes.edu.co.proyecto.dtos.Req5DTO;
 import uniandes.edu.co.proyecto.dtos.Req7DTO;
 import uniandes.edu.co.proyecto.dtos.ReqDTO9;
-
+import uniandes.edu.co.proyecto.modelo.Usuario;
 import uniandes.edu.co.proyecto.repositorio.UsuarioRepository;
 
 @Service
@@ -105,7 +106,7 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public List<Object[]> findClientesSinConsumoDeServicio(
+    public List<Usuario> findClientesSinConsumoDeServicio(
             Integer servicioId,
             Date fechaInicio,
             Date fechaFin,
@@ -113,7 +114,7 @@ public class UsuarioService {
             String ordenamiento
     ) {
         // Seleccionamos clientes que NO consumieron el servicio específico
-        String sql = "SELECT DISTINCT u.id, u.nombre " +
+        String sql = "SELECT DISTINCT u " +
                      "FROM usuario u " +
                      "WHERE u.id NOT IN (" +
                      "    SELECT DISTINCT u.id " +
@@ -133,7 +134,7 @@ public class UsuarioService {
         }
 
         // Ejecuta la consulta
-        Query query = entityManager.createNativeQuery(sql);
+        Query query = entityManager.createNativeQuery(sql, Usuario.class);
         query.setParameter("servicioId", servicioId);
         query.setParameter("fechaInicio", fechaInicio);
         query.setParameter("fechaFin", fechaFin);
@@ -141,5 +142,20 @@ public class UsuarioService {
         return query.getResultList();
     }
 
+    public List<Req12DTO> findBuenClienteAlternativo() {
+        List<Object[]> results = usuarioRepository.findBuenosClientes();
+        List<Req12DTO> dtos = new ArrayList<>();
+        for (Object[] result : results) {
+            Req12DTO dto = new Req12DTO(
+                    ((Number) result[0]).intValue(),
+                    (String) result[1],
+                    (String) result[2],
+                    ((Number) result[3]).intValue(),
+                    (String) result[4]
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
     
 }

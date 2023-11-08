@@ -102,4 +102,64 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
                         """, nativeQuery = true)
         List<Object[]> findHabitacionResumenData();
 
+
+        @Query(value = """                           
+                WITH Semanas AS (
+                        SELECT DISTINCT
+                        TO_CHAR(DATE '2023-01-01' + (level - 1) * 7, 'YYYY-IW') AS semana,
+                        TO_CHAR(DATE '2023-01-01' + (level - 1) * 7, 'YYYY-MM-DD') AS inicio_semana,
+                        TO_CHAR(DATE '2023-01-01' + (level - 1) * 7 + 6, 'YYYY-MM-DD') AS fin_semana
+                        FROM dual
+                        CONNECT BY level <= 53 -- Suponiendo un máximo de 53 semanas en el año
+                )
+                , ServiciosSemana AS (
+                        SELECT
+                        TO_CHAR(cs.fecha, 'YYYY-IW') AS semana,
+                        s.nombre AS servicio_nombre,
+                        COUNT(*) AS cantidad_consumos
+                        FROM cuentaservicio cs
+                        JOIN servicio s ON cs.servicio_id = s.id
+                        WHERE cs.fecha BETWEEN TO_DATE(:fecha_inicio, 'YYYY-MM-DD') AND TO_DATE(:fecha_fin, 'YYYY-MM-DD')
+                        GROUP BY TO_CHAR(cs.fecha, 'YYYY-IW'), s.nombre
+                )
+                , HabitacionesSemana AS (
+                        SELECT
+                        TO_CHAR(r.checkin, 'YYYY-IW') AS semana,
+                        h.id AS habitacion_id,
+                        COUNT(*) AS cantidad_solicitudes
+                        FROM reserva r
+                        JOIN habitacion h ON r.habitacion_id = h.id
+                        WHERE r.checkin BETWEEN TO_DATE(:fecha_inicio, 'YYYY-MM-DD') AND TO_DATE(:fecha_fin, 'YYYY-MM-DD')
+                        GROUP BY TO_CHAR(r.checkin, 'YYYY-IW'), h.id
+                )
+                , SemanaServicioMax AS (
+                        SELECT semana, servicio_nombre, cantidad_consumos,
+                        ROW_NUMBER() OVER (PARTITION BY semana ORDER BY cantidad_consumos DESC) AS rn_max
+                        FROM ServiciosSemana
+                )
+                , SemanaServicioMin AS (
+                        SELECT semana, servicio_nombre, cantidad_consumos,
+                        ROW_NUMBER() OVER (PARTITION BY semana ORDER BY cantidad_consumos ASC) AS rn_min
+                        FROM ServiciosSemana
+                )
+                , SemanaHabitacionMax AS (
+                        SELECT semana, habitacion_id, cantidad_solicitudes,
+                        ROW_NUMBER() OVER (PARTITION BY semana ORDER BY cantidad_solicitudes DESC) AS rn_max
+                        FROM HabitacionesSemana
+                )
+                , SemanaHabitacionMin AS (
+                        SELECT semana, habitacion_id, cantidad_solicitudes,
+                        ROW_NUMBER() OVER (PARTITION BY semana ORDER BY cantidad_solicitudes ASC) AS rn_min
+                        FROM HabitacionesSemana
+                )
+                SELECT 
+                        s.semana AS semana,
+                        (SELECT servicio_nombre FROM SemanaServicioMax WHERE semana = s.semana AND rn_max = 1) AS servicio_mas_consumido,
+                        (SELECT servicio_nombre FROM SemanaServicioMin WHERE semana = s.semana AND rn_min = 1) AS servicio_menos_consumido,
+                        (SELECT TO_CHAR(habitacion_id) FROM SemanaHabitacionMax WHERE semana = s.semana AND rn_max = 1) AS habitacion_mas_solicitada,
+                        (SELECT TO_CHAR(habitacion_id) FROM SemanaHabitacionMin WHERE semana = s.semana AND rn_min = 1) AS habitacion_menos_solicitada
+                FROM Semanas s
+                ORDER BY s.semana
+                        """, nativeQuery = true)
+        List<Object[]> findHabitacionPorSemana(@Param("fecha_inicio") String fecha_inicio, @Param("fecha_fin") String fecha_fin);
 }

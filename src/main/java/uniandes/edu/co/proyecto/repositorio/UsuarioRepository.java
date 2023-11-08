@@ -123,6 +123,43 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             """, nativeQuery = true)
     List<Object[]> findBuenosClientes();
 
-    
+    @Query(value = """
+        WITH EstanciasPorTrimestre AS (
+    SELECT u.id, u.nombre, COUNT(DISTINCT TRUNC(r.checkin, 'Q')) as NumTrimestres
+    FROM usuario u
+    INNER JOIN reserva r ON u.id = r.usuario_id
+    GROUP BY u.id, u.nombre
+    HAVING COUNT(DISTINCT TRUNC(r.checkin, 'Q')) >= 4
+),
+ServiciosCostosos AS (
+    SELECT DISTINCT u.id, u.nombre
+    FROM usuario u
+    INNER JOIN reserva r ON u.id = r.usuario_id
+    INNER JOIN cuentaservicio cs ON r.id = cs.reserva_id
+    INNER JOIN servicio s ON cs.servicio_id = s.id
+    WHERE s.precio > 300000
+),
+ServiciosDuraderos AS (
+    SELECT DISTINCT u.id, u.nombre
+    FROM usuario u
+    INNER JOIN reserva r ON u.id = r.usuario_id
+    INNER JOIN reservaservicio rs ON u.id = rs.usuario_id
+    INNER JOIN servicio s ON rs.servicio_id = s.id
+    WHERE (s.descripcion LIKE '%SPA%' OR s.descripcion LIKE '%reuniones%')
+    AND (rs.horafin - rs.horainicio) > 4
+)
+SELECT u.id, u.nombre, u.username, u.hotel_id,'Cumple estancias por trimestre' as Justificacion
+FROM usuario u
+INNER JOIN EstanciasPorTrimestre ept ON u.id = ept.id
+UNION
+SELECT u.id, u.nombre, u.username, u.hotel_id, 'Consume servicios costosos' as Justificacion
+FROM usuario u
+INNER JOIN ServiciosCostosos sc ON u.id = sc.id
+UNION
+SELECT u.id, u.nombre, u.username, u.hotel_id, 'Consume servicios de SPA o reuniones duraderos' as Justificacion
+FROM usuario u
+INNER JOIN ServiciosDuraderos sd ON u.id = sd.id
+            """, nativeQuery = true)
+    List<Object[]> findBuenosClientesAlternativo();
     
 }
