@@ -1,4 +1,6 @@
 package uniandes.edu.co.proyecto.controller;
+import java.sql.Date;
+
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -115,8 +117,70 @@ public class RequerimientosController {
 
     @GetMapping("/req9")
     public String requerimiento9(Model model) {
-        model.addAttribute("resumen", servicioService.findFechaOcupacion());
         return "req9";
     }
+
+    
+    @PostMapping("/req9")
+    public String requerimiento9post(
+        @RequestParam("id_servicio") Integer id_servicio, 
+        @RequestParam("fecha_inicio") String fecha_inicio, 
+        @RequestParam("fecha_fin") String fecha_fin, 
+        @RequestParam("agrupamiento") String agrupamiento,
+        @RequestParam("ordenamiento") String ordenamiento,
+        Model model) {
+        model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
+        return "req9"; 
+    }
+
+    @GetMapping("/req10")
+    public String requerimiento10(Model model) {
+        return "req10";
+    }
+
+    @PostMapping("/req10")
+    public String requerimiento10post(
+        @RequestParam("id_servicio") Integer id_servicio, 
+        @RequestParam("fecha_inicio") Date fecha_inicio, 
+        @RequestParam("fecha_fin") Date fecha_fin, 
+        @RequestParam("agrupamiento") String agrupamiento,
+        @RequestParam("ordenamiento") String ordenamiento,
+        Model model) {
+        model.addAttribute("resumen", usuarioService.findClientesSinConsumoDeServicio(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
+        return "req10"; 
+    }
    
+    @GetMapping("/req11")
+    public String requerimiento11(Model model) {
+        return "req11";
+    }
+
+    @PostMapping("/req11")
+    public String requerimiento11post(
+        @RequestParam("id_servicio") Integer id_servicio, 
+        @RequestParam("fecha_inicio") Date fecha_inicio, 
+        @RequestParam("fecha_fin") Date fecha_fin, 
+        @RequestParam("agrupamiento") String agrupamiento,
+        @RequestParam("ordenamiento") String ordenamiento,
+        Model model) {
+        // model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
+        return "req11"; 
+    }
+
+    @GetMapping("/req12")
+    public String requerimiento12(Model model) {
+        return "req12";
+    }
+
+    @PostMapping("/req12")
+    public String requerimiento12post(
+        @RequestParam("id_servicio") Integer id_servicio, 
+        @RequestParam("fecha_inicio") Date fecha_inicio, 
+        @RequestParam("fecha_fin") Date fecha_fin, 
+        @RequestParam("agrupamiento") String agrupamiento,
+        @RequestParam("ordenamiento") String ordenamiento,
+        Model model) {
+        // model.addAttribute("resumen", usuarioService.findClientesConAgrupamiento(id_servicio, fecha_inicio, fecha_fin, agrupamiento, ordenamiento));
+        return "req12"; 
+    }
 }
