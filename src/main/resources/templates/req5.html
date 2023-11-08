@@ -12,14 +12,18 @@
     <div class="text-center">
         <h1>Req5</h1>
         <br />
-        <form th:action="@{/req2}" method="post">
+        <form th:action="@{/req5}" method="post">
             <div class="form-group">
-                <label for="date1">Fecha 1:</label>
-                <input type="date" class="form-control" id="date1" name="date1" />
+                <label for="id_usuario">Id usuario:</label>
+                <input type="text" class="form-control" id="id_usuario" name="id_usuario" />
             </div>
             <div class="form-group">
-                <label for="date2">Fecha 2:</label>
-                <input type="date" class="form-control" id="date2" name="date2" />
+                <label for="fecha_inicio">Fecha 1:</label>
+                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" />
+            </div>
+            <div class="form-group">
+                <label for="fecha_fin">Fecha 2:</label>
+                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" />
             </div>
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
@@ -27,18 +31,29 @@
         <table class="table table-condensed table-hover table-bordered" style="border-collapse: collapse;">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Cantidad Consumos</th>
+                    <th>Usuario</th>
+                    <th>Servicio</th>
+                    <th>Descripcion</th>
+                    <th>Fecha Servicio</th>
+                    <th>Precio Servicio</th>
+                    <th>Producto</th>
+                    <th>Precio Producto</th>
+
+
                     
                 </tr>
             </thead>
             <tbody>
                 <th:block th:each="servicioResumen : ${resumen}">
                     <tr>
-                        <td th:text="${servicioResumen.servicio_id}"></td>
-                        <td th:text="${servicioResumen.servicio_nombre}"></td>
-                        <td th:text="${servicioResumen.cantidad_consumos}"></td>
+                        <td th:text="${servicioResumen.usuario}"></td>
+                        <td th:text="${servicioResumen.servicio}"></td>
+                        <td th:text="${servicioResumen.descripcionServicio}"></td>
+                        <td th:text="${servicioResumen.fechaServicio}"></td>
+                        <td th:text="${servicioResumen.precioServicio}"></td>
+                        <td th:text="${servicioResumen.producto}"></td>
+                        <td th:text="${servicioResumen.precioProducto}"></td>
+
                         
                         
                     </tr>

@@ -111,7 +111,7 @@ public class RequerimientosController {
 
     @GetMapping("/req8")
     public String requerimiento8(Model model) {
-        model.addAttribute("resumen", servicioService.findFechaOcupacion());
+        model.addAttribute("resumen", servicioService.findServiciosSolicitados());
         return "req8";
     }
 
