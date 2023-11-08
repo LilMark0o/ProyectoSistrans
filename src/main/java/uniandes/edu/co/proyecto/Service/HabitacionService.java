@@ -59,7 +59,6 @@ public class HabitacionService {
                 ((String) result[2]),
                 ((String) result[3]),
                 ((String) result[4]));
-
             dtos.add(dto);
 
              }
