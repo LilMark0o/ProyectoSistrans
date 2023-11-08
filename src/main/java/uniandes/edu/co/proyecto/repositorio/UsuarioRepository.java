@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.repositorio;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +11,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import uniandes.edu.co.proyecto.modelo.TipoUsuario;
 import uniandes.edu.co.proyecto.modelo.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    // List<Usuario> findByTipoUsuario_Nombre(String tipoUsuario);
-    // Optional<Usuario> findByUsername(String username);
+    
+
 
     @Query(value = "SELECT u FROM Usuario u")
     Collection<Usuario> findAllUsers();
@@ -120,5 +123,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             """, nativeQuery = true)
     List<Object[]> findBuenosClientes();
 
-
+    
+    
 }

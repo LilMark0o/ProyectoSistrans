@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import uniandes.edu.co.proyecto.dtos.Req2DTO;
 import uniandes.edu.co.proyecto.dtos.Req6DTO;
+import uniandes.edu.co.proyecto.dtos.Req8DTO;
 import uniandes.edu.co.proyecto.dtos.ServicioResumenDTO;
 import uniandes.edu.co.proyecto.repositorio.ServicioRepository;
 
@@ -47,4 +48,20 @@ public class ServicioService {
         }
         return dtos;
     }
+
+    public List<Req8DTO> findServiciosSolicitados() {
+        List<Object[]> results = servicioRepository.findFechaFilter();
+        List<Req8DTO> dtos = new ArrayList<>();
+        for (Object[] result : results) {
+            Req8DTO dto = new Req8DTO(
+                    (String) result[0],
+                    (String) result[1],
+                    ((Number) result[2]).intValue()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+
 }

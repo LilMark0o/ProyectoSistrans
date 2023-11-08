@@ -107,5 +107,16 @@ public class RequerimientosController {
         return "req7";
     }
 
+    @GetMapping("/req8")
+    public String requerimiento8(Model model) {
+        model.addAttribute("resumen", servicioService.findFechaOcupacion());
+        return "req8";
+    }
+
+    @GetMapping("/req9")
+    public String requerimiento9(Model model) {
+        model.addAttribute("resumen", servicioService.findFechaOcupacion());
+        return "req9";
+    }
    
 }
