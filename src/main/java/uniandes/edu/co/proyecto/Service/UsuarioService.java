@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.sql.Date;
 
 import jakarta.persistence.EntityManager;
@@ -41,8 +40,7 @@ public class UsuarioService {
                     (String) result[3],
                     ((BigDecimal) result[4]).floatValue(),
                     (String) result[5],
-                    ((BigDecimal) result[6]).floatValue()
-            );
+                    ((BigDecimal) result[6]).floatValue());
             dtos.add(dto);
         }
         return dtos;
@@ -56,8 +54,7 @@ public class UsuarioService {
             Req7DTO dto = new Req7DTO(
                     (String) result[0],
                     (String) result[1],
-                    (String) result[2]
-            );
+                    (String) result[2]);
             dtos.add(dto);
         }
         return dtos;
@@ -68,19 +65,18 @@ public class UsuarioService {
             Integer servicioId,
             Date fechaInicio,
             Date fechaFin,
-            String agrupamiento, 
-            String ordenamiento
-    ) {
+            String agrupamiento,
+            String ordenamiento) {
         // Aquí puedes armar tu consulta como la necesites usando el EntityManager
         String sql = "SELECT u.id, u.nombre, COUNT(cs.id) AS numero_de_veces, MAX(cs.fecha) AS ultima_fecha_uso " +
-                     "FROM usuario u " +
-                     "JOIN reserva r ON u.id = r.usuario_id " +
-                     "JOIN cuentaservicio cs ON cs.reserva_id = r.id " +
-                     "JOIN servicio s ON cs.servicio_id = s.id " +
-                     "WHERE s.id = :servicioId " +
-                     "AND cs.fecha BETWEEN :fechaInicio AND :fechaFin " +
-                     "GROUP BY " + agrupamiento + " " +
-                     "ORDER BY " + agrupamiento + " " + ordenamiento;
+                "FROM usuario u " +
+                "JOIN reserva r ON u.id = r.usuario_id " +
+                "JOIN cuentaservicio cs ON cs.reserva_id = r.id " +
+                "JOIN servicio s ON cs.servicio_id = s.id " +
+                "WHERE s.id = :servicioId " +
+                "AND cs.fecha BETWEEN :fechaInicio AND :fechaFin " +
+                "GROUP BY " + "cs" + " " +
+                "ORDER BY " + agrupamiento + " " + ordenamiento;
 
         // Ejecuta la consulta
         Query query = entityManager.createNativeQuery(sql);
@@ -91,15 +87,16 @@ public class UsuarioService {
         return query.getResultList();
     }
 
-    public List<ReqDTO9> findClientesConAgrupamiento(Integer id, String date1, String date2, String agrupamiento, String ordenamiento) {
-        List<Object[]> results = this.findClientesConAgrupamientoYOrdenamientoDinamico(id, Date.valueOf(date1), Date.valueOf(date2), agrupamiento, ordenamiento);
+    public List<ReqDTO9> findClientesConAgrupamiento(Integer id, String date1, String date2, String agrupamiento,
+            String ordenamiento) {
+        List<Object[]> results = this.findClientesConAgrupamientoYOrdenamientoDinamico(id, Date.valueOf(date1),
+                Date.valueOf(date2), agrupamiento, ordenamiento);
         List<ReqDTO9> dtos = new ArrayList<>();
         for (Object[] result : results) {
             ReqDTO9 dto = new ReqDTO9(
                     ((String) result[0]),
                     (String) result[1],
-                    ((Number) result[2]).intValue()
-                                );
+                    ((Number) result[2]).intValue());
             dtos.add(dto);
         }
         return dtos;
@@ -110,20 +107,19 @@ public class UsuarioService {
             Integer servicioId,
             Date fechaInicio,
             Date fechaFin,
-            String agrupamiento, 
-            String ordenamiento
-    ) {
+            String agrupamiento,
+            String ordenamiento) {
         // Seleccionamos clientes que NO consumieron el servicio específico
         String sql = "SELECT DISTINCT u " +
-                     "FROM usuario u " +
-                     "WHERE u.id NOT IN (" +
-                     "    SELECT DISTINCT u.id " +
-                     "    FROM usuario u " +
-                     "    JOIN reserva r ON u.id = r.usuario_id " +
-                     "    JOIN cuentaservicio cs ON r.id = cs.reserva_id " +
-                     "    WHERE cs.servicio_id = :servicioId " +
-                     "    AND cs.fecha BETWEEN :fechaInicio AND :fechaFin" +
-                     ") ";
+                "FROM usuario u " +
+                "WHERE u.id NOT IN (" +
+                "    SELECT DISTINCT u.id " +
+                "    FROM usuario u " +
+                "    JOIN reserva r ON u.id = r.usuario_id " +
+                "    JOIN cuentaservicio cs ON r.id = cs.reserva_id " +
+                "    WHERE cs.servicio_id = :servicioId " +
+                "    AND cs.fecha BETWEEN :fechaInicio AND :fechaFin" +
+                ") ";
 
         // Agregar el agrupamiento y ordenamiento
         if (agrupamiento != null && !agrupamiento.isEmpty()) {
@@ -151,11 +147,10 @@ public class UsuarioService {
                     (String) result[1],
                     (String) result[2],
                     ((Number) result[3]).intValue(),
-                    (String) result[4]
-            );
+                    (String) result[4]);
             dtos.add(dto);
         }
         return dtos;
     }
-    
+
 }
