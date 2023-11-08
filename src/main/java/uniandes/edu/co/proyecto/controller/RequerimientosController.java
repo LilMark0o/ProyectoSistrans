@@ -71,16 +71,15 @@ public class RequerimientosController {
 
     @PostMapping("/req4")
     public String requerimiento4post(
-        @RequestParam(value = "precio_min", required = false) Float precio_min,
-        @RequestParam(value = "precio_max", required = false) Float precio_max,
-        @RequestParam(value = "fecha_inicio", required = false) String fecha_inicio,
-        @RequestParam(value = "fecha_fin", required = false) String fecha_fin,
-        Model model) {
-    model.addAttribute("resumen",
-            servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
-    return "req4";
-}
-
+            @RequestParam(value = "precio_min", required = false) Float precio_min,
+            @RequestParam(value = "precio_max", required = false) Float precio_max,
+            @RequestParam(value = "fecha_inicio", required = false) String fecha_inicio,
+            @RequestParam(value = "fecha_fin", required = false) String fecha_fin,
+            Model model) {
+        model.addAttribute("resumen",
+                servicioRepository.findServiciosByFilters(precio_min, precio_max, fecha_inicio, fecha_fin));
+        return "req4";
+    }
 
     @GetMapping("/req5")
     public String requerimiento5(Model model) {
@@ -89,7 +88,7 @@ public class RequerimientosController {
     // List<Object[]> findUserResumenData(@Param("given_user_id") Integer
     // given_user_id, @Param("start_date") String start_date, @Param("end_date")
     // String end_date);
- 
+
     @PostMapping("/req5")
     public String requerimiento5post(
             @RequestParam("id_usuario") Integer id_usuario,
@@ -114,7 +113,7 @@ public class RequerimientosController {
 
     @GetMapping("/req8")
     public String requerimiento8(Model model) {
-        model.addAttribute("resumen", servicioService.findFechaOcupacion());
+        model.addAttribute("resumen", servicioService.findServiciosSolicitados());
         return "req8";
     }
 
