@@ -1,15 +1,17 @@
 package uniandes.edu.co.proyecto.dtos;
 
+import java.sql.Date;
+
 public class Req5DTO {
     String usuario;
     String servicio;
     String descripcionServicio;
-    String fechaServicio;
+    Date fechaServicio;
     Float precioServicio;
     String producto;
     Float precioProducto;
 
-    public Req5DTO(String usuario, String servicio, String descripcionServicio, String fechaServicio,
+    public Req5DTO(String usuario, String servicio, String descripcionServicio, Date fechaServicio,
             Float precioServicio, String producto, Float precioProducto) {
         this.usuario = usuario;
         this.servicio = servicio;
@@ -32,7 +34,7 @@ public class Req5DTO {
         return descripcionServicio;
     }
 
-    public String getFechaServicio() {
+    public Date getFechaServicio() {
         return fechaServicio;
     }
 
@@ -60,7 +62,7 @@ public class Req5DTO {
         this.descripcionServicio = descripcionServicio;
     }
 
-    public void setFechaServicio(String fechaServicio) {
+    public void setFechaServicio(Date fechaServicio) {
         this.fechaServicio = fechaServicio;
     }
 

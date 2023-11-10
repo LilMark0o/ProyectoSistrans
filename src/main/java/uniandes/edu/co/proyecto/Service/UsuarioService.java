@@ -38,10 +38,10 @@ public class UsuarioService {
                     (String) result[0],
                     (String) result[1],
                     (String) result[2],
-                    (String) result[3],
-                    ((BigDecimal) result[4]).floatValue(),
+                    result[3] != null ? new Date(((Timestamp) result[3]).getTime()) : null,
+                    result[4] != null ? ((BigDecimal) result[4]).floatValue() : null,
                     (String) result[5],
-                    ((BigDecimal) result[6]).floatValue());
+                    result[6] != null ? ((BigDecimal) result[6]).floatValue() : null);
             dtos.add(dto);
         }
         return dtos;

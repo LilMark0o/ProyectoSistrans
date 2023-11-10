@@ -18,7 +18,7 @@
             <a th:href="@{/release1}" class="btn btn-primary">Release 1</a>
         </div>
         <br>
-        <div sec:authorize="isAuthenticated() and hasRole('ROLE_ADMINISTRADOR')">
+        <div sec:authorize="getPrincipal() = 'ROLE_ADMINISTRADOR'">
             <a th:href="@{/req1}" class="btn btn-primary">Req 1</a>
             <a th:href="@{/req2}" class="btn btn-primary">Req 2</a>
             <a th:href="@{/req3}" class="btn btn-primary">Req 3</a>

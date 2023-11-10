@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -54,10 +55,10 @@ public class SecurityConfig {
                     // Obtener el único rol del usuario
                     String roleName = usuario.getTipoUsuario().getNombre().toUpperCase();
                     GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + roleName);
-        
+                    
                     UserDetails userDetails = User.withUsername(usuario.getUsername())
-                            .password(usuario.getPassword()) // No necesitas encriptar la contraseña aquí si ya está encriptada
-                            .authorities(authority) // Asignas la única autoridad
+                            .password(usuario.getPassword()) 
+                            .authorities(authority)
                             .build();
                     return userDetails;
                 } else {
@@ -71,29 +72,25 @@ public class SecurityConfig {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
         }
 
+        
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            http
+                .authorizeHttpRequests((authorize) -> authorize
+                    .requestMatchers("/").authenticated()  // Requiere autenticación solo para esta ruta
+                    .anyRequest().permitAll()                // Todas las demás rutas están abiertas
+                )
+                .formLogin(Customizer.withDefaults());       // Habilita la página de inicio de sesión por defecto
+            
+            // ... (otros detalles de configuración si es necesario)
+            
+            return http.build();
+        }
 
-    //     @Bean
-    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //     http
-    //         .authorizeHttpRequests((authorize) -> authorize
-    //             .requestMatchers("/login").permitAll()
-    //             .anyRequest().authenticated()
-    //         )
-    //         .formLogin((formLogin) -> formLogin
-    //             .loginPage("/login")
-    //             .loginProcessingUrl("/login")
-    //             .defaultSuccessUrl("/", true)
-    //             .failureUrl("/login?error=true")
-    //             .permitAll()
-    //         )
-    //         .logout((logout) -> logout
-    //             .logoutUrl("/logout")
-    //             .logoutSuccessUrl("/login?logout=true")
-    //             .permitAll()
-    //         );
 
-    //     return http.build();
-    // }
+    
+
+
 
    
 }
