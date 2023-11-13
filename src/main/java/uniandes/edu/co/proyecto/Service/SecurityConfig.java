@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace.DynatraceProperties.V2;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.Customizer;
@@ -77,16 +78,31 @@ public class SecurityConfig {
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
                 .authorizeHttpRequests((authorize) -> authorize
-                    .requestMatchers("/").authenticated()  // Requiere autenticación solo para esta ruta
-                    .anyRequest().permitAll()                // Todas las demás rutas están abiertas
+                    .requestMatchers("/").authenticated()  
+                    .anyRequest().permitAll()                
                 )
-                .formLogin(Customizer.withDefaults());       // Habilita la página de inicio de sesión por defecto
-            
-            // ... (otros detalles de configuración si es necesario)
+                .formLogin(Customizer.withDefaults());      
             
             return http.build();
         }
 
+
+//         @Bean
+// public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//     http
+//         .authorizeHttpRequests((authorize) -> authorize
+//             .requestMatchers("/").authenticated()
+//             .requestMatchers("/rfc9").hasAnyAuthority("ROLE_RECEPCIONISTA", "ROLE_GERENTE")
+//             .requestMatchers("/rfc10").hasAnyAuthority("ROLE_RECEPCIONISTA", "ROLE_GERENTE")
+//             .requestMatchers("/rfc11").hasAuthority("ROLE_GERENTE")
+//             .requestMatchers("/rfc12").hasAuthority("ROLE_GERENTE")
+//             .anyRequest().permitAll()
+//         )
+//         .formLogin(Customizer.withDefaults());
+
+
+//     return http.build();
+// }
 
     
 

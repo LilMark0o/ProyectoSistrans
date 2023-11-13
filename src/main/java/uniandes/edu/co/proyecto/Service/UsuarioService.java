@@ -112,20 +112,20 @@ public class UsuarioService {
             String agrupamiento,
             String ordenamiento) {
         // Seleccionamos clientes que NO consumieron el servicio específico
-        String sql = "SELECT DISTINCT u " +
-                "FROM usuario u " +
-                "WHERE u.id NOT IN (" +
-                "    SELECT DISTINCT r.usuario_id " +
-                "    FROM reserva r " +
-                "    JOIN cuentaservicio cs ON r.id = cs.reserva_id " +
-                "    WHERE cs.servicio_id = :servicioId " +
-                "    AND cs.fecha BETWEEN :fechaInicio AND :fechaFin" +
-                ") ";
+        String sql ="""
+            SELECT distinct u.id, u.nombre, u.username, u.password, u.tipousuario_nombre
+            FROM usuario u 
+            WHERE u.id NOT IN (
+                SELECT DISTINCT r.usuario_id 
+                FROM reserva r 
+                JOIN cuentaservicio cs ON r.id = cs.reserva_id 
+                WHERE cs.servicio_id = :servicioId 
+                AND cs.fecha BETWEEN :fechaInicio AND :fechaFin
+            ) and  u.tipousuario_nombre = 'Cliente'   
+            group by u.id, u.nombre, u.username, u.password, u.tipousuario_nombre       
+                """;
 
-        // Agregar el agrupamiento y ordenamiento
-        // if (agrupamiento != null && !agrupamiento.isEmpty()) {
-            sql += "GROUP BY " + "u.id" + " ";
-        // }
+       
         if (ordenamiento != null && !ordenamiento.isEmpty()) {
             sql += "ORDER BY " + (agrupamiento != null ? agrupamiento : "u.id") + " " + ordenamiento;
         }
