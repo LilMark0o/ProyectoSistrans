@@ -78,7 +78,8 @@ public class UsuarioService {
                 "AND cs.fecha BETWEEN :fechaInicio AND :fechaFin " +
                 "GROUP BY " + "u.id, u.nombre" + " " +
                 "ORDER BY " + agrupamiento + " " + ordenamiento;
-
+        
+        sql += " FETCH FIRST 50 ROWS ONLY";
         // Ejecuta la consulta
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter("servicioId", servicioId);
@@ -129,7 +130,7 @@ public class UsuarioService {
         if (ordenamiento != null && !ordenamiento.isEmpty()) {
             sql += "ORDER BY " + (agrupamiento != null ? agrupamiento : "u.id") + " " + ordenamiento;
         }
-
+        sql += " FETCH FIRST 50 ROWS ONLY";
         // Ejecuta la consulta
         Query query = entityManager.createNativeQuery(sql, Usuario.class);
         query.setParameter("servicioId", servicioId);

@@ -60,7 +60,7 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
                         "WHERE (:p_precio_min IS NULL OR s.precio >= :p_precio_min) " +
                         "AND (:p_precio_max IS NULL OR s.precio <= :p_precio_max) " +
                         "AND (:p_fecha_inicio IS NULL OR cs.fecha >= TO_DATE(:p_fecha_inicio, 'YYYY-MM-DD')) " +
-                        "AND (:p_fecha_fin IS NULL OR cs.fecha <= TO_DATE(:p_fecha_fin, 'YYYY-MM-DD'))", nativeQuery = true)
+                        "AND (:p_fecha_fin IS NULL OR cs.fecha <= TO_DATE(:p_fecha_fin, 'YYYY-MM-DD')) FETCH FIRST 50 ROWS ONLY", nativeQuery = true)
         List<Servicio> findServiciosByFilters(@Param("p_precio_min") Object p_precio_min,
                         @Param("p_precio_max") Object p_precio_max, @Param("p_fecha_inicio") Object p_fecha_inicio,
                         @Param("p_fecha_fin") Object p_fecha_fin);
@@ -136,6 +136,7 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
                                 SELECT MIN(fecha)
                                 FROM FechaMenorDemanda
                         )
+                        FETCH FIRST 50 ROWS ONLY
                                 """, nativeQuery = true)
         List<Object[]> findFechaFilter();
 

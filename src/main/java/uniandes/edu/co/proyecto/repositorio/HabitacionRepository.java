@@ -45,6 +45,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
                         r.habitacion_id, s.nombre
                 ORDER BY
                         r.habitacion_id, servicio_nombre
+                FETCH FIRST 50 ROWS ONLY
                     """
             , nativeQuery = true)
         List<Object[]> findServicioResumenData();
@@ -98,7 +99,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
                 LEFT JOIN DiasOcupadosPorHabitacion DO ON h.id = DO.habitacion_id
                 ORDER BY
                 indice_ocupacion DESC       
-
+                FETCH FIRST 50 ROWS ONLY
                         """, nativeQuery = true)
         List<Object[]> findHabitacionResumenData();
 
@@ -160,6 +161,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
                         (SELECT TO_CHAR(habitacion_id) FROM SemanaHabitacionMin WHERE semana = s.semana AND rn_min = 1) AS habitacion_menos_solicitada
                 FROM Semanas s
                 ORDER BY s.semana
+                FETCH FIRST 50 ROWS ONLY
                         """, nativeQuery = true)
         List<Object[]> findHabitacionPorSemana(@Param("fecha_inicio") String fecha_inicio, @Param("fecha_fin") String fecha_fin);
 }

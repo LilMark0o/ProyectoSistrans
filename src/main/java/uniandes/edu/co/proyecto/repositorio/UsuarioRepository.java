@@ -63,6 +63,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
         )
       ORDER BY
         cs.fecha
+        FETCH FIRST 50 ROWS ONLY
             """, nativeQuery = true)
     List<Object[]> findUserResumenData(@Param("given_user_id") Integer given_user_id, @Param("start_date") String start_date, @Param("end_date") String end_date);
 
@@ -120,6 +121,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             LEFT JOIN BuenClienteCriterio BC ON u.id = BC.usuario_id
         WHERE
             BC.total_dias_hospedaje >= 14 OR BC.total_consumo_ultimo_anio >= 15000000
+            FETCH FIRST 50 ROWS ONLY
             """, nativeQuery = true)
     List<Object[]> findBuenosClientes();
 
@@ -159,6 +161,7 @@ UNION
 SELECT u.id, u.nombre, u.username, u.hotel_id, 'Consume servicios de SPA o reuniones duraderos' as Justificacion
 FROM usuario u
 INNER JOIN ServiciosDuraderos sd ON u.id = sd.id
+FETCH FIRST 50 ROWS ONLY
             """, nativeQuery = true)
     List<Object[]> findBuenosClientesAlternativo();
     

@@ -69,11 +69,11 @@
             <tbody>
                 <th:block th:each="servicioResumen : ${resumen}">
                     <tr>
-                        <td th:text="${usuario.id}"></td>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.username}"></td>
-                        <td th:text="${usuario.password}"></td>
-                        <td th:text="${usuario.tipoUsuario.nombre}"></td>
+                        <td th:text="${servicioResumen.id}"></td>
+                        <td th:text="${servicioResumen.nombre}"></td>
+                        <td th:text="${servicioResumen.username}"></td>
+                        <td th:text="${servicioResumen.password}"></td>
+                        <td th:text="${servicioResumen.tipoUsuario.nombre}"></td>
                     </tr>
                 </th:block>
             </tbody>
