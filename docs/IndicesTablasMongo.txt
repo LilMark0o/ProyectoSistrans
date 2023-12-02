@@ -1,0 +1,16 @@
+// Índices para la colección de Reservas
+db.reserva.createIndex({ checkin: 1, checkout: 1 });  
+db.reserva.createIndex({ usuario_id: 1 });           
+
+// Índices para la colección de Consumo de Servicios (cuentaservicio)
+db.cuentaservicio.createIndex({ fecha: 1 });          /
+db.cuentaservicio.createIndex({ servicio_id: 1 });   
+db.cuentaservicio.createIndex({ producto_id: 1 });   
+
+// Índices para la colección de Hoteles
+db.hotel.createIndex({ "nombre": 1 });               
+
+// Índices para la colección de Usuarios
+db.usuario.createIndex({ username: 1 });             
+db.usuario.createIndex({ tipoUsuario: 1 });         
+
