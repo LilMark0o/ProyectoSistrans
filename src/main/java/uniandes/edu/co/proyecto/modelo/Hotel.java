@@ -1,39 +1,24 @@
-package uniandes.edu.co.proyecto.modelo; // Ajusta el paquete según tu estructura de paquetes
+// Hotel.java
+package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "hotel") // Ajusta el esquema y el nombre de la tabla
+import java.util.List;
+
+@Document(collection = "hotel")
 public class Hotel {
+
     @Id
-    private Integer id;
+    private String id;
     private String nombre;
 
-    public Hotel() {
-        ;// Constructor vacío requerido por JPA
-    }
+    @DBRef
+    private List<Habitacion> habitaciones; // Referencia a habitaciones
 
-    public Hotel(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+    @DBRef
+    private List<Servicio> servicios; // Referencia a servicios
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
+    // Constructores, getters y setters
 }
