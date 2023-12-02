@@ -2,7 +2,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -13,12 +12,8 @@ public class Hotel {
     @Id
     private String id;
     private String nombre;
+    private List<Habitacion> habitaciones; // Habitaciones como subdocumentos
+    private List<String> servicios; // IDs de servicios
 
-    @DBRef
-    private List<Habitacion> habitaciones; // Referencia a habitaciones
-
-    @DBRef
-    private List<Servicio> servicios; // Referencia a servicios
-
-    // Constructores, getters y setters
+    // Constructores, getters y setters...
 }
