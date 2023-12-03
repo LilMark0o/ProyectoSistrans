@@ -222,7 +222,8 @@ def poblar_reservaciones(cantidad=50000):
                 "usuario_id": random.choice(usuario_ids)
             }
             reservaciones.append(reservacion)
-    
+        if len(reservaciones) % 100 == 0:
+            print(f"Reservaciones generadas: {len(reservaciones)}")
     # Inserta las reservaciones en la base de datos
     db.reserva.insert_many(reservaciones)
 
@@ -264,12 +265,12 @@ def poblar_consumos(cantidad=200000):
 
 
 # Ejecutar funciones de poblado
-borrar_todos_los_documentos(collections)
+# borrar_todos_los_documentos(collections)
 # drop_collections(collections)
-poblar_tipos_habitacion()
-poblar_servicios()
-poblar_hoteles_con_habitaciones()
-poblar_usuarios()
+# poblar_tipos_habitacion()
+# poblar_servicios()
+# poblar_hoteles_con_habitaciones()
+# poblar_usuarios()
 poblar_reservaciones()
 poblar_consumos()
 print("Base de datos poblada con éxito.")

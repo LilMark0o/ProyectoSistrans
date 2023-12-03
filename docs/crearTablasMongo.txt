@@ -123,7 +123,7 @@ db.createCollection("reserva", {
                     bsonType: "decimal"
                 },
                 habitacion_id: {
-                    bsonType: "objectId",
+                    bsonType: "int",
                     description: "Referencia a la habitación reservada"
                 },
                 usuario_id: {
