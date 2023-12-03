@@ -3,10 +3,12 @@ package uniandes.edu.co.proyecto.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import uniandes.edu.co.proyecto.modelo.*;
-import uniandes.edu.co.proyecto.repositorio.*;
+import uniandes.edu.co.proyecto.modelo.TipoHabitacion;
+import uniandes.edu.co.proyecto.repositorio.TipoHabitacionRepository;
 
 @Controller
 public class TipoHabitacionController {
@@ -15,64 +17,20 @@ public class TipoHabitacionController {
     private TipoHabitacionRepository tipoHabitacionRepository;
 
     @GetMapping("/tiposHabitacion")
-    public String listarTiposHabitacion(Model model) {
-        System.out.println(tipoHabitacionRepository.findAll());
+    public String getTiposHabitacion(Model model) {
         model.addAttribute("tiposHabitacion", tipoHabitacionRepository.findAll());
         return "tiposHabitacion";
     }
 
-    @GetMapping("/tiposHabitacion/id")
-    public String obtenerTipoHabitacionPorId(@RequestParam("id") Integer id, Model model) {
-        TipoHabitacion tipoHabitacion = tipoHabitacionRepository.findTipoHabitacionById(id);
-        System.out.println(tipoHabitacion);
-        if (tipoHabitacion != null) {
-            model.addAttribute("tiposHabitacion", tipoHabitacion);
-            return "tiposHabitacion";
-        } else {
-            return "redirect:/tiposHabitacion";
-        }
-
+    @GetMapping("/tipoHabitacionForm")
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("nuevoTipoHabitacion", new TipoHabitacion());
+        return "tiposHabitacionForm";
     }
 
-    @GetMapping("/tiposHabitacion/new")
-    public String mostrarFormularioNuevoTipoHabitacion(Model model) {
-        model.addAttribute("tipoHabitacion", new TipoHabitacion());
-        return "tiposHabitacionNuevo";
-    }
-
-    @PostMapping("/tiposHabitacion/new/save")
-    public String guardarNuevoTipoHabitacion(@ModelAttribute TipoHabitacion tipoHabitacion) {
-        tipoHabitacionRepository.save(tipoHabitacion);
-        return "redirect:/tiposHabitacion";
-    }
-
-    @GetMapping("/tiposHabitacion/{id}/edit")
-    public String mostrarFormularioEditarTipoHabitacion(@PathVariable Integer id, Model model) {
-        TipoHabitacion tipoHabitacion = tipoHabitacionRepository.findTipoHabitacionById(id);
-        if (tipoHabitacion != null) {
-            model.addAttribute("tipoHabitacion", tipoHabitacion);
-            return "tiposHabitacionEditar";
-        } else {
-            return "redirect:/tiposHabitacion";
-        }
-    }
-
-    @PostMapping("/tiposHabitacion/{id}/edit/save")
-    public String guardarEdicionTipoHabitacion(@PathVariable Integer id,
-            @ModelAttribute TipoHabitacion tipoHabitacion) {
-        TipoHabitacion tipoHabitacionActual = tipoHabitacionRepository.findTipoHabitacionById(id);
-        if (tipoHabitacionActual != null) {
-            tipoHabitacionRepository.save(tipoHabitacion);
-        }
-        return "redirect:/tiposHabitacion";
-    }
-
-    @GetMapping("/tiposHabitacion/{id}/delete")
-    public String eliminarTipoHabitacion(@PathVariable Integer id) {
-        TipoHabitacion tipoHabitacion = tipoHabitacionRepository.findTipoHabitacionById(id);
-        if (tipoHabitacion != null) {
-            tipoHabitacionRepository.delete(tipoHabitacion);
-        }
+    @PostMapping("/crearTipoHabitacion")
+    public String crearTipoHabitacion(@ModelAttribute("nuevoTipoHabitacion") TipoHabitacion nuevoTipoHabitacion) {
+        tipoHabitacionRepository.save(nuevoTipoHabitacion);
         return "redirect:/tiposHabitacion";
     }
 }

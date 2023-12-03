@@ -3,19 +3,82 @@ package uniandes.edu.co.proyecto.modelo;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
 @Document(collection = "reserva")
 public class Reserva {
-
     @Id
     private String id;
-    private Date checkin;
-    private Date checkout;
-    private double precio;
-    private String habitacionId; // ID de la habitación
-    private String usuarioId; // ID del usuario
 
-    // Constructores, getters y setters
+    @Field("checkin")
+    private Date checkin;
+
+    @Field("checkout")
+    private Date checkout;
+
+    @Field("precio")
+    private double precio;
+
+    @Field("habitacion_id")
+    private String habitacionId;
+
+    @Field("usuario_id")
+    private String usuarioId;
+
+    public Reserva() {
+    }
+
+    public Reserva(Date checkin, Date checkout, double precio, String habitacionId, String usuarioId) {
+        this.checkin = checkin;
+        this.checkout = checkout;
+        this.precio = precio;
+        this.habitacionId = habitacionId;
+        this.usuarioId = usuarioId;
+    }
+
+    public Date getCheckin() {
+        return checkin;
+    }
+
+    public void setCheckin(Date checkin) {
+        this.checkin = checkin;
+    }
+
+    public Date getCheckout() {
+        return checkout;
+    }
+
+    public void setCheckout(Date checkout) {
+        this.checkout = checkout;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getHabitacionId() {
+        return habitacionId;
+    }
+
+    public void setHabitacionId(String habitacionId) {
+        this.habitacionId = habitacionId;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
