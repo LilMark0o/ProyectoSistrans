@@ -10,7 +10,7 @@ db.createCollection("tipoHabitacion", {
                     description: "Nombre del tipo de habitación"
                 },
                 costoNoche: {
-                    bsonType: "double",
+                    bsonType: "decimal",
                     description: "Costo por noche"
                 },
                 capacidad: {
@@ -37,7 +37,7 @@ db.createCollection("servicioProducto", {
                     description: "Nombre del servicio o producto"
                 },
                 precio: {
-                    bsonType: "double",
+                    bsonType: "decimal",
                     description: "Precio"
                 },
                 esProducto: {
@@ -45,7 +45,7 @@ db.createCollection("servicioProducto", {
                     description: "Indica si es un producto (true) o un servicio (false)"
                 },
                 duracion: {
-                    bsonType: "int",
+                    bsonType: "decimal",
                     description: "Duración en minutos, opcional",
                     minimum: 0
                 }
@@ -58,7 +58,6 @@ db.createCollection("servicioProducto", {
 db.servicioProducto.createIndex({ nombre: 1 });
 db.servicioProducto.createIndex({ esProducto: 1 });
 
-// Crear colección para Hoteles con habitaciones embebidas y referencias a tipos de habitación
 db.createCollection("hotel", {
     validator: {
         $jsonSchema: {
@@ -74,8 +73,12 @@ db.createCollection("hotel", {
                     description: "Lista de habitaciones en el hotel",
                     items: {
                         bsonType: "object",
-                        required: ["descripcion", "tipoHabitacionId"],
+                        required: ["id", "descripcion", "tipoHabitacionId"],
                         properties: {
+                            id: {
+                                bsonType: "int",
+                                description: "ID único de la habitación"
+                            },
                             descripcion: {
                                 bsonType: "string",
                                 description: "Descripción de la habitación"
@@ -99,6 +102,7 @@ db.createCollection("hotel", {
     }
 });
 
+
 // Crear índice para Hoteles
 db.hotel.createIndex({ nombre: 1 });
 db.hotel.createIndex({ "habitaciones.tipoHabitacionId": 1 });  // Índice para la referencia de tipo de habitación en habitaciones embebidas
@@ -116,7 +120,7 @@ db.createCollection("reserva", {
                     bsonType: "date"
                 },
                 precio: {
-                    bsonType: "double"
+                    bsonType: "decimal"
                 },
                 habitacion_id: {
                     bsonType: "objectId",
@@ -152,6 +156,31 @@ db.createCollection("usuario", {
                 hotel_id: {
                     bsonType: "objectId",
                     description: "Referencia al hotel asociado"
+                }
+            }
+        }
+    }
+});
+
+db.createCollection("cuentaServicio", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["descripcion", "fecha", "reservaId", "servicioId"],
+            properties: {
+                descripcion: {
+                    bsonType: "string"
+                },
+                fecha: {
+                    bsonType: "date"
+                },
+                reservaId: {
+                    bsonType: "objectId",
+                    description: "Referencia a la reserva"
+                },
+                servicioId: {
+                    bsonType: "objectId",
+                    description: "Referencia al servicio o producto"
                 }
             }
         }

@@ -1,6 +1,7 @@
 from data import *
 import random
 from datetime import datetime, timedelta
+from bson.decimal128 import Decimal128
 
 path = "generator.sql"
 
@@ -102,7 +103,7 @@ def generarServiciosYProductos():
     restauranteUsado = []
     tiendaUsado = []
 
-    for _ in range(25):
+    for _ in range(200):
         bar = random.choice(service_names_for_tables["bar"])
         num_hoteles = 9
         while bar in barUsado:
