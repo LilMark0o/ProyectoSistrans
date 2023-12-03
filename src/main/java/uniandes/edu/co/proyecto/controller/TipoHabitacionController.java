@@ -19,18 +19,18 @@ public class TipoHabitacionController {
     @GetMapping("/tiposHabitacion")
     public String getTiposHabitacion(Model model) {
         model.addAttribute("tiposHabitacion", tipoHabitacionRepository.findAll());
-        return "tiposHabitacion";
+        return "TiposHabitacion";
     }
 
     @GetMapping("/tipoHabitacionForm")
     public String mostrarFormulario(Model model) {
         model.addAttribute("nuevoTipoHabitacion", new TipoHabitacion());
-        return "tiposHabitacionForm";
+        return "TiposHabitacionForm";
     }
 
     @PostMapping("/crearTipoHabitacion")
     public String crearTipoHabitacion(@ModelAttribute("nuevoTipoHabitacion") TipoHabitacion nuevoTipoHabitacion) {
         tipoHabitacionRepository.save(nuevoTipoHabitacion);
-        return "redirect:/tiposHabitacion";
+        return "redirect:/TiposHabitacion";
     }
 }

@@ -1,61 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Lista de tiposHabitacion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos Bebidas</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-    <script th:src="@{/css/jquery.min.js}"></script>
-    <script th:src="@{/css/bootstrap.min.js}"></script>
 </head>
 
 <body>
-    <div class="text-center">
-        <h1>Lista de Tipos de habitaciones</h1>
-        <br />
-        <form th:action="@{/tiposHabitacion/id}" method="get">
-            <div class="input-group input-group-sm mb-2 justify-content-center">
-                <input class='w-25' id="txtSearch" type="text" name="id">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary">Buscar por id</button>
-                </div>
-            </div>
-        </form>
-        <table class="table table-condensed table-hover table-bordered" style="border-collapse:collapse;">
-            <thead class="thead-dark">
+
+    <!-- Incluye el navbar
+    <div th:replace="navbar :: navbar"></div> -->
+
+    <div class="container mt-3">
+        <h1>Tipos Bebidas</h1>
+
+        <table class="table">
+            <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Costo por noche</th>
-                    <th>Capacidad</th>
-                    <th>Nombre</th>
+                    <th>Tipo de Bebida</th>
+                    <th>Bebidas [Object Id]</th>
                 </tr>
             </thead>
             <tbody>
-                <th:block th:each="TipoHabitacion :  ${tiposHabitacion}">
-                    <tr>
-                       
-                        <td th:text="${TipoHabitacion.id}"></td>
-                        <td th:text="${TipoHabitacion.costonoche}"></td>
-                        <td th:text="${TipoHabitacion.capacidad}"></td>
-                        <td th:text="${TipoHabitacion.nombre}"></td>
-
-                        <td>
-                            <a th:href="@{tiposHabitacion/{id}/edit(id=${TipoHabitacion.id})}">Editar</a>
-                            <a th:href="@{tiposHabitacion/{id}/delete(id=${TipoHabitacion.id})}"
-                                onclick="return confirm('¿Estás seguro de borrar este tipo de Habitacion')">Borrar</a>
-                        </td>
-                    </tr>
-
-                </th:block>
+                <!-- Iteramos sobre la lista de tipos de bebidas y mostramos los detalles -->
+                <tr th:each="bebidaTipo : ${tipos}">
+                    <td th:text="${bebidaTipo.nombre}"></td>
+                    <td>
+                        <!-- Iteramos sobre la lista de bebidas dentro de cada tipo -->
+                        <span th:each="idBebida : ${bebidaTipo.bebidas}">
+                            <!-- Mostramos los detalles de cada bebida -->
+                            <span th:text="${idBebida.id}"></span>
+                        </span>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
-        <div class="text-center">
-            <a th:href='@{/tiposHabitacion/new}' class="btn btn-primary">Añadir Tipo Habitacion</a>
-            <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
-            </br>
-        </div>
-        <br />
-        <br />
+        <!-- Botón para redirigir al formulario de creación de tipo bebida -->
+        <a th:href="@{/tbForm}" class="btn btn-primary" style="margin-bottom: 38px;">Crear Nuevo Tipo de Bebida</a>
+
+    </div>
+
+    <hr>
+
+
+    <div class="container mt-3">
+        <h1>Pipeline de agregacion</h1>
+        <!-- Botón para redirigir a la consulta de agregacion -->
+        <a th:href="@{/mostrarResultadosAgregacion}" class="btn btn-primary" style="margin-bottom: 38px;">Ver tipo de
+            bebida y sus bebidas completas</a>
+
     </div>
 </body>
 
