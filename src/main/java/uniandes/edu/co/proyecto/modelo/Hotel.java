@@ -20,12 +20,12 @@ public class Hotel {
     private List<HabitacionEmbedded> habitaciones;
 
     @Field("serviciosProductos")
-    private List<ServicioProducto> serviciosProductos;
+    private List<String> serviciosProductos;
 
     public Hotel() {
     }
 
-    public Hotel(String nombre, List<HabitacionEmbedded> habitaciones, List<ServicioProducto> serviciosProductos) {
+    public Hotel(String nombre, List<HabitacionEmbedded> habitaciones, List<String> serviciosProductos) {
         this.nombre = nombre;
         this.habitaciones = habitaciones;
         this.serviciosProductos = serviciosProductos;
@@ -55,11 +55,11 @@ public class Hotel {
         this.habitaciones = habitaciones;
     }
 
-    public List<ServicioProducto> getServiciosProductos() {
+    public List<String> getServiciosProductos() {
         return serviciosProductos;
     }
 
-    public void setServiciosProductos(List<ServicioProducto> serviciosProductos) {
+    public void setServiciosProductos(List<String> serviciosProductos) {
         this.serviciosProductos = serviciosProductos;
     }
 }
