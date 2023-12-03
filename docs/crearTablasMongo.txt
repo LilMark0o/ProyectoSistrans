@@ -103,3 +103,57 @@ db.createCollection("hotel", {
 db.hotel.createIndex({ nombre: 1 });
 db.hotel.createIndex({ "habitaciones.tipoHabitacionId": 1 });  // Índice para la referencia de tipo de habitación en habitaciones embebidas
 
+db.createCollection("reserva", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["checkin", "checkout", "precio", "habitacion_id", "usuario_id"],
+            properties: {
+                checkin: {
+                    bsonType: "date"
+                },
+                checkout: {
+                    bsonType: "date"
+                },
+                precio: {
+                    bsonType: "double"
+                },
+                habitacion_id: {
+                    bsonType: "objectId",
+                    description: "Referencia a la habitación reservada"
+                },
+                usuario_id: {
+                    bsonType: "objectId",
+                    description: "Referencia al usuario que hizo la reserva"
+                }
+            }
+        }
+    }
+});
+
+db.createCollection("usuario", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["nombre", "username", "password", "tipoUsuario"],
+            properties: {
+                nombre: {
+                    bsonType: "string"
+                },
+                username: {
+                    bsonType: "string"
+                },
+                password: {
+                    bsonType: "string"
+                },
+                tipoUsuario: {
+                    bsonType: "string"
+                },
+                hotel_id: {
+                    bsonType: "objectId",
+                    description: "Referencia al hotel asociado"
+                }
+            }
+        }
+    }
+});

@@ -3,45 +3,37 @@ from bson.objectid import ObjectId
 from faker import Faker
 import random
 from datetime import datetime, timedelta
+
+# Importa data.py o define room_types_prices, adjectives y names aquí
 from data import *
+
+collections = ["tipoHabitacion", "servicioProducto", "hotel", "reserva", "usuario"]
 
 fake = Faker()
 
 # Conexión a MongoDB
-client = MongoClient(
-    "mongodb://ISIS2304D25202320:EbQTnmWmZawE@157.253.236.88:8087/ISIS2304D25202320")
-# Asumiendo que este es el nombre de tu base de datos
-db = client["ISIS2304D25202320"]
+client = MongoClient("mongodb://usuario:contraseña@host:puerto/")
+db = client["nombre_de_la_base_de_datos"]
 
-# Función para poblar tipos de habitación
+def borrar_todos_los_documentos(collection_names):
+    for collection in collection_names:
+        db[collection].delete_many({})
 
-collections = ["tipoHabitacion", "servicioProducto", "hotel", "reserva"]
-
-
-def borrar_todos_los_documentos(collection_name: list):
-    for collection in collection_name:
-        result = db[collection].delete_many({})
-    return result.deleted_count
-
-
-def poblar_tipos_habitacion(cantidad=20):
+def poblar_tipos_habitacion():
     tipos_habitacion = []
-    for tipo in room_types_prices:
-        precio = room_types_prices[tipo] + (random.randint(11, 99)/100)
-        metible = {
+    for tipo, precio_base in room_types_prices.items():
+        precio = precio_base + (random.randint(11, 99) / 100)
+        tipo_habitacion = {
             "nombre": tipo,
             "costoNoche": precio,
-            "capacidad": random.randint(1, 5),
+            "capacidad": random.randint(1, 5)
         }
-        tipos_habitacion.append(metible)
+        tipos_habitacion.append(tipo_habitacion)
     db.tipoHabitacion.insert_many(tipos_habitacion)
 
-# Función para poblar servicios
-
-
-def poblar_servicios(cantidad=35):
+def poblar_servicios():
     servicios = []
-    for _ in range(cantidad):
+    for _ in range(35):
         servicio = {
             "nombre": fake.word(),
             "precio": round(random.uniform(10, 100), 2),
@@ -50,27 +42,52 @@ def poblar_servicios(cantidad=35):
         servicios.append(servicio)
     db.servicioProducto.insert_many(servicios)
 
-# Función para poblar hoteles con habitaciones
-
-
-def poblar_hoteles_con_habitaciones(num_hoteles=5, habitaciones_por_hotel=40):
-    tipos_habitacion_ids = [tipo["_id"] for tipo in db.tipoHabitacion.find()]
-    for _ in range(num_hoteles):
-        habitaciones = [{
-            "descripcion": fake.sentence(),
-            "tipoHabitacionId": random.choice(tipos_habitacion_ids)
-        } for _ in range(habitaciones_por_hotel)]
+def poblar_hoteles_con_habitaciones(num_hoteles=5):
+    hoteles = [random.choice(adjectives) + " " + random.choice(names) for _ in range(num_hoteles)]
+    tipos_habitacion_ids = [str(tipo["_id"]) for tipo in db.tipoHabitacion.find()]
+    servicios_ids = [str(servicio["_id"]) for servicio in db.servicioProducto.find()]
+    for i in range(num_hoteles):
+        habitaciones = [{"descripcion": fake.sentence(), "tipoHabitacionId": random.choice(tipos_habitacion_ids)} for _ in range(40)]
         hotel = {
-            "nombre": fake.company(),
-            "habitaciones": habitaciones
+            "nombre": hoteles[i],
+            "habitaciones": habitaciones,
+            "serviciosProductos": servicios_ids
         }
         db.hotel.insert_one(hotel)
 
-# Función para poblar reservaciones
 
+def poblar_usuarios(cantidad=50000):
+    usuarios = []
+    pesos = [5, 2, 10, 78, 5]
+
+    # Generate sample data for usuario
+    num_users = cantidad
+
+    random_names = [
+        f"{random.choice(first_names)} {random.choice(last_names)}" for _ in range(num_users)]
+
+    usernames_real = [name.split()[0].lower() + str(i)
+                      for i, name in enumerate(random_names, 1)]
+    passwords_real = [f"pwd_{name.split()[1].lower()[:3]}{i}" for i,
+                      name in enumerate(random_names, 1)]
+
+    user_tipousuario = random.choices(
+        tipousuario_data, weights=pesos, k=num_users)
+    
+    for i in range(num_users):
+        usuario = {
+            "nombre": random_names[i],
+            "username": usernames_real[i],
+            "password": passwords_real[i],
+            "tipoUsuario": user_tipousuario[i]
+        }
+        usuarios.append(usuario)
+    db.usuario.insert_many(usuarios)
 
 def poblar_reservaciones(cantidad=50000):
     reservaciones = []
+    habitacion_ids = [str(habitacion["_id"]) for habitacion in db.hotel.find({}, {"habitaciones": 1})]
+    usuario_ids = [str(usuario["_id"]) for usuario in db.usuario.find()]
     for _ in range(cantidad):
         checkin = fake.date_between(start_date="-3y", end_date="today")
         checkout = checkin + timedelta(days=random.randint(1, 5))
@@ -78,18 +95,16 @@ def poblar_reservaciones(cantidad=50000):
             "checkin": checkin,
             "checkout": checkout,
             "precio": round(random.uniform(100, 1000), 2),
-            # Asume que ya tienes IDs de habitaciones y usuarios
-            "habitacionId": str(ObjectId()),
-            "usuarioId": str(ObjectId())
+            "habitacion_id": random.choice(habitacion_ids),
+            "usuario_id": random.choice(usuario_ids)
         }
         reservaciones.append(reservacion)
     db.reserva.insert_many(reservaciones)
 
-
-# Poblar la base de datos
-# poblar_tipos_habitacion()
-# poblar_servicios()
-# poblar_hoteles_con_habitaciones()
-# poblar_reservaciones()
+# Ejecutar funciones de poblado
 borrar_todos_los_documentos(collections)
+poblar_tipos_habitacion()
+poblar_servicios()
+poblar_hoteles_con_habitaciones()
+poblar_reservaciones()
 print("Base de datos poblada con éxito.")
