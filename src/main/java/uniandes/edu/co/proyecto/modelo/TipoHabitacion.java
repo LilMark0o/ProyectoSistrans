@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import org.bson.types.Decimal128;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -13,7 +14,8 @@ public class TipoHabitacion {
     private String nombre;
 
     @Field("costoNoche")
-    private double costoNoche;
+    private Decimal128 costoNoche; // Cambiado a Double para permitir valores decimales
+    private String costoNocheSTR; // Cambiado a Double para permitir valores decimales
 
     @Field("capacidad")
     private int capacidad;
@@ -21,7 +23,7 @@ public class TipoHabitacion {
     public TipoHabitacion() {
     }
 
-    public TipoHabitacion(String nombre, double costoNoche, int capacidad) {
+    public TipoHabitacion(String nombre, Decimal128 costoNoche, int capacidad) {
         this.nombre = nombre;
         this.costoNoche = costoNoche;
         this.capacidad = capacidad;
@@ -35,11 +37,11 @@ public class TipoHabitacion {
         this.nombre = nombre;
     }
 
-    public double getCostoNoche() {
+    public Decimal128 getCostoNoche() {
         return costoNoche;
     }
 
-    public void setCostoNoche(double costoNoche) {
+    public void setCostoNoche(Decimal128 costoNoche) {
         this.costoNoche = costoNoche;
     }
 
