@@ -57,4 +57,13 @@ public class HotelController {
         hotelRepository.save(nuevoHotel);
         return "redirect:/hoteles";
     }
+
+    @GetMapping("/habitacionesTodo")
+    public String getHabitaciones(Model model) {
+        model.addAttribute("habitaciones", hotelRepository.findAllHabitacionesConInfoHotel());
+        return "habitacionesTodo";
+    }
+
+    
+
 }

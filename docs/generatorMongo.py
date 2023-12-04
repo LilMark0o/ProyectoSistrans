@@ -266,12 +266,12 @@ def poblar_consumos(cantidad=200000):
 
 
 # Ejecutar funciones de poblado
-borrar_todos_los_documentos(collections)
+# borrar_todos_los_documentos(collections)
 # drop_collections(collections)
-poblar_tipos_habitacion()
-poblar_servicios()
-poblar_hoteles_con_habitaciones()
-poblar_usuarios()
+# poblar_tipos_habitacion()
+# poblar_servicios()
+# poblar_hoteles_con_habitaciones()
+# poblar_usuarios()
 poblar_reservaciones()
 poblar_consumos()
 print("Base de datos poblada con éxito.")
