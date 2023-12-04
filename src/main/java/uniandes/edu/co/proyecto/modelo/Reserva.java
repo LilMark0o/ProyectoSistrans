@@ -19,7 +19,7 @@ public class Reserva {
     private Date checkout;
 
     @Field("precio")
-    private double precio;
+    private int precio;
 
     @Field("habitacion_id")
     private String habitacionId;
@@ -30,7 +30,7 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Date checkin, Date checkout, double precio, String habitacionId, String usuarioId) {
+    public Reserva(Date checkin, Date checkout, int precio, String habitacionId, String usuarioId) {
         this.checkin = checkin;
         this.checkout = checkout;
         this.precio = precio;
@@ -54,11 +54,11 @@ public class Reserva {
         this.checkout = checkout;
     }
 
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

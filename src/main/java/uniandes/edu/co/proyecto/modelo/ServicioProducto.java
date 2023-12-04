@@ -14,18 +14,18 @@ public class ServicioProducto {
     private String nombre;
 
     @Field("precio")
-    private double precio;
+    private int precio;
 
     @Field("esProducto")
     private boolean esProducto;
 
     @Field("duracion")
-    private Double duracion; // Cambiado a Double para manejar valores nulos (opcional)
+    private int duracion; // Cambiado a int para manejar valores nulos (opcional)
 
     public ServicioProducto() {
     }
 
-    public ServicioProducto(String nombre, double precio, boolean esProducto, Double duracion) {
+    public ServicioProducto(String nombre, int precio, boolean esProducto, int duracion) {
         this.nombre = nombre;
         this.precio = precio;
         this.esProducto = esProducto;
@@ -40,11 +40,11 @@ public class ServicioProducto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
@@ -56,11 +56,11 @@ public class ServicioProducto {
         this.esProducto = esProducto;
     }
 
-    public Double getDuracion() {
+    public int getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Double duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
