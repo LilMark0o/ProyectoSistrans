@@ -16,11 +16,11 @@
         <form th:action="@{/crearReserva}" th:object="${nuevaReserva}" method="post">
 <div class="mb-3">
     <label for="checkin" class="form-label">Fecha de Check-in:</label>
-    <input type="datetime-local" class="form-control" id="checkin" th:field="*{checkin}" required />
+    <input type="date" class="form-control" id="checkin" th:field="*{checkin}" required />
 </div>
 <div class="mb-3">
     <label for="checkout" class="form-label">Fecha de Check-out:</label>
-    <input type="datetime-local" class="form-control" id="checkout" th:field="*{checkout}" required />
+    <input type="date" class="form-control" id="checkout" th:field="*{checkout}" required />
 </div>            <div class="mb-3">
                 <label for="precio" class="form-label">Precio:</label>
                 <input type="number" class="form-control" id="precio" th:field="*{precio}" required />

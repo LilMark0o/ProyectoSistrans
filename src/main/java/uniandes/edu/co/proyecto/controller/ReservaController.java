@@ -31,9 +31,10 @@ public class ReservaController {
 
     @PostMapping("/crearReserva")
     public String crearReserva(
-            @ModelAttribute("nuevaReserva") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Reserva nuevaReserva) {
+            @ModelAttribute("nuevaReserva") Reserva nuevaReserva) {
+        reservaRepository.save(nuevaReserva);
         // Tu lógica para crear la reserva
-        return "redirect:/reservas";
+        return "redirect:/reserva";
     }
 
 }

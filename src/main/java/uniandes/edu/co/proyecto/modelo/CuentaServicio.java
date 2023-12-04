@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Document(collection = "cuentaServicio")
@@ -16,7 +17,7 @@ public class CuentaServicio {
     private String descripcion;
 
     @Field("fecha")
-    private Date fecha;
+    private LocalDate fecha;
 
     @Field("reservaId")
     private String reservaId;
@@ -27,7 +28,7 @@ public class CuentaServicio {
     public CuentaServicio() {
     }
 
-    public CuentaServicio(String descripcion, Date fecha, String reservaId, String servicioId) {
+    public CuentaServicio(String descripcion, LocalDate fecha, String reservaId, String servicioId) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.reservaId = reservaId;
@@ -42,11 +43,11 @@ public class CuentaServicio {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

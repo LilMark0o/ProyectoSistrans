@@ -22,7 +22,7 @@ public class CuentaServicioController {
         return "cuentasServicio";
     }
 
-    @GetMapping("/cuentaServicioForm")
+    @GetMapping("/cuentasServicioForm")
     public String mostrarFormulario(Model model) {
         model.addAttribute("nuevaCuentaServicio", new CuentaServicio());
         return "cuentasServicioForm";

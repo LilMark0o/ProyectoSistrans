@@ -1,9 +1,10 @@
 // Reserva.java
 package uniandes.edu.co.proyecto.modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,24 +14,25 @@ public class Reserva {
     private String id;
 
     @Field("checkin")
-    private Date checkin;
+    private LocalDate checkin;
 
     @Field("checkout")
-    private Date checkout;
+    private LocalDate checkout;
 
     @Field("precio")
     private int precio;
 
     @Field("habitacion_id")
-    private String habitacionId;
+    private int habitacionId;
 
     @Field("usuario_id")
-    private String usuarioId;
+    @DBRef
+    private Usuario usuarioId;
 
     public Reserva() {
     }
 
-    public Reserva(Date checkin, Date checkout, int precio, String habitacionId, String usuarioId) {
+    public Reserva(LocalDate checkin, LocalDate checkout, int precio, int habitacionId, Usuario usuarioId) {
         this.checkin = checkin;
         this.checkout = checkout;
         this.precio = precio;
@@ -38,19 +40,19 @@ public class Reserva {
         this.usuarioId = usuarioId;
     }
 
-    public Date getCheckin() {
+    public LocalDate getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(Date checkin) {
+    public void setCheckin(LocalDate checkin) {
         this.checkin = checkin;
     }
 
-    public Date getCheckout() {
+    public LocalDate getCheckout() {
         return checkout;
     }
 
-    public void setCheckout(Date checkout) {
+    public void setCheckout(LocalDate checkout) {
         this.checkout = checkout;
     }
 
@@ -62,19 +64,19 @@ public class Reserva {
         this.precio = precio;
     }
 
-    public String getHabitacionId() {
+    public int getHabitacionId() {
         return habitacionId;
     }
 
-    public void setHabitacionId(String habitacionId) {
+    public void setHabitacionId(int habitacionId) {
         this.habitacionId = habitacionId;
     }
 
-    public String getUsuarioId() {
+    public Usuario getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(String usuarioId) {
+    public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
     }
 

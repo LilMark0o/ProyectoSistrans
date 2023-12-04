@@ -4,42 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Tipo de Habitación</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-
+    <title>Nueva Cuenta de Servicio</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
 
     <div class="container mt-3">
-        <h1>Nuevo Tipo de Habitación</h1>
+        <h1>Nueva Cuenta de Servicio</h1>
 
-        <!-- Formulario de creación de TipoHabitacion -->
-        <form th:action="@{/crearTipoHabitacion}" th:object="${nuevoTipoHabitacion}" method="post">
+        <!-- Formulario de creación de CuentaServicio -->
+        <form th:action="@{/crearCuentaServicio}" th:object="${nuevaCuentaServicio}" method="post">
 
-            <!-- Campo para el nombre del tipo de habitación -->
+            <!-- Campo para la descripción -->
             <div class="form-group">
-                <label for="nombre">Nombre del Tipo de Habitación:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" required />
+                <label for="descripcion">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"
+                    required />
             </div>
 
-            <!-- Campo para el costo por noche -->
+            <!-- Campo para la fecha -->
             <div class="form-group">
-    <label for="costoNoche">Costo por Noche:</label>
-    <input type="number" id="costoNoche" name="costoNoche" th:field="*{costoNoche}" step="0.01" required />
+                <label for="fecha">Fecha:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" th:field="*{fecha}" required />
             </div>
 
-            <!-- Campo para la capacidad -->
+            <!-- Campo para el ID de reserva -->
             <div class="form-group">
-                <label for="capacidad">Capacidad:</label>
-                <input type="number" class="form-control" id="capacidad" name="capacidad" th:field="*{capacidad}"
+                <label for="reservaId">ID de Reserva:</label>
+                <input type="text" class="form-control" id="reservaId" name="reservaId" th:field="*{reservaId}"
+                    required />
+            </div>
+
+            <!-- Campo para el ID de servicio -->
+            <div class="form-group">
+                <label for="servicioId">ID de Servicio:</label>
+                <input type="text" class="form-control" id="servicioId" name="servicioId" th:field="*{servicioId}"
                     required />
             </div>
 
             <!-- Agrega más campos según tus necesidades -->
 
             <!-- Botón de envío -->
-            <button type="submit" class="btn btn-success">Crear Tipo de Habitación</button>
+            <button type="submit" class="btn btn-success">Crear Cuenta de Servicio</button>
         </form>
 
     </div>
