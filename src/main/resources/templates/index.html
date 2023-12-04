@@ -1,61 +1,101 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Hoteles</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Andes</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" />
+    <style>
+        /* Estilos actualizados para Hotel Andes */
+        body {
+            margin: 0;
+            font-family: 'Merriweather Sans', sans-serif;
+        }
+
+        nav {
+            background-color: #4E2A84; /* Color temático del Hotel Andes */
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width:auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Responsividad para dispositivos móviles */
+        @media screen and (max-width: 800px) {
+            nav a {
+                float: none;
+                display: block;
+                text-align: left;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .contenido {
+            padding: 16px;
+        }
+
+        footer {
+            background-color: #4E2A84; /* Color temático del Hotel Andes */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            height: 160px;
+            box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 100px;
+            height: auto;
+            float: left;
+            margin-right: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+        }
+
+        .footer-image:hover {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) brightness(1.2);
+        }
+        
+    </style>
 </head>
-
 <body>
-    <div class="container mx-auto w-25">
+    <!-- Navbar del Hotel Andes -->
+    <div th:replace="navbar :: navbar"></div>
 
-        <h1>Hoteles</h1>
-        <img th:src="@{/images/logo.png}" width="250">
-        <br />
-        <br   />
-        <!-- <div>
-            <a th:href="@{/release1}" class="btn btn-primary">Release 1</a>
-        </div> -->
-        <br>
-        <div>
-            <a th:href="@{/tiposHabitacion}" class="btn btn-primary">Req 1 Mongo</a>
-            <a th:href="@{/habitacionesTodo}" class="btn btn-primary">Req 2 Mongo</a>
-            <a th:href="@{/serviciosProductos}" class="btn btn-primary">Req 3 Mongo</a>       
-            <!-- <a th:href="@{/req2}" class="btn btn-primary">Req 2</a> -->
-            </div>
-            <br />
-            <div>
-              <a th:href="@{/reserva}" class="btn btn-primary">Req 4 Mongo</a>
-              <a th:href="@{/reserva}" class="btn btn-primary">Req 5 Mongo</a>
-              <a th:href="@{/cuentasServicio}" class="btn btn-primary">Req 6 Mongo</a>
-              <!-- <a th:href="@{/req4}" class="btn btn-primary">Req 4</a>
-                <a th:href="@{/req6}" class="btn btn-primary">Req 6</a> -->
-              </div>
-              <br />
-              <div>
-          <a th:href="@{/reserva}" class="btn btn-primary">Req 7 Mongo</a>
-          <a th:href="@{/req1}" class="btn btn-primary">RFC 1</a>
-          <a th:href="@{/req3}" class="btn btn-primary">RFC 2</a>
-
-          <!-- <a th:href="@{/req7}" class="btn btn-primary">Req 7</a>
-            <a th:href="@{/req8}" class="btn btn-primary">Req 8</a>
-            <a th:href="@{/req9}" class="btn btn-primary">Req 9</a> -->
-
+    <div class="row" style="margin-top: 40px;">
+        <!-- Imagen representativa del Hotel Andes -->
+        <div class="col-md-6">
+            <img src="\images\hotel.png" alt="Hotel Andes" style="height: 500px;width: 500px; margin-left: 10px;" loading="lazy">
         </div>
-        <br />
-        <div>
-            <a th:href="@{/req5}" class="btn btn-primary">RFC 3</a>
-            <a th:href="@{/req12}" class="btn btn-primary">RFC 7 (escogido)</a>
-            <!-- !ACA VA LO OPCIONAL -->
-            <!-- <a th:href="@{/req10}" class="btn btn-primary">Req 10</a>
-            <a th:href="@{/req11}" class="btn btn-primary">Req 11</a> -->
+
+        <div class="col-md-6">
+            <h1 style="font-size: 120px; text-align:start;">Hotel Andes</h1>
+            <h2 style="font-size: 20px; text-align: start; letter-spacing: 5px; word-spacing: 22px;">Proyecto 3 SISTRANS Hotel Andes MONGO DB.</h2>
         </div>
-        <br />
+        
     </div>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+    <!-- Incluir aquí cualquier script JavaScript adicional -->
+    <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+</body>
 </html>

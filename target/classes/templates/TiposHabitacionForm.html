@@ -1,56 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva Cuenta de Servicio</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <title th:text="${tipoHabitacion.id != null} ? 'Editar Tipo de Habitación' : 'Crear Tipo de Habitación'">Formulario de Tipo de Habitación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
+    <!-- Incluir Navbar -->
+    <div th:replace="navbar :: navbar"></div>
 
-    <div class="container mt-3">
-        <h1>Nueva Cuenta de Servicio</h1>
+    <div class="container mt-4">
+        <h2 th:text="${tipoHabitacion.id != null} ? 'Editar Tipo de Habitación' : 'Crear Nuevo Tipo de Habitación'"></h2>
+        
+        <form th:action="@{/guardarTipoHabitacion}" th:object="${tipoHabitacion}" method="post">
+            <!-- Campo oculto para ID (solo necesario en modo edición) -->
+            <input type="hidden" th:field="*{id}" />
 
-        <!-- Formulario de creación de CuentaServicio -->
-        <form th:action="@{/crearCuentaServicio}" th:object="${nuevaCuentaServicio}" method="post">
-
-            <!-- Campo para la descripción -->
             <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"
-                    required />
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required class="form-control"/>
             </div>
 
-            <!-- Campo para la fecha -->
             <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" th:field="*{fecha}" required />
+                <label for="capacidad">Capacidad:</label>
+                <input type="number" id="capacidad" name="capacidad" th:field="*{capacidad}" required class="form-control"/>
             </div>
 
-            <!-- Campo para el ID de reserva -->
             <div class="form-group">
-                <label for="reservaId">ID de Reserva:</label>
-                <input type="text" class="form-control" id="reservaId" name="reservaId" th:field="*{reservaId}"
-                    required />
+                <label for="dotacion">Dotación:</label>
+                <input type="text" id="dotacion" name="dotacion" th:field="*{dotacion}" required class="form-control"/>
             </div>
 
-            <!-- Campo para el ID de servicio -->
-            <div class="form-group">
-                <label for="servicioId">ID de Servicio:</label>
-                <input type="text" class="form-control" id="servicioId" name="servicioId" th:field="*{servicioId}"
-                    required />
-            </div>
-
-            <!-- Agrega más campos según tus necesidades -->
-
-            <!-- Botón de envío -->
-            <button type="submit" class="btn btn-success">Crear Cuenta de Servicio</button>
+            <!-- Botón que cambia de texto dependiendo de si estás creando o editando -->
+            <button type="submit" class="btn btn-success" th:text="${tipoHabitacion.id != null} ? 'Actualizar' : 'Crear'">Enviar</button>
         </form>
-
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
