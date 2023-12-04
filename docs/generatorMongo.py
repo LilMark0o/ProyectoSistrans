@@ -4,8 +4,9 @@ from bson.objectid import ObjectId
 from faker import Faker
 import random
 from datetime import datetime, timedelta
-from bson.decimal128 import Decimal128
 from bson.datetime_ms import DatetimeMS
+
+
 
 # Importa data.py o define room_types_prices, adjectives y names aquí
 from data import *
@@ -34,7 +35,7 @@ def poblar_tipos_habitacion():
         precio = precio_base 
         tipo_habitacion = {
             "nombre": tipo,
-            "costoNoche": Decimal128(Decimal(precio)),
+            "costoNoche": precio,
             "capacidad": random.randint(1, 5)
         }
         tipos_habitacion.append(tipo_habitacion)
@@ -60,13 +61,13 @@ def poblar_servicios(cantidad=35):
             if dur > 0:
                 name = random.choice(spa_product_names2)
                 servicio["nombre"] = name
-                servicio["duracion"] = Decimal128(Decimal(dur))
+                servicio["duracion"] = dur
                 spa_product_names2.remove(name)
             else:
                 name = random.choice(product_name_restaurant_food2)
                 servicio["nombre"] = name
                 product_name_restaurant_food2.remove(name)
-            servicio["precio"] = Decimal128(Decimal(round(random.uniform(10000, 100000))))
+            servicio["precio"] = round(random.randint(10000, 100000))
         
         servicios.append(servicio)
     db.servicioProducto.insert_many(servicios)
@@ -81,7 +82,7 @@ def poblar_servicios(cantidad=35):
 
         precio = 0
         description = f"El bar {bar} que ofrece una variedad de bebidas y aperitivos para disfrutar en un ambiente relajado y amigable"
-        db.servicioProducto.insert_one({"nombre": bar, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": bar, "precio": precio, "esProducto": False})
     for _ in range(20):
         gimnasio = random.choice(service_names_for_tables["gimnasio"])
         num_hoteles = 9
@@ -91,32 +92,32 @@ def poblar_servicios(cantidad=35):
 
         precio = 0
         description = f"El gimnasio {gimnasio} tiene maquinas de alta precisión y mancuernas desde 5 a 90KG"
-        db.servicioProducto.insert_one({"nombre": gimnasio, "precio": Decimal128(Decimal(precio)), "esProducto": False})    
+        db.servicioProducto.insert_one({"nombre": gimnasio, "precio": precio, "esProducto": False})    
     for internet in (service_names_for_tables["internet"]):
         num_hoteles = 9
         global_id += 1
 
         precio = random.randint(10, 50)*1000
         description = f"El internet {internet} es valido por {random.randint(1, 5)} días sin costo adicional"
-        db.servicioProducto.insert_one({"nombre": internet, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": internet, "precio": precio, "esProducto": False})
     for lavado in (service_names_for_tables["lavado"]):
         num_hoteles = 9
         global_id += 1
         precio = random.randint(20, 50)*1000
         description = f"El servicio de lavado {lavado} es valido para {random.randint(3, 8)} prendas sin costo adicional"
-        db.servicioProducto.insert_one({"nombre": lavado, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": lavado, "precio": precio, "esProducto": False})
     for piscina in (service_names_for_tables["piscina"]):
         num_hoteles = 9
         global_id += 1
         precio = 0
         description = f"La piscina {piscina} tiene una temperatura de {random.randint(20, 30)} grados"
-        db.servicioProducto.insert_one({"nombre": piscina, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": piscina, "precio": precio, "esProducto": False})
     for prestamo in (service_names_for_tables["prestamo"]):
         num_hoteles = 9
         global_id += 1
         precio = 0
         description = f"El servicio de prestamo {prestamo} es valido para {random.randint(1, 5)} personas"
-        db.servicioProducto.insert_one({"nombre": prestamo, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": prestamo, "precio": precio, "esProducto": False})
     for _ in range(30):
         restaurante = random.choice(service_names_for_tables["restaurante"])
         num_hoteles = 9
@@ -124,13 +125,13 @@ def poblar_servicios(cantidad=35):
         restauranteUsado.append(global_id)
         precio = 0
         description = f"El restaurante {restaurante} ofrece una variedad de platos y bebidas para disfrutar en un ambiente relajado y amigable"
-        db.servicioProducto.insert_one({"nombre": restaurante, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": restaurante, "precio": precio, "esProducto": False})
     for spa in (service_names_for_tables["spa"]):
         num_hoteles = 9
         global_id += 1
         precio = random.randint(120, 180)*1000
         description = f"El spa {spa} ofrece una variedad de tratamientos para disfrutar en un ambiente relajado y amigable"
-        db.servicioProducto.insert_one({"nombre": spa, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": spa, "precio": precio, "esProducto": False})
     for _ in range(25):
 
         tienda = random.choice(service_names_for_tables["tienda"])
@@ -141,7 +142,7 @@ def poblar_servicios(cantidad=35):
         tiendaUsado.append(tienda)
         precio = 0
         description = f"La tienda {tienda} ofrece una variedad de productos para disfrutar en un ambiente relajado y amigable"
-        db.servicioProducto.insert_one({"nombre": tienda, "precio": Decimal128(Decimal(precio)), "esProducto": False})
+        db.servicioProducto.insert_one({"nombre": tienda, "precio": precio, "esProducto": False})
   
 
 def poblar_hoteles_con_habitaciones(num_hoteles=5):
@@ -210,8 +211,8 @@ def poblar_reservaciones(cantidad=50000):
         hab_id = random.choice(habitacion_ids)
         tipo_habitacion = db.tipoHabitacion.find_one({"_id": next(hab for hab in habitaciones if hab['id'] == hab_id)['tipoHabitacionId']})
         if tipo_habitacion:
-            precio_por_noche:Decimal128 = tipo_habitacion['costoNoche']
-            precio_total = Decimal128(precio_por_noche.to_decimal().to_integral_value() * (checkout - checkin).days)
+            precio_por_noche = tipo_habitacion['costoNoche']
+            precio_total = int(precio_por_noche) * (checkout - checkin).days
             checkin = datetime.combine(checkin, datetime.min.time())
             checkout = datetime.combine(checkout, datetime.min.time())
             reservacion = {
@@ -265,12 +266,12 @@ def poblar_consumos(cantidad=200000):
 
 
 # Ejecutar funciones de poblado
-# borrar_todos_los_documentos(collections)
+borrar_todos_los_documentos(collections)
 # drop_collections(collections)
-# poblar_tipos_habitacion()
-# poblar_servicios()
-# poblar_hoteles_con_habitaciones()
-# poblar_usuarios()
+poblar_tipos_habitacion()
+poblar_servicios()
+poblar_hoteles_con_habitaciones()
+poblar_usuarios()
 poblar_reservaciones()
 poblar_consumos()
 print("Base de datos poblada con éxito.")

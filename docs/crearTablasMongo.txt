@@ -10,7 +10,7 @@ db.createCollection("tipoHabitacion", {
                     description: "Nombre del tipo de habitación"
                 },
                 costoNoche: {
-                    bsonType: "decimal",
+                    bsonType: "int",
                     description: "Costo por noche"
                 },
                 capacidad: {
@@ -37,7 +37,7 @@ db.createCollection("servicioProducto", {
                     description: "Nombre del servicio o producto"
                 },
                 precio: {
-                    bsonType: "decimal",
+                    bsonType: "int",
                     description: "Precio"
                 },
                 esProducto: {
@@ -45,7 +45,7 @@ db.createCollection("servicioProducto", {
                     description: "Indica si es un producto (true) o un servicio (false)"
                 },
                 duracion: {
-                    bsonType: "decimal",
+                    bsonType: "int",
                     description: "Duración en minutos, opcional",
                     minimum: 0
                 }
@@ -120,7 +120,7 @@ db.createCollection("reserva", {
                     bsonType: "date"
                 },
                 precio: {
-                    bsonType: "decimal"
+                    bsonType: "int"
                 },
                 habitacion_id: {
                     bsonType: "int",
