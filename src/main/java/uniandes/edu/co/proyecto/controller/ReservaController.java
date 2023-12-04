@@ -1,6 +1,7 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +17,23 @@ public class ReservaController {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    @GetMapping("/reservas")
-    public String getReservas(Model model) {
-        model.addAttribute("reservas", reservaRepository.findAll());
-        return "reservas";
+    @GetMapping("/reserva")
+    public String getreserva(Model model) {
+        model.addAttribute("reserva", reservaRepository.findAll());
+        return "reserva";
     }
 
     @GetMapping("/reservaForm")
     public String mostrarFormulario(Model model) {
         model.addAttribute("nuevaReserva", new Reserva());
-        return "reservasForm";
+        return "reservaForm";
     }
 
     @PostMapping("/crearReserva")
-    public String crearReserva(@ModelAttribute("nuevaReserva") Reserva nuevaReserva) {
-        reservaRepository.save(nuevaReserva);
+    public String crearReserva(
+            @ModelAttribute("nuevaReserva") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Reserva nuevaReserva) {
+        // Tu lógica para crear la reserva
         return "redirect:/reservas";
     }
+
 }

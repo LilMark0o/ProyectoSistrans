@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Reserva</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <h1>Crear Nueva Reserva</h1>
+
+        <form th:action="@{/crearReserva}" th:object="${nuevaReserva}" method="post">
+<div class="mb-3">
+    <label for="checkin" class="form-label">Fecha de Check-in:</label>
+    <input type="datetime-local" class="form-control" id="checkin" th:field="*{checkin}" required />
+</div>
+<div class="mb-3">
+    <label for="checkout" class="form-label">Fecha de Check-out:</label>
+    <input type="datetime-local" class="form-control" id="checkout" th:field="*{checkout}" required />
+</div>            <div class="mb-3">
+                <label for="precio" class="form-label">Precio:</label>
+                <input type="number" class="form-control" id="precio" th:field="*{precio}" required />
+            </div>
+            <div class="mb-3">
+                <label for="habitacionId" class="form-label">ID de Habitación:</label>
+                <input type="text" class="form-control" id="habitacionId" th:field="*{habitacionId}" required />
+            </div>
+            <div class="mb-3">
+                <label for="usuarioId" class="form-label">ID de Usuario:</label>
+                <input type="text" class="form-control" id="usuarioId" th:field="*{usuarioId}" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Reserva</button>
+        </form>
+
+        <!-- Enlace para regresar a la lista de reservas -->
+        <a th:href="@{/reservas}" class="btn btn-secondary mt-3">Volver a la Lista de Reservas</a>
+
+    </div>
+
+</body>
+
+</html>
